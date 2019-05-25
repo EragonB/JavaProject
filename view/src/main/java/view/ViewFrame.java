@@ -5,8 +5,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 class ViewFrame extends JFrame {
-	int Longueur = 1920;
-	int Largeur = 1280;
+	int Longueur = 800;
+	int Largeur = 400;
 	String Java = "Java fenêtre";
 	
 	

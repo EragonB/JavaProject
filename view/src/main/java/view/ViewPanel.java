@@ -8,17 +8,18 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import PictureFactory.TradFactory;
+
 class ViewPanel extends JPanel{
 	
 	ViewFrame frame;
 	int sizePicture = 32;
+	TradFactory FactoryPicture = new TradFactory();
 	
 	char Tableau[][] = {
 			{'4','5','1'},
 			{'8','7','9'}};
-	
-	char Contenu = 'C';
-	
+
 	
 	public ViewPanel(ViewFrame frame) 
 	{
@@ -26,36 +27,52 @@ class ViewPanel extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
-		
-		//g.drawString("iofdjvdkjssiodesoezkdszios"/*String.valueOf(Affiche())*/, 40, 80);
-		//Affiche(Tableau);
-		//g.drawImage(GetImageTest(), 50, 50, this);
 
-		//System.out.println(frame.getLargeur()/32);
-		//System.out.println(frame.getLongeur()/32);
 		generatedBackGround(g);
+		
+		
+		
+		for (int a=0; a< frame.getLongeur(); a++)
+		{
+			paintElement(g, a, 1, 'T');
+			paintElement(g, a, 9, 'T');
+			
+			paintElement(g, a, 8, 'E');
+			
+			paintElement(g, a, 2, 'P');
+			paintElement(g, a, 5, 'D');	
+			
+			paintElement(g, a, 0, 'X');
+			paintElement(g, a, 10, 'X');	
+			
+			paintElement(g, a, 3, 'O');
+			paintElement(g, a, 4, 'L');
+			
+			paintElement(g, a, 6, 'K');
+			paintElement(g, a, 7, 'M');	
+			
+		}
+		
 		
 	}
 	
+	public void paintElement(Graphics g, int x, int y, char Valeur)
+	{
+		g.drawImage(FactoryPicture.getPicture(Valeur), x *sizePicture, y* sizePicture, this);
+	}
+
 	public void generatedBackGround(Graphics g)
 	{
-		try {
-			Image PictureDirt = ImageIO.read(new File("../picture/BackgroundRock.png"));
+
+		for(int x = 0; x< (frame.getLongeur()/32 + 1); x++) {
 			
-			
-			for(int x = 0; x< (frame.getLongeur()/32 + 1); x++) {
+			for(int y = 0; y< (frame.getLargeur()/32 + 1) ; y++) {
+				//g.drawImage(GetImageTest(' '), x *sizePicture, y* sizePicture, this);
 				
-				for(int y = 0; y< (frame.getLargeur()/32 + 1) ; y++) {
-					g.drawImage(PictureDirt, x *sizePicture, y* sizePicture, this);
-				}
+				g.drawImage(FactoryPicture.getPicture(' '), x *sizePicture, y* sizePicture, this);
 			}
-			
-			
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
+
 	}
 
 	
@@ -68,14 +85,33 @@ class ViewPanel extends JPanel{
 		}
 	}
 
-	public Image GetImageTest()
+	public Image GetImageTest(char CharacterMap)
 	{
 		try {
-			Image PictureDirt = ImageIO.read(new File("C:\\Users\\maire\\git\\JavaProject\\picture\\BackgroundRock.png"));
-			return PictureDirt;
+			Image PictureBackGround 	= 	ImageIO.read(new File("../picture/BackgroundRock.png"));
+			Image PictureDirt 			= 	ImageIO.read(new File("../picture/Dirt.png"));
+			Image PictureWall 			= 	ImageIO.read(new File("../picture/Wall.png"));
+			Image PictureEnemy 			= 	ImageIO.read(new File("../picture/Enemy.png"));
+			Image PictureDiamond 		= 	ImageIO.read(new File("../picture/Diamond.png"));
+
+			
+			switch(CharacterMap){
+			case ' ':
+				return PictureBackGround;
+			case 'T':
+				return PictureDirt;
+			case 'X':
+				return PictureWall;
+			case 'E':
+				return PictureEnemy;
+			case 'D':
+				return PictureDiamond;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+
 		return null;
 	}
 	
