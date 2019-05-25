@@ -1,13 +1,7 @@
 package view;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 import PictureFactory.TradFactory;
 
 class ViewPanel extends JPanel{
@@ -30,8 +24,6 @@ class ViewPanel extends JPanel{
 
 		generatedBackGround(g);
 		
-		
-		
 		for (int a=0; a< frame.getLongeur(); a++)
 		{
 			paintElement(g, a, 1, 'T');
@@ -50,10 +42,7 @@ class ViewPanel extends JPanel{
 			
 			paintElement(g, a, 6, 'K');
 			paintElement(g, a, 7, 'M');	
-			
 		}
-		
-		
 	}
 	
 	public void paintElement(Graphics g, int x, int y, char Valeur)
@@ -61,18 +50,17 @@ class ViewPanel extends JPanel{
 		g.drawImage(FactoryPicture.getPicture(Valeur), x *sizePicture, y* sizePicture, this);
 	}
 
+	
 	public void generatedBackGround(Graphics g)
 	{
 
 		for(int x = 0; x< (frame.getLongeur()/32 + 1); x++) {
 			
 			for(int y = 0; y< (frame.getLargeur()/32 + 1) ; y++) {
-				//g.drawImage(GetImageTest(' '), x *sizePicture, y* sizePicture, this);
 				
 				g.drawImage(FactoryPicture.getPicture(' '), x *sizePicture, y* sizePicture, this);
 			}
 		}
-
 	}
 
 	
@@ -84,36 +72,4 @@ class ViewPanel extends JPanel{
 			System.out.println();
 		}
 	}
-
-	public Image GetImageTest(char CharacterMap)
-	{
-		try {
-			Image PictureBackGround 	= 	ImageIO.read(new File("../picture/BackgroundRock.png"));
-			Image PictureDirt 			= 	ImageIO.read(new File("../picture/Dirt.png"));
-			Image PictureWall 			= 	ImageIO.read(new File("../picture/Wall.png"));
-			Image PictureEnemy 			= 	ImageIO.read(new File("../picture/Enemy.png"));
-			Image PictureDiamond 		= 	ImageIO.read(new File("../picture/Diamond.png"));
-
-			
-			switch(CharacterMap){
-			case ' ':
-				return PictureBackGround;
-			case 'T':
-				return PictureDirt;
-			case 'X':
-				return PictureWall;
-			case 'E':
-				return PictureEnemy;
-			case 'D':
-				return PictureDiamond;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-
-		return null;
-	}
-	
-	
 }
