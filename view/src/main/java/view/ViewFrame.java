@@ -5,15 +5,15 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 class ViewFrame extends JFrame {
-	int Longueur = 400;
-	int Largeur = 800;
+	int Longueur = 1920;
+	int Largeur = 1280;
 	String Java = "Java fenêtre";
 	
 	
 	public ViewFrame() {
 	
 		JFrame jframe = new JFrame();
-		ViewPanel viewpanel = new ViewPanel();
+		ViewPanel viewpanel = new ViewPanel(this);
 		jframe.setSize(Longueur, Largeur);
 		jframe.setLocationRelativeTo(null);
 		jframe.setTitle(Java);
@@ -21,6 +21,16 @@ class ViewFrame extends JFrame {
 		jframe.setContentPane(viewpanel);
 		jframe.setVisible(true);
 		
+	}
+	
+	public int getLongeur()
+	{
+		return this.Longueur;
+	}
+	
+	public int getLargeur()
+	{
+		return this.Largeur;
 	}
 	
 	
