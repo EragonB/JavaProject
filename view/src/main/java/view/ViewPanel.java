@@ -24,7 +24,7 @@ class ViewPanel extends JPanel{
 
 		generatedBackGround(g);
 		
-		for (int a=0; a< frame.getLongeur(); a++)
+		for (int a=0; a< frame.getLongeur()/32; a++)
 		{
 			paintElement(g, a, 1, 'T');
 			paintElement(g, a, 9, 'T');
