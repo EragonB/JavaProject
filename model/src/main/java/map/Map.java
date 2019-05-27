@@ -37,7 +37,7 @@ public class Map implements IMap {
 
 	
 	/** The mobile. */
-	private Mobile mobile=new Enemy();
+	private Mobile mobile=new Gugus();
 	
 	/**
 	 * Instantiates a new map.
@@ -59,7 +59,7 @@ public class Map implements IMap {
 		}
 		
 		this.onTheMap= new IElement[this.height][this.width];
-		this.fillonTheMap();
+		this.fillonTheMap(id_map);
 		
 		
 		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
@@ -68,8 +68,9 @@ public class Map implements IMap {
 
 	/**
 	 * Fill on the map.
+	 * @throws SQLException 
 	 */
-	private void fillonTheMap() {
+	private void fillonTheMap(int id_map) throws SQLException {
 		
 		for(int y=0; y < getHeight(); y++){
 			
@@ -86,6 +87,8 @@ public class Map implements IMap {
 				}
 			}
 		}
+		this.setElement(id_map);
+		
 	}
 
 	
@@ -153,5 +156,35 @@ public class Map implements IMap {
 	}
 	
 	
+	public void setElement(int id_map) throws SQLException
+	{
+		this.resultset=this.daoboulderdash.findElement(id_map);
+		while(this.resultset.next())
+		{
+			switch(this.resultset.getInt("NBR"))
+			{
+			
+			case 1:
+				this.setOnTheMapXY(new Diamond(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				break;
+				
+			case 2:
+				this.setOnTheMapXY(new Stone(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				break;
+				
+			case 3:
+				this.setOnTheMapXY(MotionlessElementFactory.createWall(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				break;
+				
+			case 4:
+				this.setOnTheMapXY(new Enemy(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				break;
+				
+			case 5:
+				this.setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				break;
+			}
+		}
+	}
 
 }

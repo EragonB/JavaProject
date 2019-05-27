@@ -22,7 +22,7 @@ public class BoulderModel {
 	private IMap map;
 	
 	/** The id map. */
-	private int id_map=2;
+	private int id_map=1;
 	
 	/**
 	 * Instantiates a new boulder model.
