@@ -18,8 +18,8 @@ class ViewPanel extends JPanel{
 	int Pixel = 32;
 	MotherTradFactory Photo = new MotherTradFactory();
 	char Tableau[][] = {
-			{'4','5','1'},
-			{'8','7','9'}};
+			{'T',' ','D'},
+			{'X','P','A'}};
 	
 
 	public ViewPanel(ViewFrame frame) {
