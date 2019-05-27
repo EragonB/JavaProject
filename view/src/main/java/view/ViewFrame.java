@@ -13,7 +13,7 @@ class ViewFrame extends JFrame {
 	public ViewFrame() {
 	
 		JFrame jframe = new JFrame();
-		ViewPanel viewpanel = new ViewPanel();
+		ViewPanel viewpanel = new ViewPanel(this);
 		jframe.setSize(Longueur, Largeur);
 		jframe.setLocationRelativeTo(null);
 		jframe.setTitle(Java);
@@ -21,6 +21,14 @@ class ViewFrame extends JFrame {
 		jframe.setContentPane(viewpanel);
 		jframe.setVisible(true);
 		
+	}
+	
+	public int getLongueur() {
+		return Longueur;
+	}
+	
+	public int getLargeur() {
+		return Largeur;
 	}
 	
 	
