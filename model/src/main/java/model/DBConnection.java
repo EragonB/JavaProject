@@ -3,7 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 
 /**
  * The Class DBConnection.
@@ -27,9 +27,7 @@ final class DBConnection {
 	/** The password. */
 	private String password = "";
 	
-	private Statement statement=null;
-
-	/**
+		/**
 	 * Instantiates a new DB connection.
 	 */
 	public DBConnection() {
