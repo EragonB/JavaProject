@@ -4,8 +4,12 @@
 package map;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import Element.IElement;
 import MotionlessElement.MotionlessElementFactory;
+import model.DAOBoulderDash;
 
 /**
  * @author Bryan
@@ -16,11 +20,20 @@ public class Map implements IMap {
 	private int height;
 	private int width;
 	private IElement[][] onTheMap;
+	private DAOBoulderDash daoboulderdash;
+	private ResultSet resultset=null;
 
-	public Map(int HEIGHT, int WIDTH) {
+	public Map(int id_map) throws SQLException {
 		// TODO Auto-generated constructor stub
-		this.height=HEIGHT;
-		this.width=WIDTH;
+		
+		this.daoboulderdash=new DAOBoulderDash();
+		this.resultset=this.daoboulderdash.find(id_map);
+		while(this.resultset.next())
+		{
+			this.height=this.resultset.getInt("Map_Height");
+			this.width=this.resultset.getInt("Map_Width");
+		}
+		
 		this.onTheMap= new IElement[this.height][this.width];
 		this.fillonTheMap();
 	}
@@ -73,5 +86,7 @@ public class Map implements IMap {
 	public void setOnTheMapXY(IElement element, int x, int y) {
 		this.onTheMap[y][x] = element;
 	}
+	
+	
 
 }

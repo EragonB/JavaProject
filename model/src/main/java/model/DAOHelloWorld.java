@@ -48,22 +48,14 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#update(model.Entity)
-	 */
+
 	@Override
 	public boolean update(final HelloWorld entity) {
 		// Not implemented
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#find(int)
-	 */
+
 	@Override
 	public HelloWorld find(final int id) {
 		HelloWorld helloWorld = new HelloWorld();

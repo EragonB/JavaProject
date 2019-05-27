@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * The Class DBConnection.
@@ -14,12 +15,24 @@ final class DBConnection {
 	private static DBConnection	INSTANCE	= null;
 
 	/** The connection. */
-	private Connection					connection;
+	private Connection	connection;
+	
+
+	/** The url. */
+	private String url	= "jdbc:mysql://localhost:3306/BoulderDash?serverTimezone=UTC&autoReconnect=true&useSSL=false";
+
+	/** The login. */
+	private String login = "root";
+
+	/** The password. */
+	private String password = "";
+	
+	private Statement statement=null;
 
 	/**
 	 * Instantiates a new DB connection.
 	 */
-	private DBConnection() {
+	public DBConnection() {
 		this.open();
 	}
 
@@ -41,16 +54,40 @@ final class DBConnection {
 	 * @return the boolean
 	 */
 	private Boolean open() {
-		final DBProperties dbProperties = new DBProperties();
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection(dbProperties.getUrl(), dbProperties.getLogin(), dbProperties.getPassword());
+			this.connection = DriverManager.getConnection(this.getUrl(), this.getLogin(),this.getPassword());
 		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	/**
