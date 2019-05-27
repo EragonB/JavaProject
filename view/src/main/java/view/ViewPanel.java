@@ -6,10 +6,19 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 class ViewPanel extends JPanel{
+
 	
 	public void paintComponent(Graphics g) {
-		
-		g.drawString("iofdjvdkjssiodesoezkdszios"/*String.valueOf(Affiche())*/, 40, 80);
+	
+		int y = 10;
+		for (int ii = 0; ii < 2; ii++) {
+			int x  = 10;
+			for (int i = 0; i < 3; i++) {
+				g.drawString(String.valueOf(Tableau[ii][i]), x, y);
+				x = x + 10;
+			}
+			y = y + 10;
+		}
 	}
 	
 	char Tableau[][] = {
