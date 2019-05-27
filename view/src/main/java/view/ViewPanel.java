@@ -27,20 +27,23 @@ class ViewPanel extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
-		generateBackground(g);
+		generateBackground(g);	
+		BoardRead(g);
+	
+	}
+	
+	public void BoardRead(Graphics g) {
 		
-		for (int x = 0; x<gframe.getLargeur()/Pixel; x++) {
-			paintElement(g, x, 1, 'A');
-			paintElement(g, x, 2, ' ');
-			paintElement(g, x, 3, 'T');
-			paintElement(g, x, 4, 'X');
-			paintElement(g, x, 5, 'E');
-			paintElement(g, x, 6, 'D');
-			paintElement(g, x, 7, 'O');
-			paintElement(g, x, 8, 'L');
-			paintElement(g, x, 9, 'K');
-			paintElement(g, x, 10, 'M');
-			paintElement(g, x, 11,'P');
+		int Width;
+		
+		if (Tableau.length == 0)
+			Width = 0;
+		else
+			Width = Tableau[0].length;
+		for (int y = 0; y < Tableau.length; y++) {
+			for (int x = 0; x < Width; x++) {
+			paintElement(g, x, y, Tableau[y][x]);
+			}
 		}
 	}
 	
