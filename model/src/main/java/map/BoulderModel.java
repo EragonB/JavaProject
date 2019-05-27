@@ -10,41 +10,59 @@ import Mobile.*;
 
 
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Bryan
+ * The Class BoulderModel.
  *
+ * @author Bryan
  */
 public class BoulderModel {
 	
+	/** The map. */
 	private IMap map;
-	/*private final int MAP_HEIGHT=9;
-	private final int MAP_WIDTH=5;*/
-	private Mobile mobile=new Enemy();
+	
+	/** The id map. */
 	private int id_map=2;
 	
+	/**
+	 * Instantiates a new boulder model.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	public BoulderModel() throws SQLException
 	{
-		
-		
 		this.map=new Map(this.id_map);
-		this.mobile.setX(this.map.getWidth()/2);
-		this.mobile.setY(0);
-		this.getMap().setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
-	}
+		}
 	
+	/**
+	 * Gets the map.
+	 *
+	 * @return the map
+	 */
 	public IMap getMap() {
 		return this.map;
 	}
 
+	/**
+	 * Sets the map.
+	 *
+	 * @param map the new map
+	 */
 	public void setMap(IMap map) {
 		this.map = map;
 	}
 
+/**
+ * Play.
+ */
 public void play()
 {
-this.mobile.getMovement().moveLeft();	
+//this.mobile.getMovement().moveLeft();	
 }
 
+/**
+ * Show.
+ */
 public void show()
 {
 	for (int y = 0; y < this.map.getHeight(); y++) {

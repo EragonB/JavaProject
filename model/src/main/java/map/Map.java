@@ -10,79 +10,144 @@ import java.sql.SQLException;
 import Element.IElement;
 import MotionlessElement.MotionlessElementFactory;
 import model.DAOBoulderDash;
+import Mobile.*;
+// TODO: Auto-generated Javadoc
 
 /**
- * @author Bryan
+ * The Class Map.
  *
+ * @author Bryan
  */
 public class Map implements IMap {
 	
+	/** The height. */
 	private int height;
+	
+	/** The width. */
 	private int width;
+	
+	/** The on the map. */
 	private IElement[][] onTheMap;
+	
+	/** The daoboulderdash. */
 	private DAOBoulderDash daoboulderdash;
+	
+	/** The resultset. */
 	private ResultSet resultset=null;
 
+	
+	/** The mobile. */
+	private Mobile mobile=new Enemy();
+	
+	/**
+	 * Instantiates a new map.
+	 *
+	 * @param id_map the id map
+	 * @throws SQLException the SQL exception
+	 */
 	public Map(int id_map) throws SQLException {
 		// TODO Auto-generated constructor stub
 		
 		this.daoboulderdash=new DAOBoulderDash();
-		this.resultset=this.daoboulderdash.find(id_map);
+		this.resultset=this.daoboulderdash.findMap(id_map);
 		while(this.resultset.next())
 		{
 			this.height=this.resultset.getInt("Map_Height");
 			this.width=this.resultset.getInt("Map_Width");
+			this.mobile.setX(this.resultset.getInt("startX"));
+			this.mobile.setY(this.resultset.getInt("startY"));
 		}
 		
 		this.onTheMap= new IElement[this.height][this.width];
 		this.fillonTheMap();
+		
+		
+		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
+		
 	}
 
+	/**
+	 * Fill on the map.
+	 */
 	private void fillonTheMap() {
-		// TODO Auto-generated method stub
+		
 		for(int y=0; y < getHeight(); y++){
 			
 			
-			for(int x=0; x < getWidth(); x++){
+			for(int x=0; x < this.getWidth(); x++){
 				
-					if ((x==0) || (x==getWidth()-1)) {							// A test to know if one is on the edge to put a ditch or not //
-					this.setOnTheMapXY(MotionlessElementFactory.createWall(), x, y);			// We put a ditch on this road //
+					if ((x==0) || (x==this.getWidth()-1)||y==this.getHeight()-1 || y==0) {	// A test to know if one is on the edge to put a ditch or not //
+					this.setOnTheMapXY(MotionlessElementFactory.createWall(), x, y);			
 	// An obstacle is placed on the road //
 				}
 					else{
 					
-					this.setOnTheMapXY(MotionlessElementFactory.createDirt(), x, y);	// We just put macadam on the road //
+					this.setOnTheMapXY(MotionlessElementFactory.createDirt(), x, y);	
 				}
 			}
 		}
 	}
 
 	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
 	
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
 	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	public int getWidth() {
 		return this.width;
 	}
 
 	
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
 	
+	/**
+	 * Gets the on the map XY.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the on the map XY
+	 */
 	public IElement getOnTheMapXY(int x, int y) {
 		return this.onTheMap[y][x];
 	}
 
 	
+	/**
+	 * Sets the on the map XY.
+	 *
+	 * @param element the element
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void setOnTheMapXY(IElement element, int x, int y) {
 		this.onTheMap[y][x] = element;
 	}
