@@ -39,7 +39,9 @@ public class Map implements IMap {
 	
 	/** The mobile. */
 	private Mobile mobile=new Gugus();
-	
+	public Mobile mobilea() {
+		return this.mobile;
+	}
 	/**
 	 * Instantiates a new map.
 	 *

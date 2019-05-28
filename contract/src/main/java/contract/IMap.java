@@ -3,6 +3,8 @@
  */
 package contract;
 
+
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface IMap.
@@ -54,5 +56,6 @@ public interface IMap {
 	 * @param y the y
 	 */
 	void setOnTheMapXY(IElement element, int x, int y);
+	Mobile mobilea();
 
 }

@@ -3,12 +3,15 @@ package view;
 import java.awt.Graphics;
 
 import java.awt.Image;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JPanel;
 
 import FactoryPicture.MotherTradFactory;
 import contract.IMap;
 
-class ViewPanel extends JPanel{
+class ViewPanel extends JPanel implements Observer{
 
 	
 
@@ -24,6 +27,7 @@ IMap map;
 
 	public ViewPanel(ViewFrame frame) {
 		this.gframe = frame;
+		
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -55,5 +59,11 @@ IMap map;
 public void loadmap(IMap map)
 {
 	this.map=map;
+}
+
+@Override
+public void update(Observable arg0, Object arg1) {
+	// TODO Auto-generated method stub
+	this.repaint();
 }
 }

@@ -6,6 +6,7 @@ package main;
 
 import java.sql.SQLException;
 
+import contract.IController;
 import contract.IModel;
 import contract.IView;
 import controller.Controller;
@@ -32,7 +33,8 @@ public abstract class Main {
     	  	
     	IView view = new View();
 
-    	Controller controller = new Controller(view, model);
+    	IController controller = new Controller(view, model);
+    	
     	
     }
 }

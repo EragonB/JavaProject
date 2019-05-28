@@ -10,4 +10,6 @@ package contract;
 public interface IView {
 public void ReadBoard(IMap map);
 
+public void setController(IController controller);
+
 }

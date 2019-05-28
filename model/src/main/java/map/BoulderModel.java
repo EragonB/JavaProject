@@ -7,7 +7,6 @@ package map;
 import java.sql.SQLException;
 import java.util.Observable;
 
-import Mobile.*;
 import contract.IMap;
 import contract.IModel;
 
@@ -25,7 +24,7 @@ public class BoulderModel extends Observable implements IModel{
 	private IMap map;
 	
 	/** The id map. */
-	private int id_map=1;
+	private int id_map=4;
 	
 	/**
 	 * Instantiates a new boulder model.
@@ -35,6 +34,7 @@ public class BoulderModel extends Observable implements IModel{
 	public BoulderModel() throws SQLException
 	{
 		this.map=new Map(this.id_map);
+		
 		}
 	
 	/**
@@ -60,7 +60,7 @@ public class BoulderModel extends Observable implements IModel{
  */
 public void play()
 {
-//this.mobile.getMovement().moveLeft();	
+this.map.mobilea().
 }
 
 /**
@@ -78,5 +78,10 @@ public void show()
         
         
     }
+
+public Observable getObservable()
+{
+	return this;
+}
 }
 

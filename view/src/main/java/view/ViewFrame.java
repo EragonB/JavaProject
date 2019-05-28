@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.JFrame;
 
+import contract.IModel;
+
 public class ViewFrame extends JFrame {
 
 
@@ -22,6 +24,7 @@ public class ViewFrame extends JFrame {
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.setContentPane(getViewpanel());
 		jframe.setVisible(true);
+	
 		
 	}
 	
@@ -48,6 +51,13 @@ public class ViewFrame extends JFrame {
 	public void setViewpanel(ViewPanel viewpanel) {
 		this.viewpanel = viewpanel;
 	}
+	
+	public void addObserver(IModel model)
+	{
+		model.getObservable().addObserver(getViewpanel());
+	}
+	
+	
 	
 	
 }

@@ -1,19 +1,23 @@
 package view;
 
-import java.awt.Graphics;
 
-import javax.swing.JPanel;
-
+import contract.IController;
 import contract.IMap;
+
 import contract.IView;
 
 public final class View implements IView{
 	private ViewFrame viewframe;
+	
+	private IController controller;
 
 	public View() {
 		this.viewframe = new ViewFrame();
 		
+		
 	}
+	
+	
 	
 	
 	public ViewFrame getViewframe() {
@@ -32,5 +36,14 @@ public final class View implements IView{
 	  {
 		  return this.viewframe.getViewpanel();
 	  }
+
+
+	public void setController(IController controller) {
+		// TODO Auto-generated method stub
+		this.controller=controller;
+		this.viewframe.addObserver(this.controller.getModel());
+	}
+
+
 	
 }

@@ -17,7 +17,8 @@ public final class Controller implements IController {
 		this.setModel(model);
 		
 		this.view.ReadBoard(this.model.getMap());
-		this.model.addObserver(this.view);
+		this.view.setController(this);
+		
 		
 	}
 
@@ -27,6 +28,11 @@ public final class Controller implements IController {
 
 	private void setModel(final IModel model) {
 		this.model = model;
+	}
+	
+	public IModel getModel()
+	{
+		return this.model;
 	}
 	
 	
