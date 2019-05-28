@@ -25,7 +25,7 @@ class ViewFrame extends JFrame {
 		
 	}
 	
-	public int getLongeur()
+	public int getLongueur()
 	{
 		return this.Longueur;
 	}
