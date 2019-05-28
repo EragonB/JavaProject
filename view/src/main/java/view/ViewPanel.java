@@ -1,70 +1,63 @@
 package view;
 
+import java.awt.Font;
 import java.awt.Graphics;
-import java.util.Observable;
-import java.util.Observer;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-/**
- * The Class ViewPanel.
- *
- * @author Jean-Aymeric Diet
- */
-class ViewPanel extends JPanel implements Observer {
+import FactoryPicture.MotherTradFactory;
 
-	/** The view frame. */
-	private ViewFrame					viewFrame;
-	/** The Constant serialVersionUID. */
-	private static final long	serialVersionUID	= -998294702363713521L;
+class ViewPanel extends JPanel{
+	
+	ViewFrame gframe;
+	Image image;
+	int Pixel = 32;
+	MotherTradFactory Photo = new MotherTradFactory();
+	char Tableau[][] = {
+			{'T',' ','D'},
+			{'X','P','A'}};
+	
 
-	/**
-	 * Instantiates a new view panel.
-	 *
-	 * @param viewFrame
-	 *          the view frame
-	 */
-	public ViewPanel(final ViewFrame viewFrame) {
-		this.setViewFrame(viewFrame);
-		viewFrame.getModel().getObservable().addObserver(this);
+	public ViewPanel(ViewFrame frame) {
+		this.gframe = frame;
 	}
-
-	/**
-	 * Gets the view frame.
-	 *
-	 * @return the view frame
-	 */
-	private ViewFrame getViewFrame() {
-		return this.viewFrame;
+	
+	public void paintComponent(Graphics g) {
+		generateBackground(g);	
+		BoardRead(g);
+	
 	}
-
-	/**
-	 * Sets the view frame.
-	 *
-	 * @param viewFrame
-	 *          the new view frame
-	 */
-	private void setViewFrame(final ViewFrame viewFrame) {
-		this.viewFrame = viewFrame;
+	
+	public void BoardRead(Graphics g) {
+		
+		int Width;
+		
+		if (Tableau.length == 0)
+			Width = 0;
+		else
+			Width = Tableau[0].length;
+		for (int y = 0; y < Tableau.length; y++) {
+			for (int x = 0; x < Width; x++) {
+			paintElement(g, x, y, Tableau[y][x]);
+			}
+		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
-	public void update(final Observable arg0, final Object arg1) {
-		this.repaint();
+	
+	
+	public void paintElement(Graphics g, int x, int y, char Caractere) {
+		g.drawImage(Photo.getPhoto(Caractere), x * Pixel, y * Pixel, this);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 */
-	@Override
-	protected void paintComponent(final Graphics graphics) {
-		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		graphics.drawString(this.getViewFrame().getModel().getHelloWorld().getMessage(), 10, 20);
+	
+	public void generateBackground(Graphics g) {
+		for (int y = 0; y < gframe.getLargeur()/Pixel+1; y++) {
+			for (int x = 0; x < gframe.getLongueur()/Pixel+1; x++) {
+			paintElement(g, x, y, ' ');
+			}
+			
+	}
 	}
 }
