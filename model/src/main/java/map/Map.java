@@ -187,4 +187,28 @@ public class Map implements IMap {
 		}
 	}
 
+	public DAOBoulderDash getDaoboulderdash() {
+		return daoboulderdash;
+	}
+
+	public void setDaoboulderdash(DAOBoulderDash daoboulderdash) {
+		this.daoboulderdash = daoboulderdash;
+	}
+
+	public ResultSet getResultset() {
+		return resultset;
+	}
+
+	public void setResultset(ResultSet resultset) {
+		this.resultset = resultset;
+	}
+
+	public Mobile getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(Mobile mobile) {
+		this.mobile = mobile;
+	}
+
 }
