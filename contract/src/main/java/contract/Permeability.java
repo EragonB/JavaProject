@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Element;
+package contract;
 
 // TODO: Auto-generated Javadoc
 /**

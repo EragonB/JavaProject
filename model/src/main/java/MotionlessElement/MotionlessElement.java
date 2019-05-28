@@ -1,7 +1,7 @@
 package MotionlessElement;
 
 import Element.Element;
-import Element.Permeability;
+import contract.Permeability;
 
 public abstract class MotionlessElement extends Element{
 

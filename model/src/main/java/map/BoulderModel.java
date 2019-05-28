@@ -5,8 +5,11 @@ package map;
 
 
 import java.sql.SQLException;
+import java.util.Observable;
 
 import Mobile.*;
+import contract.IMap;
+import contract.IModel;
 
 
 
@@ -16,13 +19,13 @@ import Mobile.*;
  *
  * @author Bryan
  */
-public class BoulderModel {
+public class BoulderModel extends Observable implements IModel{
 	
 	/** The map. */
 	private IMap map;
 	
 	/** The id map. */
-	private int id_map=5;
+	private int id_map=1;
 	
 	/**
 	 * Instantiates a new boulder model.

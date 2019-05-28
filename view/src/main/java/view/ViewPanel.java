@@ -6,51 +6,54 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 import FactoryPicture.MotherTradFactory;
+import contract.IMap;
 
 class ViewPanel extends JPanel{
+
+	
+
+	private static final long serialVersionUID = -3886802783058179085L;
+
+IMap map;
 
 	ViewFrame gframe;
 	Image image;
 	int Pixel = 32;
 	MotherTradFactory Photo = new MotherTradFactory();
-	char Tableau[][] = {
-			{'T',' ','D'},
-			{'X','P','A'}};
 	
+
 	public ViewPanel(ViewFrame frame) {
 		this.gframe = frame;
 	}
 	
 	public void paintComponent(Graphics g) {
-		generateBackground(g);	
+				
 		BoardRead(g);
 	}
 	
 	public void BoardRead(Graphics g) {
-		int Width;
+			
 		
-		if (Tableau.length == 0)
-			Width = 0;
-		else
-			Width = Tableau[0].length;
-		for (int y = 0; y < Tableau.length; y++) {
-			for (int x = 0; x < Width; x++) {
-			paintElement(g, x, y, Tableau[y][x]);
+		for (int y = 0; y < this.map.getHeight(); y++) {
+			for (int x = 0; x < this.map.getWidth(); x++) {
+				
+			paintElement(g, x, y, this.map.getOnTheMapXY(x, y).getSprite());
+			
 			}
+		
 		}
 	}
 	
 	
 	public void paintElement(Graphics g, int x, int y, char Caractere) {
-		g.drawImage(Photo.getPhoto(Caractere), x * Pixel, y * Pixel, this);
+		Image a = Photo.getPhoto(Caractere);
+		g.drawImage(a , x * Pixel, y * Pixel, this);
 	}
 	
-	public void generateBackground(Graphics g) {
-		for (int y = 0; y < gframe.getLargeur()/Pixel+1; y++) {
-			for (int x = 0; x < gframe.getLongueur()/Pixel+1; x++) {
-			paintElement(g, x, y, ' ');
-			}
-		}
-	}
-
+	
+	
+public void loadmap(IMap map)
+{
+	this.map=map;
+}
 }

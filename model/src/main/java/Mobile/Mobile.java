@@ -1,8 +1,8 @@
 package Mobile;
 
 import Element.Element;
-import Element.Permeability;
 import Strategy.IMovement;
+import contract.Permeability;
 
 public abstract class Mobile extends Element{
 	

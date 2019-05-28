@@ -1,7 +1,7 @@
 package Mobile;
 
-import Element.Permeability;
 import Strategy.PersonMovement;
+import contract.Permeability;
 
 public class Gugus extends Mobile{
 

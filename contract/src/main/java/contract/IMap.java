@@ -1,9 +1,7 @@
 /*
  * @Author: Jougleux Bryan
  */
-package map;
-
-import Element.IElement;
+package contract;
 
 // TODO: Auto-generated Javadoc
 /**

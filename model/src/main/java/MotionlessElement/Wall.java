@@ -1,6 +1,6 @@
 package MotionlessElement;
 
-import Element.Permeability;
+import contract.Permeability;
 
 public class Wall extends MotionlessElement{
 	

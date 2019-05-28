@@ -7,8 +7,9 @@ package map;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Element.IElement;
 import MotionlessElement.MotionlessElementFactory;
+import contract.IElement;
+import contract.IMap;
 import model.DAOBoulderDash;
 import Mobile.*;
 // TODO: Auto-generated Javadoc

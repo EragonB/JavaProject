@@ -1,7 +1,7 @@
 package Mobile;
 
-import Element.Permeability;
 import Strategy.EntityMovement;
+import contract.Permeability;
 
 
 public class Enemy extends Mobile{

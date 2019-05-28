@@ -1,7 +1,7 @@
 package Mobile;
 
-import Element.Permeability;
 import Strategy.ElementMovement;
+import contract.Permeability;
 
 public class Stone extends Mobile{
 
