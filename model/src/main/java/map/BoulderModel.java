@@ -60,7 +60,12 @@ public class BoulderModel extends Observable implements IModel{
  */
 public void play()
 {
-this.map.mobilea().
+this.map.getMobile().moveLeft();
+
+this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+
+this.setChanged();
+this.notifyObservers();
 }
 
 /**

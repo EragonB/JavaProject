@@ -1,11 +1,11 @@
 package Strategy;
 
-import Mobile.Mobile;
+import contract.IMobile;
 
 public class PersonMovement extends MobileComport{
 
 	
-	public PersonMovement(Mobile mobile) {
+	public PersonMovement(IMobile mobile) {
 		super(mobile);
 		
 	}

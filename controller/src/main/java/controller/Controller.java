@@ -19,7 +19,7 @@ public final class Controller implements IController {
 		this.view.ReadBoard(this.model.getMap());
 		this.view.setController(this);
 		
-		
+		this.model.play();
 	}
 
 	private void setView(final IView pview) {

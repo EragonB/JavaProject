@@ -1,10 +1,10 @@
 package Strategy;
 
-import Mobile.Mobile;
+import contract.IMobile;
 
 public class EntityMovement extends MobileComport{
 
-	public EntityMovement(Mobile mobile) {
+	public EntityMovement(IMobile mobile) {
 		super(mobile);
 		// TODO Auto-generated constructor stub
 	}

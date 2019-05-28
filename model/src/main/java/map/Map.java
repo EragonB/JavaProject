@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import MotionlessElement.MotionlessElementFactory;
 import contract.IElement;
 import contract.IMap;
+import contract.IMobile;
 import model.DAOBoulderDash;
 import Mobile.*;
 // TODO: Auto-generated Javadoc
@@ -38,10 +39,8 @@ public class Map implements IMap {
 
 	
 	/** The mobile. */
-	private Mobile mobile=new Gugus();
-	public Mobile mobilea() {
-		return this.mobile;
-	}
+	private IMobile mobile=new Gugus();
+
 	/**
 	 * Instantiates a new map.
 	 *
@@ -206,12 +205,14 @@ public class Map implements IMap {
 		this.resultset = resultset;
 	}
 
-	public Mobile getMobile() {
+	public IMobile getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(Mobile mobile) {
+	public void setMobile(IMobile mobile) {
 		this.mobile = mobile;
 	}
+
+
 
 }

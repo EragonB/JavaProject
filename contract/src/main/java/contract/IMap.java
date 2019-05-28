@@ -56,6 +56,8 @@ public interface IMap {
 	 * @param y the y
 	 */
 	void setOnTheMapXY(IElement element, int x, int y);
-	Mobile mobilea();
+	IMobile getMobile();
+	
+	void setMobile(IMobile mobile);
 
 }

@@ -1,11 +1,11 @@
 package Strategy;
 
-import Mobile.Mobile;
+import contract.IMobile;
 
 public abstract class MobileComport implements IMovement{
 	
-	private Mobile mobile;
-	public MobileComport(Mobile mobile)
+	private IMobile mobile;
+	public MobileComport(IMobile mobile)
 	{
 		this.mobile=mobile;
 	}

@@ -7,5 +7,6 @@ public interface IModel {
 	public IMap getMap();
 	public void show();
 	public Observable getObservable();
+	public void play();
 
 }
