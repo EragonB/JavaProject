@@ -5,8 +5,10 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 class ViewFrame extends JFrame {
-	int Longueur = 1700;
-	int Largeur = 1000;
+
+	int Longueur = 800;
+	int Largeur = 400;
+
 	String Java = "Java fenêtre";
 	
 	
@@ -23,12 +25,14 @@ class ViewFrame extends JFrame {
 		
 	}
 	
-	public int getLongueur() {
-		return Longueur;
+	public int getLongeur()
+	{
+		return this.Longueur;
 	}
 	
-	public int getLargeur() {
-		return Largeur;
+	public int getLargeur()
+	{
+		return this.Largeur;
 	}
 	
 	
