@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import FactoryPicture.MotherTradFactory;
 
 class ViewPanel extends JPanel{
-	
 
 	ViewFrame gframe;
 	Image image;
@@ -18,7 +17,6 @@ class ViewPanel extends JPanel{
 			{'T',' ','D'},
 			{'X','P','A'}};
 	
-
 	public ViewPanel(ViewFrame frame) {
 		this.gframe = frame;
 	}
@@ -26,11 +24,9 @@ class ViewPanel extends JPanel{
 	public void paintComponent(Graphics g) {
 		generateBackground(g);	
 		BoardRead(g);
-	
 	}
 	
 	public void BoardRead(Graphics g) {
-		
 		int Width;
 		
 		if (Tableau.length == 0)
@@ -54,8 +50,7 @@ class ViewPanel extends JPanel{
 			for (int x = 0; x < gframe.getLongueur()/Pixel+1; x++) {
 			paintElement(g, x, y, ' ');
 			}
-			
-	}
+		}
 	}
 
 }
