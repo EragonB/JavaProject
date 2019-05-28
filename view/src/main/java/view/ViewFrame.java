@@ -24,7 +24,7 @@ public class ViewFrame extends JFrame {
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jframe.setContentPane(getViewpanel());
 		jframe.setVisible(true);
-	
+		jframe.addKeyListener(new KeyEvent());
 		
 	}
 	
