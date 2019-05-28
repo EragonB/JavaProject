@@ -1,18 +1,18 @@
 /**
- * @author Jean-Aymeric DIET jadiet@cesi.fr
+ * @author MBQS
  * @version 1.0
  */
 package main;
 
 import contract.ControllerOrder;
 import controller.Controller;
-import model.Model;
+//import map.BoulderModel;
 import view.View;
 
 /**
  * The Class Main.
  *
- * @author Jean-Aymeric Diet
+ * @author MBQS
  */
 public abstract class Main {
 
@@ -23,12 +23,18 @@ public abstract class Main {
      *            the arguments
      */
     public static void main(final String[] args) {
-        final Model model = new Model();
+       
+    	View view = new View();
+    	//BoulderModel mod=new BoulderModel();
+
+    	//mod.show();
+    	//mod.play();
+    	/*final Model model = new Model();
         final View view = new View(model);
         final Controller controller = new Controller(view, model);
         view.setController(controller);
 
         controller.control();
-        controller.orderPerform(ControllerOrder.English);
+        controller.orderPerform(ControllerOrder.English);*/
     }
 }
