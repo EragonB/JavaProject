@@ -7,8 +7,11 @@ package map;
 import java.sql.SQLException;
 import java.util.Observable;
 
+import MotionlessElement.MotionlessElementFactory;
 import contract.IMap;
 import contract.IModel;
+import contract.Permeability;
+
 
 
 
@@ -24,8 +27,8 @@ public class BoulderModel extends Observable implements IModel{
 	private IMap map;
 	
 	/** The id map. */
-	private int id_map=4;
-	
+	private int id_map=5;
+	private Thread thread;
 	/**
 	 * Instantiates a new boulder model.
 	 *
@@ -34,6 +37,8 @@ public class BoulderModel extends Observable implements IModel{
 	public BoulderModel() throws SQLException
 	{
 		this.map=new Map(this.id_map);
+		this.thread=new Thread(this);
+		this.thread.start();
 		
 		}
 	
@@ -58,35 +63,68 @@ public class BoulderModel extends Observable implements IModel{
 /**
  * Play.
  */
-public void play()
+
+public  void play()
 {
-this.map.getMobile().moveLeft();
+	
+if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
+{
+		
+		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.getMap().getMobile().getLastPositionX(), this.getMap().getMobile().getLastPositionY());
+		
+		
+		if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()==Permeability.Creusable||this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()==Permeability.Passable)
+		{
+			
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+		//this.setNotifier();
+			
+			
+			
+		}
+		else {
+			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+		}
 
-this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+		
+		
+	}
+	else {
+		System.out.println("Crash");
+	}
+	
 
-this.setChanged();
-this.notifyObservers();
+	
 }
 
-/**
- * Show.
- */
-public void show()
-{
-	for (int y = 0; y < this.map.getHeight(); y++) {
-        for (int x = 0; x < this.map.getWidth(); x++) {
-
-                System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
-            }
-        System.out.println("");
-        }
-        
-        
-    }
 
 public Observable getObservable()
 {
 	return this;
+}
+
+public void setNotifier()
+{
+	this.setChanged();
+	this.notifyObservers();
+}
+
+@Override
+public void run() {
+	// TODO Auto-generated method stub
+	while(true)
+	{
+		try {
+			this.thread.sleep(200);
+			this.setNotifier();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
 }
 

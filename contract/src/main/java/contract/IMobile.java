@@ -10,28 +10,28 @@ public interface IMobile extends IElement{
 
 	int getX();
 
-	void setX(int x);
+	void setXY(int x, int y);
 
 	int getY();
 
-	void setY(int y);
+	
 
 	int getLastPositionX();
 
-	void setLastPositionX(int lastPositionX);
+	void setLastPositionX(int lastPositionX, int lastPositionY);
 
 	int getLastPositionY();
 
-	void setLastPositionY(int lastPositionY);
+
 
 	State getState();
 
-	void setState(State state);
+	public void gugusCallForm(int value);
 	
 	public void moveLeft();
 
-	/*IMovement getMovement();
+	IMovement getMovement();
 
-	void setMovement(IMovement movement);*/
+	void setMovement(IMovement movement);
 
 }

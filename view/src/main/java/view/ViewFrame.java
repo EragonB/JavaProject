@@ -16,15 +16,15 @@ public class ViewFrame extends JFrame {
 	
 	public ViewFrame() {
 	
-		JFrame jframe = new JFrame();
+		//JFrame jframe = new JFrame();
 		this.setViewpanel(new ViewPanel(this));
-		jframe.setSize(Longueur, Largeur);
-		jframe.setLocationRelativeTo(null);
-		jframe.setTitle(Java);
-		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jframe.setContentPane(getViewpanel());
-		jframe.setVisible(true);
-		jframe.addKeyListener(new KeyEvent());
+		this.setSize(Longueur, Largeur);
+		this.setLocationRelativeTo(null);
+		this.setTitle(Java);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setContentPane(getViewpanel());
+		this.setVisible(true);
+		//jframe.addKeyListener(new KeyEvent());
 		
 	}
 	

@@ -20,7 +20,7 @@ import Mobile.*;
  *
  * @author Bryan
  */
-public class Map implements IMap {
+public class Map implements IMap{
 	
 	/** The height. */
 	private int height;
@@ -56,8 +56,8 @@ public class Map implements IMap {
 		{
 			this.height=this.resultset.getInt("Map_Height");
 			this.width=this.resultset.getInt("Map_Width");
-			this.mobile.setX(this.resultset.getInt("startX"));
-			this.mobile.setY(this.resultset.getInt("startY"));
+			this.mobile.setXY(this.resultset.getInt("startX"), this.resultset.getInt("startY"));
+
 		}
 		
 		this.onTheMap= new IElement[this.height][this.width];
@@ -213,6 +213,16 @@ public class Map implements IMap {
 		this.mobile = mobile;
 	}
 
+public void resetXY()
+{
+System.out.println("Je suis un giezfhz");
+}
 
+@Override
+public void run() {
+	
+	this.resetXY();
+	
+}
 
 }

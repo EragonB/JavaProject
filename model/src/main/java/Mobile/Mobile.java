@@ -1,8 +1,8 @@
 package Mobile;
 
 import Element.Element;
-import Strategy.IMovement;
 import contract.IMobile;
+import contract.IMovement;
 import contract.Permeability;
 import contract.State;
 
@@ -43,8 +43,9 @@ public abstract class Mobile extends Element implements IMobile{
 
 
 	@Override
-	public void setX(int x) {
+	public void setXY(int x, int y) {
 		this.x = x;
+		this.y = y;
 	}
 
 
@@ -54,11 +55,6 @@ public abstract class Mobile extends Element implements IMobile{
 	}
 
 
-	@Override
-	public void setY(int y) {
-		this.y = y;
-	}
-
 
 	@Override
 	public int getLastPositionX() {
@@ -67,8 +63,9 @@ public abstract class Mobile extends Element implements IMobile{
 
 
 	@Override
-	public void setLastPositionX(int lastPositionX) {
+	public void setLastPositionX(int lastPositionX, int lastPositionY) {
 		this.LastPositionX = lastPositionX;
+		this.LastPositionY = lastPositionY;
 	}
 
 
@@ -78,22 +75,12 @@ public abstract class Mobile extends Element implements IMobile{
 	}
 
 
-	@Override
-	public void setLastPositionY(int lastPositionY) {
-		this.LastPositionY = lastPositionY;
-	}
-
 
 	@Override
 	public State getState() {
 		return this.state;
 	}
 
-
-	@Override
-	public void setState(State state) {
-		this.state = state;
-	}
 
 
 
@@ -109,8 +96,10 @@ public abstract class Mobile extends Element implements IMobile{
 
 	public void moveLeft()
 	{
-		this.setX(getX()+1);
+		this.setXY(getX()+1, getY());
 	}
+	
+	
 
 	/*public ISpeed getSpeed() {
 		return this.speed;
@@ -120,5 +109,8 @@ public abstract class Mobile extends Element implements IMobile{
 	public void setSpeed(ISpeed speed) {
 		this.speed = speed;
 	}*/
-
+	public void gugusCallForm(int value)
+	{
+		this.GugusForm();
+	}
 }

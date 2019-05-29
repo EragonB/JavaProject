@@ -10,23 +10,28 @@ public class Gugus extends Mobile{
 		this.setMovement( new PersonMovement(this));
 		}
 	
-	public void GugusUp()
+	public void GugusForm(int value)
 	{
-		this.setSprite('O');
+		
+		switch(value)
+		{
+		case 1:
+			this.setSprite('O');
+			break;
+			
+		case 2:
+			this.setSprite('L');
+			break;
+			
+		case 3:
+			this.setSprite('K');
+			break;
+			
+		case 4:
+			this.setSprite('M');
+			break;
+		}
+		
 	}
 
-	public void GugusDown()
-	{
-		this.setSprite('L');
-	}
-	
-	public void GugusLeft()
-	{
-		this.setSprite('K');
-	}
-	
-	public void GugusRight()
-	{
-		this.setSprite('M');
-	}
 }

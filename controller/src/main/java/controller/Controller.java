@@ -18,8 +18,8 @@ public final class Controller implements IController {
 		
 		this.view.ReadBoard(this.model.getMap());
 		this.view.setController(this);
-		
-		this.model.play();
+		this.view.AddKeyListener();
+		//this.model.play();
 	}
 
 	private void setView(final IView pview) {
@@ -35,6 +35,30 @@ public final class Controller implements IController {
 		return this.model;
 	}
 	
+	public void move(int value)
+	{
+		this.getModel().getMap().getMobile().setLastPositionX(this.model.getMap().getMobile().getX(), this.model.getMap().getMobile().getY());
+switch(value)
+{
+case 1:
+	this.getModel().getMap().getMobile().getMovement().moveUp();
+	System.out.println("UP");
+	break;
+case 2:
+	this.getModel().getMap().getMobile().getMovement().moveDown();
+	System.out.println("Down");
+	break;
+case 3:
+	this.getModel().getMap().getMobile().getMovement().moveLeft();
+	System.out.println("left");
+	break;
+case 4:
+	this.getModel().getMap().getMobile().getMovement().moveRight();
+	System.out.println("right");
+	break;	
 	
+}
+this.model.play();
+	}
 
 }

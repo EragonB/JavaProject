@@ -9,7 +9,7 @@ package contract;
 /**
  * The Interface IMap.
  */
-public interface IMap {
+public interface IMap extends Runnable{
 
 	/**
 	 * Gets the height.
