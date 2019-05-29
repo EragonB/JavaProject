@@ -27,7 +27,7 @@ public class BoulderModel extends Observable implements IModel{
 	private IMap map;
 	
 	/** The id map. */
-	private int id_map=5;
+	private int id_map=4;
 	private Thread thread;
 	/**
 	 * Instantiates a new boulder model.
@@ -73,7 +73,10 @@ if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
 		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.getMap().getMobile().getLastPositionX(), this.getMap().getMobile().getLastPositionY());
 		
 		
-		if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()==Permeability.Creusable||this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()==Permeability.Passable)
+		if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()
+				==Permeability.Creusable||
+				this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()
+				==Permeability.Passable)
 		{
 			
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
@@ -81,10 +84,12 @@ if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
 		}
 		else {
 			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
-			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+			
+			
 		}
 	}
 	else {
+		
 		System.out.println("Crash");
 	}
 	
@@ -110,7 +115,7 @@ public void run() {
 	while(true)
 	{
 		try {
-			this.thread.sleep(200);
+			this.thread.sleep(20);
 			this.setNotifier();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

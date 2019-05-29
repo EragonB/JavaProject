@@ -45,22 +45,22 @@ switch(value)
 case 1:
 	this.getModel().getMap().getMobile().getMovement().moveUp();
 	this.c='O';
-	System.out.println("UP");
+	
 	break;
 case 2:
 	this.getModel().getMap().getMobile().getMovement().moveDown();
 	this.c='L';
-	System.out.println("Down");
+	
 	break;
 case 3:
 	this.getModel().getMap().getMobile().getMovement().moveLeft();
 	this.c='K';
-	System.out.println("left");
+	
 	break;
 case 4:
 	this.getModel().getMap().getMobile().getMovement().moveRight();
 	this.c='M';
-	System.out.println("right");
+	
 	break;	
 	
 }

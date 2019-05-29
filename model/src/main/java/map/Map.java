@@ -161,29 +161,32 @@ public class Map implements IMap{
 	public void setElement(int id_map) throws SQLException
 	{
 		this.resultset=this.daoboulderdash.findElement(id_map);
+	
 		while(this.resultset.next())
 		{
+			int x=this.resultset.getInt("X");
+			int y=this.resultset.getInt("Y");
 			switch(this.resultset.getInt("NBR"))
 			{
 			
 			case 1:
-				this.setOnTheMapXY(new Diamond(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(new Diamond(), x, y);
 				break;
 				
 			case 2:
-				this.setOnTheMapXY(new Stone(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(new Stone(), x, y);
 				break;
 				
 			case 3:
-				this.setOnTheMapXY(MotionlessElementFactory.createWall(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(MotionlessElementFactory.createWall(), x, y);
 				break;
 				
 			case 4:
-				this.setOnTheMapXY(new Enemy(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(new Enemy(), x, y);
 				break;
 				
 			case 5:
-				this.setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), x, y);
 				break;
 			}
 		}
