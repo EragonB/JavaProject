@@ -59,5 +59,7 @@ public interface IMap extends Runnable{
 	IMobile getMobile();
 	
 	void setMobile(IMobile mobile);
+	
+	public void updateRocher();
 
 }

@@ -11,6 +11,7 @@ import MotionlessElement.MotionlessElementFactory;
 import contract.IElement;
 import contract.IMap;
 import contract.IMobile;
+import contract.Permeability;
 import model.DAOBoulderDash;
 import Mobile.*;
 // TODO: Auto-generated Javadoc
@@ -37,10 +38,70 @@ public class Map implements IMap{
 	/** The resultset. */
 	private ResultSet resultset=null;
 
+	private ResultSet results=null;
 	
 	/** The mobile. */
 	private IMobile mobile=new Gugus();
 
+	
+	int vaTab = 13;
+	int Tab[][] = new int[vaTab][4];
+	int valA = 0, XI = 0;
+	Stone2[] ArrayObject = new Stone2[vaTab];
+	
+	public void updateRocher()
+	{
+		for(int a = 0; a < vaTab; a++) {
+			
+			if(getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability() == Permeability.Passable) 
+			{
+				char compar = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getSprite();
+				
+				if(compar == ' ') 
+				{
+					ArrayObject[a].setLastPositionX(ArrayObject[a].getX(), ArrayObject[a].getY());
+					ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
+					
+					setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+				}
+				
+				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				{
+					//mobile.die();
+				}
+				
+			}
+			
+			else {
+				
+				
+			}
+		}
+	}
+	
+	
+	
+	public void setPosMapElement(int id) throws SQLException {
+
+		this.results = this.daoboulderdash.FindComplete(id);
+		while(this.results.next())
+		{
+			Tab[valA][0] = this.results.getInt("Id_Map");
+			Tab[valA][1] = this.results.getInt("id_Rock");
+			Tab[valA][2] = this.results.getInt("X");
+			Tab[valA][3] = this.results.getInt("Y");
+			valA++;
+		}
+	}
+	
+	public void setRock() {
+		for(int a = 0; a< vaTab; a++)
+		{
+			ArrayObject[a] = new Stone2(Tab[a][2], Tab[a][3]);
+		}
+	}
+	
 	/**
 	 * Instantiates a new map.
 	 *
@@ -51,7 +112,10 @@ public class Map implements IMap{
 		// TODO Auto-generated constructor stub
 		
 		this.daoboulderdash=new DAOBoulderDash();
+		setPosMapElement(4);
+		setRock();
 		this.resultset=this.daoboulderdash.findMap(id_map);
+		
 		while(this.resultset.next())
 		{
 			this.height=this.resultset.getInt("Map_Height");
@@ -90,6 +154,7 @@ public class Map implements IMap{
 			}
 		}
 		this.setElement(id_map);
+		//this.set
 		
 	}
 
@@ -174,9 +239,11 @@ public class Map implements IMap{
 				break;
 				
 			case 2:
-				this.setOnTheMapXY(new Stone(), x, y);
+				this.setOnTheMapXY(ArrayObject[XI], ArrayObject[XI].getX(), ArrayObject[XI].getY());
+				XI ++;
 				break;
 				
+			
 			case 3:
 				this.setOnTheMapXY(MotionlessElementFactory.createWall(), x, y);
 				break;

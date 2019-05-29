@@ -28,19 +28,21 @@ public class BoulderModel extends Observable implements IModel{
 	
 	/** The id map. */
 	private int id_map=4;
-	private Thread thread;
+	private Thread thread, threadA;
 	/**
 	 * Instantiates a new boulder model.
 	 *
 	 * @throws SQLException the SQL exception
 	 */
+	
 	public BoulderModel() throws SQLException
 	{
 		this.map=new Map(this.id_map);
+		
 		this.thread=new Thread(this);
 		this.thread.start();
 		
-		}
+	}
 	
 	/**
 	 * Gets the map.
@@ -67,8 +69,8 @@ public class BoulderModel extends Observable implements IModel{
 public  void play()
 {
 	
-if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
-{
+	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
+	{
 		
 		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.getMap().getMobile().getLastPositionX(), this.getMap().getMobile().getLastPositionY());
 		
@@ -84,7 +86,7 @@ if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
 		}
 		else {
 			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
-			
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
 			
 		}
 	}
@@ -115,6 +117,7 @@ public void run() {
 	while(true)
 	{
 		try {
+			this.map.updateRocher();
 			this.thread.sleep(20);
 			this.setNotifier();
 		} catch (InterruptedException e) {
