@@ -88,8 +88,11 @@ public  void play()
 		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Recover) 
 		{
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+			this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.map.getMobile().getLastPositionX(), this.map.getMobile().getLastPositionY());
+			
 			this.map.setDiamPlayer(this.map.getDiamPlayer()+1);
 			System.out.print(this.map.getDiamPlayer());
+			
 			if (this.map.getDiamPlayer() == this.map.getCompteDiamant()) {
 				this.getMap().setOnTheMapXY(MotionlessElementFactory.createDoor(), this.map.getXYDoor(1), this.map.getXYDoor(2));
 				System.out.print("CHOCOLAT");
@@ -101,6 +104,9 @@ public  void play()
 			this.getMap().getMobile().finish();
 		}
 
+		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Enemy){
+			this.getMap().getMobile().die();
+		}
 		else {
 			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
