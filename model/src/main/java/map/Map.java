@@ -44,14 +44,16 @@ public class Map implements IMap{
 	private IMobile mobile=new Gugus();
 
 	
-	int vaTab = 13;
-	int Tab[][] = new int[vaTab][4];
-	int valA = 0, XI = 0;
-	Stone2[] ArrayObject = new Stone2[vaTab];
+	int NombreDeCaouille = 13, NbxDiamonds = 13 , valA = 0, valB = 0, XI = 0, XV = 0;
+	
+	int TabRock[][] = new int[NombreDeCaouille]	[4];
+	int TabDiam[][] = new int[NbxDiamonds]		[4];
+	Stone2[] ArrayObject = new Stone2[NombreDeCaouille];
+	Diamond2[] ArrayDiamond = new Diamond2[NbxDiamonds];
 	
 	public void updateRocher()
 	{
-		for(int a = 0; a < vaTab; a++) {
+		for(int a = 0; a < NombreDeCaouille; a++) {
 			
 			if(getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability() == Permeability.Passable) 
 			{
@@ -72,9 +74,30 @@ public class Map implements IMap{
 				}
 				
 			}
+		}
+	}
+	
+	public void updateDiamonds()
+	{
+		for(int a = 0; a < NbxDiamonds; a++) {
 			
-			else {
+			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable) 
+			{
+				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
 				
+				if(compar == ' ') 
+				{
+					ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+					
+					setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+				}
+				
+				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				{
+					//mobile.die();
+				}
 				
 			}
 		}
@@ -84,21 +107,35 @@ public class Map implements IMap{
 	
 	public void setPosMapElement(int id) throws SQLException {
 
-		this.results = this.daoboulderdash.FindComplete(id);
+		this.results = this.daoboulderdash.FindMobileRock(id);
 		while(this.results.next())
 		{
-			Tab[valA][0] = this.results.getInt("Id_Map");
-			Tab[valA][1] = this.results.getInt("id_Rock");
-			Tab[valA][2] = this.results.getInt("X");
-			Tab[valA][3] = this.results.getInt("Y");
+			TabRock[valA][0] = this.results.getInt("Id_Map");
+			TabRock[valA][1] = this.results.getInt("id_Rock");
+			TabRock[valA][2] = this.results.getInt("X");
+			TabRock[valA][3] = this.results.getInt("Y");
 			valA++;
+		}
+		
+		this.results = this.daoboulderdash.FindDiamond(id);
+		while(this.results.next())
+		{
+			TabDiam[valB][0] = this.results.getInt("Id_Map");
+			TabDiam[valB][1] = this.results.getInt("Id_diamond");
+			TabDiam[valB][2] = this.results.getInt("X");
+			TabDiam[valB][3] = this.results.getInt("Y");
+			valB++;
 		}
 	}
 	
-	public void setRock() {
-		for(int a = 0; a< vaTab; a++)
+	public void setMobileObject() {
+		for(int a = 0; a< NombreDeCaouille; a++)
 		{
-			ArrayObject[a] = new Stone2(Tab[a][2], Tab[a][3]);
+			ArrayObject[a] = new Stone2(TabRock[a][2], TabRock[a][3]);
+		}
+		for(int a = 0; a< NbxDiamonds; a++)
+		{
+			ArrayDiamond[a] = new Diamond2(TabDiam[a][2], TabDiam[a][3]);
 		}
 	}
 	
@@ -113,7 +150,7 @@ public class Map implements IMap{
 		
 		this.daoboulderdash=new DAOBoulderDash();
 		setPosMapElement(4);
-		setRock();
+		setMobileObject();
 		this.resultset=this.daoboulderdash.findMap(id_map);
 		
 		while(this.resultset.next())
@@ -235,7 +272,8 @@ public class Map implements IMap{
 			{
 			
 			case 1:
-				this.setOnTheMapXY(new Diamond(), x, y);
+				this.setOnTheMapXY(ArrayDiamond[XV], ArrayDiamond[XV].getX(), ArrayDiamond[XV].getY());
+				XV ++;
 				break;
 				
 			case 2:

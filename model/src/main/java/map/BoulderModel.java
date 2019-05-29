@@ -38,7 +38,7 @@ public class BoulderModel extends Observable implements IModel{
 	public BoulderModel() throws SQLException
 	{
 		this.map=new Map(this.id_map);
-		
+		this.threadA = new Thread(this);
 		this.thread=new Thread(this);
 		this.thread.start();
 		
@@ -118,6 +118,7 @@ public void run() {
 	{
 		try {
 			this.map.updateRocher();
+			this.map.updateDiamonds();
 			this.thread.sleep(20);
 			this.setNotifier();
 		} catch (InterruptedException e) {

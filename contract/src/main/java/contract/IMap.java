@@ -61,5 +61,6 @@ public interface IMap extends Runnable{
 	void setMobile(IMobile mobile);
 	
 	public void updateRocher();
+	public void updateDiamonds();
 
 }
