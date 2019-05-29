@@ -39,6 +39,7 @@ public class Map implements IMap{
 	private ResultSet resultset=null;
 
 	private ResultSet results=null;
+	private ResultSet resultsC=null;
 	
 	/** The mobile. */
 	private IMobile mobile=new Gugus();
@@ -50,25 +51,18 @@ public class Map implements IMap{
 	private int XDoor = 0;
 	private int YDoor = 0;
 	
-	int NombreDeCaouille = 13, NbxDiamonds = 12 , valA = 0, valB = 0, XI = 0, XV = 0;
+	int RockNb = 13, NbxDiamonds = 12, EnemyNb = 13;
+	int valA 	= 0, valB 	= 0, valC 	= 0;
+	int XI 		= 0, XV 	= 0, XII 	= 0;
 	
-	int TabRock[][] = new int[NombreDeCaouille]	[4];
-	int TabDiam[][] = new int[NbxDiamonds]		[4];
-	Stone[] ArrayObject = new Stone[NombreDeCaouille];
-	Diamond[] ArrayDiamond = new Diamond[NbxDiamonds];
+	int TabRock[][] 		= new int		[RockNb]	[4];
+	int TabDiam[][] 		= new int		[NbxDiamonds]		[4];
+	int TabEnem[][]			= new int 		[EnemyNb] 			[4];
+	Stone[] ArrayObject 	= new Stone		[RockNb];
+	Diamond[] ArrayDiamond 	= new Diamond	[NbxDiamonds];
+	Enemy[] ArrayEnemy 		= new Enemy		[EnemyNb];
 
-	public int getXYDoor(int value)
-	{
-		switch(value) 
-		{
-		case 1:
-			return this.XDoor;
-		case 2:
-			return this.YDoor;
-		default:
-			return 0;
-		}
-	}
+
 	/**
 	 * Instantiates a new map.
 	 *
@@ -102,7 +96,7 @@ public class Map implements IMap{
 
 	public void updateRocher()
 	{
-		for(int a = 0; a < NombreDeCaouille; a++) {
+		for(int a = 0; a < RockNb; a++) {
 			
 			if(getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability() == Permeability.Passable) 
 			{
@@ -125,7 +119,7 @@ public class Map implements IMap{
 			}
 		}
 	}
-	
+
 	public void updateDiamonds()
 	{
 		for(int a = 0; a < NbxDiamonds; a++) {
@@ -152,6 +146,19 @@ public class Map implements IMap{
 		}
 	}
 	
+	public int getXYDoor(int value)
+	{
+		switch(value) 
+		{
+		case 1:
+			return this.XDoor;
+		case 2:
+			return this.YDoor;
+		default:
+			return 0;
+		}
+	}
+	
 	public void setPosMapElement(int id) throws SQLException {
 
 		this.results = this.daoboulderdash.FindMobileRock(id);
@@ -174,13 +181,28 @@ public class Map implements IMap{
 			valB++;
 		}
 		
-		for(int a = 0; a< NombreDeCaouille; a++)
+		this.resultsC = this.daoboulderdash.FindEnemy(id);
+		while(this.resultsC.next())
 		{
-			ArrayObject[a] = new Stone(TabRock[a][2], TabRock[a][3]);
+			TabEnem[valC][0] = this.resultsC.getInt("Id_Map");
+			TabEnem[valC][1] = this.resultsC.getInt("id_monster");
+			TabEnem[valC][2] = this.resultsC.getInt("X");
+			TabEnem[valC][3] = this.resultsC.getInt("Y");
+			valC++;
+		}
+		
+		for(int a = 0; a< RockNb; a++)
+		{
+			this.ArrayObject[a] = new Stone(TabRock[a][2], TabRock[a][3]);
 		}
 		for(int a = 0; a< NbxDiamonds; a++)
 		{
-			ArrayDiamond[a] = new Diamond(TabDiam[a][2], TabDiam[a][3]);
+			this.ArrayDiamond[a] = new Diamond(TabDiam[a][2], TabDiam[a][3]);
+		}
+		
+		for(int a = 0; a< EnemyNb; a++)
+		{
+			this.ArrayEnemy[a] = new Enemy(TabEnem[a][2], TabEnem[a][3]);
 		}
 	}
 
@@ -315,7 +337,8 @@ public class Map implements IMap{
 				break;
 				
 			case 4:
-				this.setOnTheMapXY(new Enemy(), x, y);
+				this.setOnTheMapXY(ArrayEnemy[XII], ArrayEnemy[XII].getX(), ArrayEnemy[XII].getY());
+				XII++;
 				break;
 				
 			case 5:

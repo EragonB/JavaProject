@@ -27,7 +27,7 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=1;
+	private int id_map=4;
 	private Thread thread, threadA;
 	/**
 	 * Instantiates a new boulder model.
@@ -69,7 +69,7 @@ public class BoulderModel extends Observable implements IModel{
 public  void play()
 {
 	
-	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive() || this.getMap().getMobile().getState() != State.Finish)
+	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive() && this.getMap().getMobile().getState() != State.Finish)
 	{
 		
 		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.getMap().getMobile().getLastPositionX(), this.getMap().getMobile().getLastPositionY());

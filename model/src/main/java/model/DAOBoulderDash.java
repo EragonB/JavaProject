@@ -81,4 +81,21 @@ public class DAOBoulderDash {
 		}
 		return null;
 	}
+	
+	public ResultSet FindEnemy(final int id)
+	{
+		
+		try {
+			final String sql = "{call EnemyCount(?)}";
+			final CallableStatement call = DBConnection.getInstance().getConnection().prepareCall(sql);
+			call.setInt(1, id);
+			call.execute();
+			final ResultSet resultSet = call.getResultSet();
+			
+			return resultSet;
+		} catch (final SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
