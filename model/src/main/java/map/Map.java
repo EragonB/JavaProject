@@ -50,7 +50,7 @@ public class Map implements IMap{
 	private int XDoor = 0;
 	private int YDoor = 0;
 	
-	int NombreDeCaouille = 13, NbxDiamonds = 13 , valA = 0, valB = 0, XI = 0, XV = 0;
+	int NombreDeCaouille = 13, NbxDiamonds = 12 , valA = 0, valB = 0, XI = 0, XV = 0;
 	
 	int TabRock[][] = new int[NombreDeCaouille]	[4];
 	int TabDiam[][] = new int[NbxDiamonds]		[4];
@@ -79,7 +79,7 @@ public class Map implements IMap{
 		// TODO Auto-generated constructor stub
 		
 		this.daoboulderdash=new DAOBoulderDash();
-		setPosMapElement(4);
+		setPosMapElement(id_map);
 		
 		this.resultset=this.daoboulderdash.findMap(id_map);
 		
