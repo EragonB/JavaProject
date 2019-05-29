@@ -14,4 +14,8 @@ public void setController(IController controller);
 public void moveValue(int i);
 public void AddKeyListener();
 
+public static void FrameDie() {
+	// TODO Auto-generated method stub
+	
+}
 }

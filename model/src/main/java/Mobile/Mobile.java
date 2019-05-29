@@ -3,6 +3,7 @@ package Mobile;
 import Element.Element;
 import contract.IMobile;
 import contract.IMovement;
+import contract.IView;
 import contract.Permeability;
 import contract.State;
 
@@ -37,6 +38,7 @@ public abstract class Mobile extends Element implements IMobile{
 	public void die()
 	{
 		this.state=State.Dead;
+		IView.FrameDie();
 	}
 	
 	@Override

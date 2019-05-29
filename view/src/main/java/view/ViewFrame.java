@@ -1,7 +1,13 @@
 package view;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import FactoryPicture.MotherTradFactory;
 import contract.IModel;
 
 public class ViewFrame extends JFrame {
@@ -14,9 +20,9 @@ public class ViewFrame extends JFrame {
 	private String Java = "BoulderDash";
 	private ViewPanel viewpanel;
 	
+	
 	public ViewFrame() {
 	
-		//JFrame jframe = new JFrame();
 		this.setViewpanel(new ViewPanel(this));
 		this.setSize(Longueur, Largeur);
 		this.setLocationRelativeTo(null);
@@ -24,9 +30,39 @@ public class ViewFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(getViewpanel());
 		this.setVisible(true);
-		//jframe.addKeyListener(new KeyEvent());
-		
+		//FrameDie();
 	}
+	
+	public static void FrameDie() {
+        
+        JFrame jframedie = new JFrame();
+        MotherTradFactory fact = new MotherTradFactory();
+        JPanel panel = new JPanel()
+                {
+            
+            public void paint(Graphics g)
+            {
+                Font font = new Font("Consola", Font.PLAIN, 50);
+                  g.setColor(Color.RED);
+               g.setFont(font);
+               g.drawImage( fact.getPhoto('9'), 0, 0 , null);
+              g.drawString("YOU DIED !!!", 512/2, 512/2);
+            }
+              
+                };
+      
+
+        jframedie.setSize(512, 512);
+        jframedie.setLocationRelativeTo(null);
+        jframedie.setTitle("Boby l'escagt");
+        jframedie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframedie.setContentPane(panel);
+        jframedie.setVisible(true);
+        
+        
+        
+        
+    }
 	
 	public int getLongueur()
 	{

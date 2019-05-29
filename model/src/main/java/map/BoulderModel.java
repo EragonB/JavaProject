@@ -27,7 +27,7 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=4;
+	private int id_map=3;
 	private Thread thread, threadA;
 	/**
 	 * Instantiates a new boulder model.

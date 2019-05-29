@@ -14,6 +14,7 @@ public class MotherTradFactory {
 	MotherTrad ManDown = new ManDown();
 	MotherTrad ManLeft = new ManLeft();
 	MotherTrad ManRight = new ManRight();
+	MotherTrad Death = new DeathHead();
 	
 	
 	public Image getPhoto(char Caractere) {
@@ -51,6 +52,9 @@ public class MotherTradFactory {
 			
 		case 'M':
 			return ManRight.getPicture();
+			
+		case '9':
+			return Death.getPicture();
 		}
 		return null;
 	}

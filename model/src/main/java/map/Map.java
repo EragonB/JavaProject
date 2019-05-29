@@ -6,6 +6,7 @@ package map;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import MotionlessElement.MotionlessElementFactory;
 import contract.IElement;
@@ -51,7 +52,7 @@ public class Map implements IMap{
 	private int XDoor = 0;
 	private int YDoor = 0;
 	
-	int RockNb = 13, NbxDiamonds = 12, EnemyNb = 13;
+	int RockNb = 60, NbxDiamonds = 60, EnemyNb = 60;
 	int valA 	= 0, valB 	= 0, valC 	= 0;
 	int XI 		= 0, XV 	= 0, XII 	= 0;
 	
@@ -116,6 +117,18 @@ public class Map implements IMap{
 					//mobile.die();
 				}
 				
+				
+				
+			}
+			
+			else if (getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability() == Permeability.Enemy)
+			{
+				
+				ArrayObject[a].setLastPositionX(ArrayObject[a].getX(), ArrayObject[a].getY());
+				ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
+				
+				setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
+				setOnTheMapXY(new Diamond(ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY()),ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
 			}
 		}
 	}
@@ -146,6 +159,42 @@ public class Map implements IMap{
 		}
 	}
 	
+	public void updateEnemy()
+	{
+		for(int a = 0; a < EnemyNb; a++)
+		{
+			boolean down, up, left, right;
+			
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()+1).getPermeability() == Permeability.Passable)
+			{
+				down = true;
+			}
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()-1).getPermeability() == Permeability.Passable)
+			{
+				up = true;
+			}
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()-1).getPermeability() == Permeability.Passable)
+			{
+				left = true;
+			}
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()+1).getPermeability() == Permeability.Passable)
+			{
+				right = true;
+			}
+			
+			switch((int)(Math.random() * 4))
+			{
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			}
+		}
+	}
 	public int getXYDoor(int value)
 	{
 		switch(value) 
