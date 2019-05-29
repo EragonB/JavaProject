@@ -78,17 +78,11 @@ if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
 			
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
 		//this.setNotifier();
-			
-			
-			
 		}
 		else {
 			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
 		}
-
-		
-		
 	}
 	else {
 		System.out.println("Crash");

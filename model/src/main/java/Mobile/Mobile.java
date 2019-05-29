@@ -109,8 +109,10 @@ public abstract class Mobile extends Element implements IMobile{
 	public void setSpeed(ISpeed speed) {
 		this.speed = speed;
 	}*/
-	public void gugusCallForm(int value)
+	public void GugusForm(char value)
 	{
-		this.GugusForm();
+	this.setSprite(value);
+		
 	}
+
 }

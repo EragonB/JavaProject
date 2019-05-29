@@ -26,7 +26,7 @@ public interface IMobile extends IElement{
 
 	State getState();
 
-	public void gugusCallForm(int value);
+	public void GugusForm(char c);
 	
 	public void moveLeft();
 
