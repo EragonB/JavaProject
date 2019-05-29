@@ -11,6 +11,7 @@ import MotionlessElement.MotionlessElementFactory;
 import contract.IMap;
 import contract.IModel;
 import contract.Permeability;
+import contract.State;
 
 
 
@@ -25,7 +26,6 @@ public class BoulderModel extends Observable implements IModel{
 	
 	/** The map. */
 	private IMap map;
-	
 	/** The id map. */
 	private int id_map=4;
 	private Thread thread, threadA;
@@ -69,7 +69,7 @@ public class BoulderModel extends Observable implements IModel{
 public  void play()
 {
 	
-	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive())
+	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive() || this.getMap().getMobile().getState() != State.Finish)
 	{
 		
 		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.getMap().getMobile().getLastPositionX(), this.getMap().getMobile().getLastPositionY());
@@ -84,6 +84,23 @@ public  void play()
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
 		//this.setNotifier();
 		}
+		
+		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Recover) 
+		{
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+			this.map.setDiamPlayer(this.map.getDiamPlayer()+1);
+			System.out.print(this.map.getDiamPlayer());
+			if (this.map.getDiamPlayer() == this.map.getCompteDiamant()) {
+				this.getMap().setOnTheMapXY(MotionlessElementFactory.createDoor(), this.map.getXYDoor(1), this.map.getXYDoor(2));
+				System.out.print("CHOCOLAT");
+			}
+			
+		}
+		else if (this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Door)
+		{
+			this.getMap().getMobile().finish();
+		}
+
 		else {
 			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());

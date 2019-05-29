@@ -6,6 +6,8 @@ public interface IMobile extends IElement{
 
 	State alive();
 
+	void finish();
+	
 	void die();
 
 	int getX();

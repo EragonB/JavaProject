@@ -1,5 +1,5 @@
 package contract;
 
 public enum State {
-Life, Dead
+Life, Dead, Finish
 }

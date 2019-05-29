@@ -42,15 +42,64 @@ public class Map implements IMap{
 	
 	/** The mobile. */
 	private IMobile mobile=new Gugus();
+	
 
+	private int CompteDiamant = 0;
+	private int DiamPlayer = 0;
+
+	private int XDoor = 0;
+	private int YDoor = 0;
 	
 	int NombreDeCaouille = 13, NbxDiamonds = 13 , valA = 0, valB = 0, XI = 0, XV = 0;
 	
 	int TabRock[][] = new int[NombreDeCaouille]	[4];
 	int TabDiam[][] = new int[NbxDiamonds]		[4];
-	Stone2[] ArrayObject = new Stone2[NombreDeCaouille];
-	Diamond2[] ArrayDiamond = new Diamond2[NbxDiamonds];
-	
+	Stone[] ArrayObject = new Stone[NombreDeCaouille];
+	Diamond[] ArrayDiamond = new Diamond[NbxDiamonds];
+
+	public int getXYDoor(int value)
+	{
+		switch(value) 
+		{
+		case 1:
+			return this.XDoor;
+		case 2:
+			return this.YDoor;
+		default:
+			return 0;
+		}
+	}
+	/**
+	 * Instantiates a new map.
+	 *
+	 * @param id_map the id map
+	 * @throws SQLException the SQL exception
+	 */
+	public Map(int id_map) throws SQLException {
+		// TODO Auto-generated constructor stub
+		
+		this.daoboulderdash=new DAOBoulderDash();
+		setPosMapElement(4);
+		
+		this.resultset=this.daoboulderdash.findMap(id_map);
+		
+		while(this.resultset.next())
+		{
+			this.height=this.resultset.getInt("Map_Height");
+			this.width=this.resultset.getInt("Map_Width");
+			this.mobile.setXY(this.resultset.getInt("startX"), this.resultset.getInt("startY"));
+			this.CompteDiamant = this.resultset.getInt("diamondsNeeded");
+			this.XDoor = this.resultset.getInt("doorX");
+			this.YDoor = this.resultset.getInt("doorY");
+
+		}
+		
+		this.onTheMap= new IElement[this.height][this.width];
+		this.fillonTheMap(id_map);
+		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
+		System.out.print(this.CompteDiamant);
+	}
+
 	public void updateRocher()
 	{
 		for(int a = 0; a < NombreDeCaouille; a++) {
@@ -103,8 +152,6 @@ public class Map implements IMap{
 		}
 	}
 	
-	
-	
 	public void setPosMapElement(int id) throws SQLException {
 
 		this.results = this.daoboulderdash.FindMobileRock(id);
@@ -126,49 +173,21 @@ public class Map implements IMap{
 			TabDiam[valB][3] = this.results.getInt("Y");
 			valB++;
 		}
-	}
-	
-	public void setMobileObject() {
+		
 		for(int a = 0; a< NombreDeCaouille; a++)
 		{
-			ArrayObject[a] = new Stone2(TabRock[a][2], TabRock[a][3]);
+			ArrayObject[a] = new Stone(TabRock[a][2], TabRock[a][3]);
 		}
 		for(int a = 0; a< NbxDiamonds; a++)
 		{
-			ArrayDiamond[a] = new Diamond2(TabDiam[a][2], TabDiam[a][3]);
+			ArrayDiamond[a] = new Diamond(TabDiam[a][2], TabDiam[a][3]);
 		}
 	}
-	
-	/**
-	 * Instantiates a new map.
-	 *
-	 * @param id_map the id map
-	 * @throws SQLException the SQL exception
-	 */
-	public Map(int id_map) throws SQLException {
-		// TODO Auto-generated constructor stub
-		
-		this.daoboulderdash=new DAOBoulderDash();
-		setPosMapElement(4);
-		setMobileObject();
-		this.resultset=this.daoboulderdash.findMap(id_map);
-		
-		while(this.resultset.next())
-		{
-			this.height=this.resultset.getInt("Map_Height");
-			this.width=this.resultset.getInt("Map_Width");
-			this.mobile.setXY(this.resultset.getInt("startX"), this.resultset.getInt("startY"));
 
-		}
-		
-		this.onTheMap= new IElement[this.height][this.width];
-		this.fillonTheMap(id_map);
-		
-		
-		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
-		
+	public int getCompteDiamant()
+	{
+		return this.CompteDiamant;
 	}
-
 	/**
 	 * Fill on the map.
 	 * @throws SQLException 
@@ -195,6 +214,15 @@ public class Map implements IMap{
 		
 	}
 
+	public void setDiamPlayer(int value)
+	{
+		this.DiamPlayer = value;
+	}
+	
+	public int getDiamPlayer()
+	{
+		return DiamPlayer;
+	}
 	
 	/**
 	 * Gets the height.
@@ -320,17 +348,12 @@ public class Map implements IMap{
 	public void setMobile(IMobile mobile) {
 		this.mobile = mobile;
 	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 
-public void resetXY()
-{
-System.out.println("Je suis un giezfhz");
-}
 
-@Override
-public void run() {
-	
-	this.resetXY();
-	
-}
 
 }

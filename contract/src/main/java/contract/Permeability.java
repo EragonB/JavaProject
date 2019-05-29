@@ -18,5 +18,11 @@ Blocking,
  /** The Passable. */
  Passable, 
  /** The Push. */
- Push
+ Push,
+ 
+ Enemy,
+ 
+ Recover, 
+ 
+ Door
 }

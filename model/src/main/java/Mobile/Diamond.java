@@ -5,9 +5,11 @@ import contract.Permeability;
 
 public class Diamond extends Mobile{
 	
-	public Diamond()
+	public Diamond(int x, int y)
 	{
-		super(Permeability.Push, 'D');
+		super(Permeability.Recover, 'D');
+		this.x = x;
+		this.y = y;
 		this.setMovement(new ElementMovement(this));
 	}
 

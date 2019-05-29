@@ -23,7 +23,10 @@ public abstract class Mobile extends Element implements IMobile{
 		//this.movement=movement;
 		
 	}
-	
+	public void finish()
+	{
+		this.state=State.Finish;
+	}
 	@Override
 	public State alive()
 	{
