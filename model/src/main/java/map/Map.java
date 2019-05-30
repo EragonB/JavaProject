@@ -40,7 +40,9 @@ public class Map implements IMap{
 	private ResultSet resultset=null;
 
 	private ResultSet results=null;
-	private ResultSet resultsC=null;
+	
+
+	Thread thread;
 	
 	/** The mobile. */
 	private IMobile mobile=new Gugus();
@@ -75,6 +77,7 @@ public class Map implements IMap{
 		
 		this.daoboulderdash=new DAOBoulderDash();
 		setPosMapElement(id_map);
+		thread = new Thread(this);
 		
 		this.resultset=this.daoboulderdash.findMap(id_map);
 		
@@ -92,11 +95,14 @@ public class Map implements IMap{
 		this.onTheMap= new IElement[this.height][this.width];
 		this.fillonTheMap(id_map);
 		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
-		System.out.print(this.CompteDiamant);
+		
+		
+		this.thread.start();
 	}
 
 	public void updateRocher()
 	{
+		//TODO
 		for(int a = 0; a < SizeElement; a++) {
 			
 			char compar = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getSprite();
@@ -129,26 +135,39 @@ public class Map implements IMap{
 				ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
 				
 				setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
-				setOnTheMapXY(new Diamond(ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY()),ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+				this.ArrayDiamond[40] = new Diamond(ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+				setOnTheMapXY(this.ArrayDiamond[40],ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
 			}
 		}
 	}
 
 	public void updateDiamonds()
 	{
+		//TODO
 		for(int a = 0; a < SizeElement; a++) {
 			
 			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable) 
 			{
-				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
+				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
+				char comparA = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
 				
-				if(compar == MotionlessElementFactory.createBackgroundvoid().getSprite()) 
+				if(comparA == MotionlessElementFactory.createBackgroundvoid().getSprite() || compar != this.mobile.getSprite()) 
 				{
-					ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-					ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+					if (compar == this.mobile.getSprite())
+					{
+						
+					}
+					else
+					{
+						ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+						ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+						
+						setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+						setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+						
+					}
 					
-					setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+					
 				}
 				
 				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
@@ -162,6 +181,7 @@ public class Map implements IMap{
 	
 	public void updateEnemy()
 	{
+		//TODO
 		for(int a = 0; a < SizeElement; a++)
 		{
 			boolean down, up, left, right;
@@ -212,6 +232,7 @@ public class Map implements IMap{
 	
 	public void RemplirTableau(ResultSet Function, int tab[][], String Column) throws SQLException
 	{
+		//TODO Changer de Nom
 		this.results = Function;
 		while(this.results.next())
 		{
@@ -250,6 +271,7 @@ public class Map implements IMap{
 	{
 		return this.CompteDiamant;
 	}
+	
 	/**
 	 * Fill on the map.
 	 * @throws SQLException 
@@ -397,7 +419,7 @@ public class Map implements IMap{
 	}
 
 	public ResultSet getResultset() {
-		return resultset;
+		return this.resultset;
 	}
 
 	public void setResultset(ResultSet resultset) {
@@ -411,9 +433,18 @@ public class Map implements IMap{
 	public void setMobile(IMobile mobile) {
 		this.mobile = mobile;
 	}
+	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		//TODO Erreur Plosible
+		try {
+			updateRocher();
+			updateDiamonds();
+			this.thread.sleep(500);
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		}
 		
 	}
 

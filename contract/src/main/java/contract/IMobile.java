@@ -30,8 +30,6 @@ public interface IMobile extends IElement{
 
 	public void GugusForm(char c);
 	
-	public void moveLeft();
-
 	IMovement getMovement();
 
 	void setMovement(IMovement movement);

@@ -13,15 +13,23 @@ public final class Controller implements IController {
 	private char c;
 
 
-	public Controller(final IView view, final IModel model) {
+	public Controller(final IView view, final IModel model, int id_map) {
 		
 		this.setView(view);
 		this.setModel(model);
+		setIdMap(id_map);
+		
 		
 		this.view.ReadBoard(this.model.getMap());
 		this.view.setController(this);
 		this.view.AddKeyListener();
-		//this.model.play();
+	}
+	
+	public void setIdMap(int id_map)
+	{
+		this.view.setFrame(id_map);
+		this.model.setIdMap(id_map);
+		this.model.start();
 	}
 
 	private void setView(final IView pview) {

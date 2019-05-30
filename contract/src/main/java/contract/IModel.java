@@ -8,6 +8,7 @@ public interface IModel extends Runnable{
 	//public void show();
 	public Observable getObservable();
 	public void play();
-	
+	public void setIdMap(int id_map);
+	public void start();
 
 }

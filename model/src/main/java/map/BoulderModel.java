@@ -14,8 +14,6 @@ import contract.Permeability;
 import contract.State;
 
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class BoulderModel.
@@ -28,20 +26,28 @@ public class BoulderModel extends Observable implements IModel{
 	private IMap map;
 	/** The id map. */
 	private int id_map=3;
-	private Thread thread, threadA;
+	private Thread thread;
 	/**
 	 * Instantiates a new boulder model.
 	 *
 	 * @throws SQLException the SQL exception
 	 */
 	
-	public BoulderModel() throws SQLException
+	public BoulderModel()
 	{
-		this.map=new Map(this.id_map);
-		this.threadA = new Thread(this);
+		
+		
+	}
+	public void start()
+	{
+		try {
+			this.map=new Map(this.id_map);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.thread=new Thread(this);
 		this.thread.start();
-		
 	}
 	
 	/**
@@ -62,13 +68,17 @@ public class BoulderModel extends Observable implements IModel{
 		this.map = map;
 	}
 
+	public void setIdMap(int id_map)
+	{
+		this.id_map = id_map;
+	}
 /**
  * Play.
  */
 
 public  void play()
 {
-	
+	//TODO POSSILBLE SURMENT A RENDRE MOINS AGGRESSIF AU YEUX
 	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive() && this.getMap().getMobile().getState() != State.Finish)
 	{
 		
@@ -82,7 +92,7 @@ public  void play()
 		{
 			
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
-		//this.setNotifier();
+		
 		}
 		
 		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Recover) 
@@ -91,11 +101,9 @@ public  void play()
 			this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.map.getMobile().getLastPositionX(), this.map.getMobile().getLastPositionY());
 			
 			this.map.setDiamPlayer(this.map.getDiamPlayer()+1);
-			System.out.print(this.map.getDiamPlayer());
 			
 			if (this.map.getDiamPlayer() == this.map.getCompteDiamant()) {
 				this.getMap().setOnTheMapXY(MotionlessElementFactory.createDoor(), this.map.getXYDoor(1), this.map.getXYDoor(2));
-				System.out.print("CHOCOLAT");
 			}
 			
 		}
@@ -142,7 +150,7 @@ public void run() {
 		try {
 			this.map.updateRocher();
 			this.map.updateDiamonds();
-			this.thread.sleep(20);
+			this.thread.sleep(100);
 			this.setNotifier();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

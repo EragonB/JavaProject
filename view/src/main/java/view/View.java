@@ -12,7 +12,12 @@ public final class View implements IView{
 	private IController controller;
 
 	public View() {
-		this.viewframe = new ViewFrame();
+		
+	}
+	
+	public void setFrame(int id_map)
+	{
+		this.viewframe = new ViewFrame(id_map);
 	}
 	
 	public ViewFrame getViewframe() {
@@ -36,23 +41,6 @@ public final class View implements IView{
 		this.viewframe.addObserver(this.controller.getModel());
 	}
 
-	public void moveValue(int value) {}
-	/*{
-		switch(value)
-		{
-		case 1:
-			return 1;
-		case 2:
-			return 2;
-		case 3:
-			return 3;
-		case 4:
-			return 4;
-			
-		default:
-			return 0;
-		}
-	}*/
 
 	public void AddKeyListener()
 	{

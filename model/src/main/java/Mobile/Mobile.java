@@ -22,10 +22,12 @@ public abstract class Mobile extends Element implements IMobile{
 		this.state=this.alive();
 		
 	}
+	
 	public void finish()
 	{
 		this.state=State.Finish;
 	}
+	
 	@Override
 	public State alive()
 	{
@@ -36,14 +38,14 @@ public abstract class Mobile extends Element implements IMobile{
 	public void die()
 	{
 		this.state=State.Dead;
-		IView.FrameDie();
+		
 	}
 	
 	@Override
+	//TODO Avoir avec un Switch et Y
 	public int getX() {
 		return this.x;
 	}
-
 
 	@Override
 	public void setXY(int x, int y) {
@@ -51,19 +53,16 @@ public abstract class Mobile extends Element implements IMobile{
 		this.y = y;
 	}
 
-
 	@Override
 	public int getY() {
 		return this.y;
 	}
 
-
-
 	@Override
+	//TODO Meme Chose
 	public int getLastPositionX() {
 		return this.LastPositionX;
 	}
-
 
 	@Override
 	public void setLastPositionX(int lastPositionX, int lastPositionY) {
@@ -71,38 +70,23 @@ public abstract class Mobile extends Element implements IMobile{
 		this.LastPositionY = lastPositionY;
 	}
 
-
 	@Override
 	public int getLastPositionY() {
 		return this.LastPositionY;
 	}
-
-
 
 	@Override
 	public State getState() {
 		return this.state;
 	}
 
-
-
-
 	public IMovement getMovement() {
 		return this.movement;
 	}
 
-
-
 	public void setMovement(IMovement movement) {
 		this.movement = movement;
 	}
-	
-
-	public void moveLeft()
-	{
-		this.setXY(getX()+1, getY());
-	}
-	
 	
 	public void GugusForm(char value)
 	{
