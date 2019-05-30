@@ -54,12 +54,11 @@ public class Map implements IMap{
 	
 	int SizeElement = 60;
 	int SizeColumnElement = 0;
-	int valA 	= 0, valB 	= 0, valC 	= 0;
 	int XI 		= 0, XV 	= 0, XII 	= 0;
 	
-	int TabRock[][] 		= new int		[SizeElement]	[4];
-	int TabDiam[][] 		= new int		[SizeElement]	[4];
-	int TabEnem[][]			= new int 		[SizeElement] 	[4];
+	int TabRock[][] 		= new int		[SizeElement]	[3];
+	int TabDiam[][] 		= new int		[SizeElement]	[3];
+	int TabEnem[][]			= new int 		[SizeElement] 	[3];
 	Stone[] ArrayObject 	= new Stone		[SizeElement];
 	Diamond[] ArrayDiamond 	= new Diamond	[SizeElement];
 	Enemy[] ArrayEnemy 		= new Enemy		[SizeElement];
@@ -100,9 +99,12 @@ public class Map implements IMap{
 	{
 		for(int a = 0; a < SizeElement; a++) {
 			
-			if(getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability() == Permeability.Passable) 
+			char compar = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getSprite();
+			
+			Permeability perma = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability();
+			
+			if(perma == Permeability.Passable) 
 			{
-				char compar = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getSprite();
 				
 				if(compar == ' ') 
 				{
@@ -118,11 +120,9 @@ public class Map implements IMap{
 					//mobile.die();
 				}
 				
-				
-				
 			}
 			
-			else if (getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability() == Permeability.Enemy)
+			else if (perma == Permeability.Enemy)
 			{
 				
 				ArrayObject[a].setLastPositionX(ArrayObject[a].getX(), ArrayObject[a].getY());
@@ -215,16 +215,15 @@ public class Map implements IMap{
 		this.results = Function;
 		while(this.results.next())
 		{
-			tab[SizeColumnElement][0] = this.results.getInt("Id_Map");
-			tab[SizeColumnElement][1] = this.results.getInt(Column);
-			tab[SizeColumnElement][2] = this.results.getInt("X");
-			tab[SizeColumnElement][3] = this.results.getInt("Y");
+			tab[SizeColumnElement][0] = this.results.getInt(Column);
+			tab[SizeColumnElement][1] = this.results.getInt("X");
+			tab[SizeColumnElement][2] = this.results.getInt("Y");
 			SizeColumnElement++;
 			
 		}
 		SizeColumnElement = 0;
 	}
-	
+
 	public void setPosMapElement(int id) throws SQLException {
 
 		RemplirTableau(this.daoboulderdash.FindMobileRock(id), TabRock, "id_Rock");
@@ -234,16 +233,16 @@ public class Map implements IMap{
 		
 		for(int a = 0; a< SizeElement; a++)
 		{
-			this.ArrayObject[a] = new Stone(TabRock[a][2], TabRock[a][3]);
+			this.ArrayObject[a] = new Stone(TabRock[a][1], TabRock[a][2]);
 		}
 		for(int a = 0; a< SizeElement; a++)
 		{
-			this.ArrayDiamond[a] = new Diamond(TabDiam[a][2], TabDiam[a][3]);
+			this.ArrayDiamond[a] = new Diamond(TabDiam[a][1], TabDiam[a][2]);
 		}
 		
 		for(int a = 0; a< SizeElement; a++)
 		{
-			this.ArrayEnemy[a] = new Enemy(TabEnem[a][2], TabEnem[a][3]);
+			this.ArrayEnemy[a] = new Enemy(TabEnem[a][1], TabEnem[a][2]);
 		}
 	}
 
