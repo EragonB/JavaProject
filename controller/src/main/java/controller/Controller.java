@@ -17,7 +17,7 @@ public final class Controller implements IController {
 		
 		this.setView(view);
 		this.setModel(model);
-		setIdMap(id_map);
+		//setIdMap(id_map);
 		
 		
 		this.view.ReadBoard(this.model.getMap());
@@ -27,8 +27,9 @@ public final class Controller implements IController {
 	
 	public void setIdMap(int id_map)
 	{
-		this.view.setFrame(id_map);
 		this.model.setIdMap(id_map);
+		this.view.setFrame(id_map);
+		
 		this.model.start();
 	}
 

@@ -18,12 +18,6 @@ public interface IElement {
 	 */
 	Permeability getPermeability();
 
-	/**
-	 * Sets the permeability.
-	 *
-	 * @param permeability the new permeability
-	 */
-	void setPermeability(Permeability permeability);
 
 	/**
 	 * Gets the sprite.
@@ -32,11 +26,5 @@ public interface IElement {
 	 */
 	char getSprite();
 
-	/**
-	 * Sets the sprite.
-	 *
-	 * @param sprite the new sprite
-	 */
-	void setSprite(char sprite);
 
 }

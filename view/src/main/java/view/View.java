@@ -12,7 +12,7 @@ public final class View implements IView{
 	private IController controller;
 
 	public View() {
-		
+		this.viewframe = new ViewFrame(3);
 	}
 	
 	public void setFrame(int id_map)

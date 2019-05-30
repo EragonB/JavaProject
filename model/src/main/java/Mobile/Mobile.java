@@ -3,7 +3,6 @@ package Mobile;
 import Element.Element;
 import contract.IMobile;
 import contract.IMovement;
-import contract.IView;
 import contract.Permeability;
 import contract.State;
 

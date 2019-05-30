@@ -6,7 +6,6 @@ package map;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 
 import MotionlessElement.MotionlessElementFactory;
 import contract.IElement;
@@ -123,7 +122,7 @@ public class Map implements IMap{
 				
 				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
 				{
-					//mobile.die();
+					mobile.die();
 				}
 				
 			}
@@ -159,6 +158,7 @@ public class Map implements IMap{
 					}
 					else
 					{
+						DeletDiamond();
 						ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
 						ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
 						
@@ -166,15 +166,25 @@ public class Map implements IMap{
 						setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
 						
 					}
-					
-					
 				}
 				
 				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
 				{
-					//mobile.die();
+					
+					mobile.die();
 				}
 				
+			}
+		}
+	}
+	
+	public void DeletDiamond()
+	{
+		for(int a=0; a < SizeElement; a++)
+		{
+			if (ArrayDiamond[a].getX() == this.mobile.getX() && ArrayDiamond[a].getY() == this.mobile.getY())
+			{
+				ArrayDiamond[a].setXY(0, 0);
 			}
 		}
 	}
@@ -182,7 +192,7 @@ public class Map implements IMap{
 	public void updateEnemy()
 	{
 		//TODO
-		for(int a = 0; a < SizeElement; a++)
+		/*for(int a = 0; a < SizeElement; a++)
 		{
 			boolean down, up, left, right;
 			
@@ -214,7 +224,7 @@ public class Map implements IMap{
 			case 4:
 				break;
 			}
-		}
+		}*/
 	}
 	
 	public int getXYDoor(int value)

@@ -17,7 +17,7 @@ public abstract class Main {
     	  	
     	IView view = new View();
 
-    	IController controller = new Controller(view, model, 1);
+    	IController controller = new Controller(view, model, 3);
     	
     	
     }

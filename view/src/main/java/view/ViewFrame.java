@@ -22,7 +22,7 @@ public class ViewFrame extends JFrame {
 	
 	
 	public ViewFrame(int id_map) {
-		setMapTaille(id_map);
+		//setMapTaille(id_map);
 		VuePrincipal();
 		
 	}

@@ -33,10 +33,14 @@ public class BoulderModel extends Observable implements IModel{
 	 * @throws SQLException the SQL exception
 	 */
 	
-	public BoulderModel()
+	public BoulderModel() throws SQLException
 	{
 		
 		
+		this.map=new Map(this.id_map);
+	
+		this.thread=new Thread(this);
+		this.thread.start();
 	}
 	public void start()
 	{
@@ -78,48 +82,59 @@ public class BoulderModel extends Observable implements IModel{
 
 public  void play()
 {
+	
 	//TODO POSSILBLE SURMENT A RENDRE MOINS AGGRESSIF AU YEUX
+	int MobileX = this.getMap().getMobile().getX();
+	int MobileY = this.getMap().getMobile().getY();
+	int MobileLastX =  this.getMap().getMobile().getLastPositionX();
+	int MobileLastY =  this.getMap().getMobile().getLastPositionY();
+	
 	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive() && this.getMap().getMobile().getState() != State.Finish)
 	{
 		
-		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.getMap().getMobile().getLastPositionX(), this.getMap().getMobile().getLastPositionY());
+		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), MobileLastX, MobileLastY);
 		
 		
-		if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()
-				==Permeability.Creusable||
-				this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()
-				==Permeability.Passable)
+		if(this.getMap().getOnTheMapXY(MobileX, MobileY).getPermeability() == Permeability.Creusable || this.getMap().getOnTheMapXY(MobileX, MobileY).getPermeability() == Permeability.Passable)
 		{
 			
-			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+			this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
 		
 		}
 		
-		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Recover) 
+		else if(this.getMap().getOnTheMapXY(MobileX, MobileY).getPermeability() == Permeability.Recover) 
 		{
-			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
-			this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.map.getMobile().getLastPositionX(), this.map.getMobile().getLastPositionY());
+			this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
+			this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), MobileLastX, MobileLastY);
 			
 			this.map.setDiamPlayer(this.map.getDiamPlayer()+1);
+			this.map.DeletDiamond();
 			
 			if (this.map.getDiamPlayer() == this.map.getCompteDiamant()) {
 				this.getMap().setOnTheMapXY(MotionlessElementFactory.createDoor(), this.map.getXYDoor(1), this.map.getXYDoor(2));
 			}
 			
 		}
-		else if (this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Door)
+		
+		else if (this.getMap().getOnTheMapXY(MobileX, MobileY).getPermeability() == Permeability.Door)
 		{
 			this.getMap().getMobile().finish();
 		}
 
-		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Enemy){
+		else if(this.getMap().getOnTheMapXY(MobileX, MobileY).getPermeability() == Permeability.Enemy)
+		{
 			this.getMap().getMobile().die();
 		}
+		
 		else {
-			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
-			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
-			
+
+			this.map.getMobile().setXY(MobileLastX,MobileLastY);
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.getMap().getMobile().getX(), this.getMap().getMobile().getY());			
 		}
+	}
+	else if (this.getMap().getMobile().getState() == State.Finish)
+	{
+		System.out.print("WIN!!!");
 	}
 	else {
 		
