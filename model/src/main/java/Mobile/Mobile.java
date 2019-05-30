@@ -15,13 +15,11 @@ public abstract class Mobile extends Element implements IMobile{
 	protected int LastPositionY;
 	protected State state;
 	protected IMovement movement;
-	//protected ISpeed speed;
 	
 	
-	public Mobile(Permeability permeability, char sprite/*, IMovement movement, ISpeed speed*/) {
+	public Mobile(Permeability permeability, char sprite) {
 		super(permeability, sprite);
 		this.state=this.alive();
-		//this.movement=movement;
 		
 	}
 	public void finish()
@@ -98,6 +96,7 @@ public abstract class Mobile extends Element implements IMobile{
 	public void setMovement(IMovement movement) {
 		this.movement = movement;
 	}
+	
 
 	public void moveLeft()
 	{
@@ -105,15 +104,6 @@ public abstract class Mobile extends Element implements IMobile{
 	}
 	
 	
-
-	/*public ISpeed getSpeed() {
-		return this.speed;
-	}
-
-
-	public void setSpeed(ISpeed speed) {
-		this.speed = speed;
-	}*/
 	public void GugusForm(char value)
 	{
 	this.setSprite(value);

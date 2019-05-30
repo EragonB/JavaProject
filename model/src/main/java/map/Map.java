@@ -52,16 +52,17 @@ public class Map implements IMap{
 	private int XDoor = 0;
 	private int YDoor = 0;
 	
-	int RockNb = 60, NbxDiamonds = 60, EnemyNb = 60;
+	int SizeElement = 60;
+	int SizeColumnElement = 0;
 	int valA 	= 0, valB 	= 0, valC 	= 0;
 	int XI 		= 0, XV 	= 0, XII 	= 0;
 	
-	int TabRock[][] 		= new int		[RockNb]	[4];
-	int TabDiam[][] 		= new int		[NbxDiamonds]		[4];
-	int TabEnem[][]			= new int 		[EnemyNb] 			[4];
-	Stone[] ArrayObject 	= new Stone		[RockNb];
-	Diamond[] ArrayDiamond 	= new Diamond	[NbxDiamonds];
-	Enemy[] ArrayEnemy 		= new Enemy		[EnemyNb];
+	int TabRock[][] 		= new int		[SizeElement]	[4];
+	int TabDiam[][] 		= new int		[SizeElement]	[4];
+	int TabEnem[][]			= new int 		[SizeElement] 	[4];
+	Stone[] ArrayObject 	= new Stone		[SizeElement];
+	Diamond[] ArrayDiamond 	= new Diamond	[SizeElement];
+	Enemy[] ArrayEnemy 		= new Enemy		[SizeElement];
 
 
 	/**
@@ -97,7 +98,7 @@ public class Map implements IMap{
 
 	public void updateRocher()
 	{
-		for(int a = 0; a < RockNb; a++) {
+		for(int a = 0; a < SizeElement; a++) {
 			
 			if(getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability() == Permeability.Passable) 
 			{
@@ -135,13 +136,13 @@ public class Map implements IMap{
 
 	public void updateDiamonds()
 	{
-		for(int a = 0; a < NbxDiamonds; a++) {
+		for(int a = 0; a < SizeElement; a++) {
 			
 			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable) 
 			{
-				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
+				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
 				
-				if(compar == ' ') 
+				if(compar == MotionlessElementFactory.createBackgroundvoid().getSprite()) 
 				{
 					ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
 					ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
@@ -161,7 +162,7 @@ public class Map implements IMap{
 	
 	public void updateEnemy()
 	{
-		for(int a = 0; a < EnemyNb; a++)
+		for(int a = 0; a < SizeElement; a++)
 		{
 			boolean down, up, left, right;
 			
@@ -195,6 +196,7 @@ public class Map implements IMap{
 			}
 		}
 	}
+	
 	public int getXYDoor(int value)
 	{
 		switch(value) 
@@ -208,48 +210,38 @@ public class Map implements IMap{
 		}
 	}
 	
+	public void RemplirTableau(ResultSet Function, int tab[][], String Column) throws SQLException
+	{
+		this.results = Function;
+		while(this.results.next())
+		{
+			tab[SizeColumnElement][0] = this.results.getInt("Id_Map");
+			tab[SizeColumnElement][1] = this.results.getInt(Column);
+			tab[SizeColumnElement][2] = this.results.getInt("X");
+			tab[SizeColumnElement][3] = this.results.getInt("Y");
+			SizeColumnElement++;
+			
+		}
+		SizeColumnElement = 0;
+	}
+	
 	public void setPosMapElement(int id) throws SQLException {
 
-		this.results = this.daoboulderdash.FindMobileRock(id);
-		while(this.results.next())
-		{
-			TabRock[valA][0] = this.results.getInt("Id_Map");
-			TabRock[valA][1] = this.results.getInt("id_Rock");
-			TabRock[valA][2] = this.results.getInt("X");
-			TabRock[valA][3] = this.results.getInt("Y");
-			valA++;
-		}
+		RemplirTableau(this.daoboulderdash.FindMobileRock(id), TabRock, "id_Rock");
+		RemplirTableau(this.daoboulderdash.FindEnemy(id), TabEnem, "id_monster");
+		RemplirTableau(this.daoboulderdash.FindDiamond(id), TabDiam, "Id_diamond");
 		
-		this.results = this.daoboulderdash.FindDiamond(id);
-		while(this.results.next())
-		{
-			TabDiam[valB][0] = this.results.getInt("Id_Map");
-			TabDiam[valB][1] = this.results.getInt("Id_diamond");
-			TabDiam[valB][2] = this.results.getInt("X");
-			TabDiam[valB][3] = this.results.getInt("Y");
-			valB++;
-		}
 		
-		this.resultsC = this.daoboulderdash.FindEnemy(id);
-		while(this.resultsC.next())
-		{
-			TabEnem[valC][0] = this.resultsC.getInt("Id_Map");
-			TabEnem[valC][1] = this.resultsC.getInt("id_monster");
-			TabEnem[valC][2] = this.resultsC.getInt("X");
-			TabEnem[valC][3] = this.resultsC.getInt("Y");
-			valC++;
-		}
-		
-		for(int a = 0; a< RockNb; a++)
+		for(int a = 0; a< SizeElement; a++)
 		{
 			this.ArrayObject[a] = new Stone(TabRock[a][2], TabRock[a][3]);
 		}
-		for(int a = 0; a< NbxDiamonds; a++)
+		for(int a = 0; a< SizeElement; a++)
 		{
 			this.ArrayDiamond[a] = new Diamond(TabDiam[a][2], TabDiam[a][3]);
 		}
 		
-		for(int a = 0; a< EnemyNb; a++)
+		for(int a = 0; a< SizeElement; a++)
 		{
 			this.ArrayEnemy[a] = new Enemy(TabEnem[a][2], TabEnem[a][3]);
 		}
