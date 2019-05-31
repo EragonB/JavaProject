@@ -234,10 +234,8 @@ public class Map implements IMap{
 		{
 			if (ArrayObject[a].getX() == X && ArrayObject[a].getY() == Y)
 			{
-				System.out.println(ArrayObject[a].getX() + " " +  ArrayObject[a].getY());
 				ArrayObject[a].setXY(ArrayObject[a].getX()+Pos, ArrayObject[a].getY());
 				setOnTheMapXY(ArrayObject[a], ArrayObject[a].getX(), ArrayObject[a].getY());
-				System.out.println(ArrayObject[a].getX() + " " +  ArrayObject[a].getY());
 			}
 		}
 		
