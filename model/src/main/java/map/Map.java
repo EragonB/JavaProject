@@ -228,13 +228,16 @@ public class Map implements IMap{
 		}*/
 	}
 	
-	public void setTab(int X, int Y)
+	public void setTab(int X, int Y, int Pos)
 	{
 		for(int a=0; a < SizeElement; a++)
 		{
 			if (ArrayObject[a].getX() == X && ArrayObject[a].getY() == Y)
 			{
-				ArrayObject[a].setXY(ArrayObject[a].getX()+1, ArrayObject[a].getY());
+				System.out.println(ArrayObject[a].getX() + " " +  ArrayObject[a].getY());
+				ArrayObject[a].setXY(ArrayObject[a].getX()+Pos, ArrayObject[a].getY());
+				setOnTheMapXY(ArrayObject[a], ArrayObject[a].getX(), ArrayObject[a].getY());
+				System.out.println(ArrayObject[a].getX() + " " +  ArrayObject[a].getY());
 			}
 		}
 		

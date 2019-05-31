@@ -131,7 +131,7 @@ public  void play()
 			{
 				if (this.getMap().getOnTheMapXY(this.getMap().getMobile().getX()-1, this.getMap().getMobile().getY()).getPermeability() == Permeability.Passable)
 				{
-					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY());
+					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY(), -1);
 					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
 					//this.getMap().setOnTheMapXY(element, x, y);
 				}
@@ -146,7 +146,7 @@ public  void play()
 			{
 				if (this.getMap().getOnTheMapXY(this.getMap().getMobile().getX()+1, this.getMap().getMobile().getY()).getPermeability() == Permeability.Passable)
 				{
-					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY());
+					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY(), 1);
 					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
 					//this.getMap().setOnTheMapXY(element, x, y);
 				}
