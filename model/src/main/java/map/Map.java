@@ -70,6 +70,7 @@ public class Map implements IMap{
 	 *
 	 * @param id_map the id map
 	 * @throws SQLException the SQL exception
+	 * @throws InterruptedException 
 	 */
 	public Map(int id_map) throws SQLException {
 		// TODO Auto-generated constructor stub
@@ -94,8 +95,20 @@ public class Map implements IMap{
 		this.onTheMap= new IElement[this.height][this.width];
 		this.fillonTheMap(id_map);
 		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
-		thread = new Thread(this);
-		this.thread.start();
+		
+		while(true)
+	 	{
+	 		try {
+				Thread.sleep(500);
+				updateRocher();
+				updateDiamonds();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 	 
+	 		
+	 	}
 		
 		
 	}
@@ -467,8 +480,7 @@ public class Map implements IMap{
 	public void run() {
 		//TODO Erreur Plosible
 		try {
-			updateRocher();
-			//updateDiamonds();
+			
 			this.thread.sleep(500);
 		} catch (InterruptedException e) {
 

@@ -14,11 +14,12 @@ public class ViewFrame extends JFrame {
 
 
 	private static final long serialVersionUID = 1L;
-	private int Longueur = 800;
-	private int Largeur = 800;
+	private int Longueur = 960;
+	private int Largeur = 640;
 
 	private String Java = "BoulderDash";
-	private ViewPanel viewpanel;
+	private ViewPanel viewpanel = new ViewPanel(this);
+	private PanelA panA = new PanelA();
 	
 	
 	public ViewFrame(int id_map) {
@@ -28,43 +29,44 @@ public class ViewFrame extends JFrame {
 	}
 	
 	
-	public void setMapTaille(int id)
-	{
-		switch(id)
-		{
-		case 1:
-			this.Longueur = 7*32 -16;
-			this.Largeur  = 7*32 +16;
-			break;
-		case 2:
-			this.Longueur = 7*32 -16;
-			this.Largeur  = 7*32 +8;
-			break;
-		case 3:
-			this.Longueur = 12*32 -16;
-			this.Largeur  = 12*32 +16;
-			break;
-		case 4:
-			this.Longueur = 22*32 -16;
-			this.Largeur  = 23*32 +16;
-			break;
-		case 5:
-			this.Longueur = 21*32 -16;
-			this.Largeur  = 21*32 +16;
-			break;
-		}
-	}
+	
 	public void VuePrincipal()
 	{
-		//JFrame Alfred = new JFrame();
-		this.setViewpanel(new ViewPanel(this));
+		this.setViewpanel(viewpanel);
+		
+		
 		this.setSize(Longueur, Largeur);
 		this.setLocationRelativeTo(null);
 		this.setTitle(Java);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setContentPane(getViewpanel());
+		this.getContentPane().add(viewpanel);
 		this.setVisible(true);
+		/*
+		try
+		{
+		    Thread.sleep(2000);
+		    this.getContentPane().removeAll();
+		    this.getContentPane().add(viewpanel);
 		
+		    this.resize(800, 800);
+		    this.setLocationRelativeTo(null);
+		    this.revalidate();
+		    this.repaint();
+		 	
+		 	while(true)
+		 	{
+		 		Thread.sleep(500);
+			 	 
+			 	 System.out.print(panA.getMap());
+		 	}
+		 	 
+		}
+		catch(InterruptedException ex)
+		{
+		    Thread.currentThread().interrupt();
+		}
+			
+		*/
 	}
 	
 	public static void FrameDie() {
