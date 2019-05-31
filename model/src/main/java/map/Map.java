@@ -122,7 +122,7 @@ public class Map implements IMap{
 				
 				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
 				{
-					mobile.die();
+					//mobile.die();
 				}
 				
 			}
