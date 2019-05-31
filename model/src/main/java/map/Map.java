@@ -76,7 +76,7 @@ public class Map implements IMap{
 		
 		this.daoboulderdash=new DAOBoulderDash();
 		setPosMapElement(id_map);
-		thread = new Thread(this);
+		
 		
 		this.resultset=this.daoboulderdash.findMap(id_map);
 		
@@ -94,9 +94,10 @@ public class Map implements IMap{
 		this.onTheMap= new IElement[this.height][this.width];
 		this.fillonTheMap(id_map);
 		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
-		
-		
+		thread = new Thread(this);
 		this.thread.start();
+		
+		
 	}
 
 	public void updateRocher()
@@ -145,18 +146,17 @@ public class Map implements IMap{
 		//TODO
 		for(int a = 0; a < SizeElement; a++) {
 			
-			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable) 
+			
+			
+			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable ) 
 			{
+				
 				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
 				char comparA = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
 				
-				if(comparA == MotionlessElementFactory.createBackgroundvoid().getSprite() || compar != this.mobile.getSprite()) 
+				if(comparA == MotionlessElementFactory.createBackgroundvoid().getSprite() || compar != this.mobile.getSprite() || comparA ==  MotionlessElementFactory.createDirt().getSprite() || comparA == MotionlessElementFactory.createWall().getSprite()) 
 				{
-					if (compar == this.mobile.getSprite())
-					{
-						
-					}
-					else
+					if (compar != this.mobile.getSprite())
 					{
 						DeletDiamond();
 						ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
@@ -166,6 +166,7 @@ public class Map implements IMap{
 						setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
 						
 					}
+					
 				}
 				
 				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
@@ -227,6 +228,18 @@ public class Map implements IMap{
 		}*/
 	}
 	
+	public void setTab(int X, int Y)
+	{
+		for(int a=0; a < SizeElement; a++)
+		{
+			if (ArrayObject[a].getX() == X && ArrayObject[a].getY() == Y)
+			{
+				ArrayObject[a].setXY(ArrayObject[a].getX()+1, ArrayObject[a].getY());
+			}
+		}
+		
+	}
+
 	public int getXYDoor(int value)
 	{
 		switch(value) 
@@ -444,12 +457,17 @@ public class Map implements IMap{
 		this.mobile = mobile;
 	}
 	
+	public void updateObject()
+	{
+		this.thread.start();
+	}
+	
 	@Override
 	public void run() {
 		//TODO Erreur Plosible
 		try {
 			updateRocher();
-			updateDiamonds();
+			//updateDiamonds();
 			this.thread.sleep(500);
 		} catch (InterruptedException e) {
 

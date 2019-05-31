@@ -73,4 +73,8 @@ public interface IMap extends Runnable{
 
 	
 	public void DeletDiamond();
+	
+	public void updateObject();
+
+	public void setTab(int X, int Y);
 }

@@ -25,7 +25,7 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=3;
+	private int id_map=5;
 	private Thread thread;
 	/**
 	 * Instantiates a new boulder model.
@@ -125,7 +125,44 @@ public  void play()
 		{
 			this.getMap().getMobile().die();
 		}
-		
+		else if(this.getMap().getOnTheMapXY(MobileX, MobileY).getPermeability() == Permeability.Push)
+		{
+			if(this.getMap().getMobile().getSprite() == 'K')
+			{
+				if (this.getMap().getOnTheMapXY(this.getMap().getMobile().getX()-1, this.getMap().getMobile().getY()).getPermeability() == Permeability.Passable)
+				{
+					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY());
+					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
+					//this.getMap().setOnTheMapXY(element, x, y);
+				}
+				else
+				{
+					this.map.getMobile().setXY(MobileLastX,MobileLastY);
+					this.getMap().setOnTheMapXY(this.map.getMobile(), this.getMap().getMobile().getX(), this.getMap().getMobile().getY());	
+				}
+				
+			}
+			else if(this.getMap().getMobile().getSprite() == 'M')
+			{
+				if (this.getMap().getOnTheMapXY(this.getMap().getMobile().getX()+1, this.getMap().getMobile().getY()).getPermeability() == Permeability.Passable)
+				{
+					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY());
+					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
+					//this.getMap().setOnTheMapXY(element, x, y);
+				}
+				else
+				{
+					this.map.getMobile().setXY(MobileLastX,MobileLastY);
+					this.getMap().setOnTheMapXY(this.map.getMobile(), this.getMap().getMobile().getX(), this.getMap().getMobile().getY());	
+				}
+				
+			}
+			else 
+			{
+				this.map.getMobile().setXY(MobileLastX,MobileLastY);
+				this.getMap().setOnTheMapXY(this.map.getMobile(), this.getMap().getMobile().getX(), this.getMap().getMobile().getY());	
+			}
+		}
 		else {
 
 			this.map.getMobile().setXY(MobileLastX,MobileLastY);
@@ -165,6 +202,7 @@ public void run() {
 		try {
 			this.map.updateRocher();
 			this.map.updateDiamonds();
+			//this.map.updateObject();
 			this.thread.sleep(100);
 			this.setNotifier();
 		} catch (InterruptedException e) {
