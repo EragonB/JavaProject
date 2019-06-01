@@ -6,14 +6,27 @@ import java.sql.SQLException;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DAOBoulderDash.
+ */
 public class DAOBoulderDash {
 	
 
+	/**
+	 * Instantiates a new DAO boulder dash.
+	 */
 	public DAOBoulderDash() {
 		// TODO Auto-generated constructor stub
 	
 	}
 	
+	/**
+	 * Find map.
+	 *
+	 * @param id the id
+	 * @return the result set
+	 */
 	public ResultSet findMap(final int id) {
 		
 
@@ -31,6 +44,12 @@ public class DAOBoulderDash {
 		return null;
 	}
 	
+	/**
+	 * Find element.
+	 *
+	 * @param id the id
+	 * @return the result set
+	 */
 	public ResultSet findElement(final int id)
 	{
 		
@@ -48,6 +67,12 @@ public class DAOBoulderDash {
 		return null;
 	}
 	
+	/**
+	 * Find mobile rock.
+	 *
+	 * @param id the id
+	 * @return the result set
+	 */
 	public ResultSet FindMobileRock(final int id)
 	{
 		
@@ -65,6 +90,12 @@ public class DAOBoulderDash {
 		return null;
 	}
 	
+	/**
+	 * Find diamond.
+	 *
+	 * @param id the id
+	 * @return the result set
+	 */
 	public ResultSet FindDiamond(final int id)
 	{
 		
@@ -82,6 +113,12 @@ public class DAOBoulderDash {
 		return null;
 	}
 	
+	/**
+	 * Find enemy.
+	 *
+	 * @param id the id
+	 * @return the result set
+	 */
 	public ResultSet FindEnemy(final int id)
 	{
 		

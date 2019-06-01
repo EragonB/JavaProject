@@ -6,11 +6,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ManUp.
+ */
 public class ManUp extends MotherTrad {
+	
+	/**
+	 * Instantiates a new man up.
+	 */
 	public ManUp() {
 		getPicture();
 	}
 	
+	/**
+	 * Gets the picture.
+	 *
+	 * @return the picture
+	 */
 	public Image getPicture() {
 		Image image;
 		try {

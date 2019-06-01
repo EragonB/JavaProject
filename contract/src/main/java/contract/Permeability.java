@@ -20,9 +20,12 @@ Blocking,
  /** The Push. */
  Push,
  
+ /** The Enemy. */
  Enemy,
  
+ /** The Recover. */
  Recover, 
  
+ /** The Door. */
  Door
 }

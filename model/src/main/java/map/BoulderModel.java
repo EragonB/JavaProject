@@ -25,7 +25,9 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=5;
+	private int id_map=1;
+	
+	/** The thread. */
 	private Thread thread;
 	/**
 	 * Instantiates a new boulder model.
@@ -42,6 +44,10 @@ public class BoulderModel extends Observable implements IModel{
 		this.thread=new Thread(this);
 		this.thread.start();
 	}
+	
+	/**
+	 * Start.
+	 */
 	public void start()
 	{
 		try {
@@ -72,6 +78,11 @@ public class BoulderModel extends Observable implements IModel{
 		this.map = map;
 	}
 
+	/**
+	 * Sets the id map.
+	 *
+	 * @param id_map the new id map
+	 */
 	public void setIdMap(int id_map)
 	{
 		this.id_map = id_map;
@@ -183,17 +194,28 @@ public  void play()
 }
 
 
+/**
+ * Gets the observable.
+ *
+ * @return the observable
+ */
 public Observable getObservable()
 {
 	return this;
 }
 
+/**
+ * Sets the notifier.
+ */
 public void setNotifier()
 {
 	this.setChanged();
 	this.notifyObservers();
 }
 
+/**
+ * Run.
+ */
 @Override
 public void run() {
 	// TODO Auto-generated method stub

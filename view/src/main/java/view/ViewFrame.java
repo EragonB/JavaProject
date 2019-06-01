@@ -10,17 +10,34 @@ import javax.swing.JPanel;
 import FactoryPicture.MotherTradFactory;
 import contract.IModel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ViewFrame.
+ */
 public class ViewFrame extends JFrame {
 
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The Longueur. */
 	private int Longueur = 800;
+	
+	/** The Largeur. */
 	private int Largeur = 800;
 
+	/** The Java. */
 	private String Java = "BoulderDash";
+	
+	/** The viewpanel. */
 	private ViewPanel viewpanel;
 	
 	
+	/**
+	 * Instantiates a new view frame.
+	 *
+	 * @param id_map the id map
+	 */
 	public ViewFrame(int id_map) {
 		//setMapTaille(id_map);
 		VuePrincipal();
@@ -28,6 +45,11 @@ public class ViewFrame extends JFrame {
 	}
 	
 	
+	/**
+	 * Sets the map taille.
+	 *
+	 * @param id the new map taille
+	 */
 	public void setMapTaille(int id)
 	{
 		switch(id)
@@ -54,6 +76,10 @@ public class ViewFrame extends JFrame {
 			break;
 		}
 	}
+	
+	/**
+	 * Vue principal.
+	 */
 	public void VuePrincipal()
 	{
 		//JFrame Alfred = new JFrame();
@@ -67,6 +93,9 @@ public class ViewFrame extends JFrame {
 		
 	}
 	
+	/**
+	 * Frame die.
+	 */
 	public static void FrameDie() {
         
         JFrame jframedie = new JFrame();
@@ -97,17 +126,29 @@ public class ViewFrame extends JFrame {
         
     }
 	
+	/**
+	 * Gets the longueur.
+	 *
+	 * @return the longueur
+	 */
 	public int getLongueur()
 	{
 		return this.Longueur;
 	}
 	
+	/**
+	 * Gets the largeur.
+	 *
+	 * @return the largeur
+	 */
 	public int getLargeur()
 	{
 		return this.Largeur;
 	}
 
 	/**
+	 * Gets the viewpanel.
+	 *
 	 * @return the viewpanel
 	 */
 	public ViewPanel getViewpanel() {
@@ -115,12 +156,19 @@ public class ViewFrame extends JFrame {
 	}
 
 	/**
+	 * Sets the viewpanel.
+	 *
 	 * @param viewpanel the viewpanel to set
 	 */
 	public void setViewpanel(ViewPanel viewpanel) {
 		this.viewpanel = viewpanel;
 	}
 	
+	/**
+	 * Adds the observer.
+	 *
+	 * @param model the model
+	 */
 	public void addObserver(IModel model)
 	{
 		model.getObservable().addObserver(getViewpanel());

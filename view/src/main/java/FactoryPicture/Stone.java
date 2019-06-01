@@ -6,11 +6,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Stone.
+ */
 public class Stone extends MotherTrad {
+	
+	/**
+	 * Instantiates a new stone.
+	 */
 	public Stone() {
 		getPicture();
 	}
 	
+	/**
+	 * Gets the picture.
+	 *
+	 * @return the picture
+	 */
 	public Image getPicture() {
 		Image image;
 		try {

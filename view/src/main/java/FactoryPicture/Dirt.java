@@ -6,11 +6,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Dirt.
+ */
 public class Dirt extends MotherTrad {
+	
+	/**
+	 * Instantiates a new dirt.
+	 */
 	public Dirt() {
 		getPicture();
 	}
 	
+	/**
+	 * Gets the picture.
+	 *
+	 * @return the picture
+	 */
 	public Image getPicture() {
 		Image image;
 		try {

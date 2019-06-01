@@ -5,18 +5,45 @@ import java.awt.event.KeyListener;
 import contract.IController;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class KeyEvent.
+ */
 public class KeyEvent implements KeyListener {
+
+/** The control. */
 private IController control;
+	
+	/**
+	 * Instantiates a new key event.
+	 *
+	 * @param controller the controller
+	 */
 	public KeyEvent(IController controller) {
 		this.control=controller;
 	}
 
+	/**
+	 * Key pressed.
+	 *
+	 * @param arg0 the arg 0
+	 */
 	@Override
 	public void keyPressed(java.awt.event.KeyEvent arg0) {}
 
+	/**
+	 * Key released.
+	 *
+	 * @param arg0 the arg 0
+	 */
 	@Override
 	public void keyReleased(java.awt.event.KeyEvent arg0) {}
 
+	/**
+	 * Key typed.
+	 *
+	 * @param arg0 the arg 0
+	 */
 	@Override
 	public void keyTyped(java.awt.event.KeyEvent arg0) {
 		// TODO Try without control

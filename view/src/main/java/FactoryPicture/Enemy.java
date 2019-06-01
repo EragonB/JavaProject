@@ -6,11 +6,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Enemy.
+ */
 public class Enemy extends MotherTrad {
+	
+	/**
+	 * Instantiates a new enemy.
+	 */
 	public Enemy() {
 		getPicture();
 	}
 	
+	/**
+	 * Gets the picture.
+	 *
+	 * @return the picture
+	 */
 	public Image getPicture() {
 		Image image;
 		try {

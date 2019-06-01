@@ -38,30 +38,54 @@ public class Map implements IMap{
 	/** The resultset. */
 	private ResultSet resultset=null;
 
+	/** The results. */
 	private ResultSet results=null;
 	
 
+	/** The thread. */
 	Thread thread;
 	
 	/** The mobile. */
 	private IMobile mobile=new Gugus();
 	
 
+	/** The Compte diamant. */
 	private int CompteDiamant = 0;
+	
+	/** The Diam player. */
 	private int DiamPlayer = 0;
 
+	/** The X door. */
 	private int XDoor = 0;
+	
+	/** The Y door. */
 	private int YDoor = 0;
 	
+	/** The Size element. */
 	int SizeElement = 60;
+	
+	/** The Size column element. */
 	int SizeColumnElement = 0;
+	
+	/** The xii. */
 	int XI 		= 0, XV 	= 0, XII 	= 0;
 	
+	/** The Tab rock. */
 	int TabRock[][] 		= new int		[SizeElement]	[3];
+	
+	/** The Tab diam. */
 	int TabDiam[][] 		= new int		[SizeElement]	[3];
+	
+	/** The Tab enem. */
 	int TabEnem[][]			= new int 		[SizeElement] 	[3];
+	
+	/** The Array object. */
 	Stone[] ArrayObject 	= new Stone		[SizeElement];
+	
+	/** The Array diamond. */
 	Diamond[] ArrayDiamond 	= new Diamond	[SizeElement];
+	
+	/** The Array enemy. */
 	Enemy[] ArrayEnemy 		= new Enemy		[SizeElement];
 
 
@@ -100,6 +124,9 @@ public class Map implements IMap{
 		
 	}
 
+	/**
+	 * Update rocher.
+	 */
 	public void updateRocher()
 	{
 		//TODO
@@ -141,6 +168,9 @@ public class Map implements IMap{
 		}
 	}
 
+	/**
+	 * Update diamonds.
+	 */
 	public void updateDiamonds()
 	{
 		//TODO
@@ -179,6 +209,9 @@ public class Map implements IMap{
 		}
 	}
 	
+	/**
+	 * Delet diamond.
+	 */
 	public void DeletDiamond()
 	{
 		for(int a=0; a < SizeElement; a++)
@@ -190,6 +223,9 @@ public class Map implements IMap{
 		}
 	}
 	
+	/**
+	 * Update enemy.
+	 */
 	public void updateEnemy()
 	{
 		//TODO
@@ -228,6 +264,13 @@ public class Map implements IMap{
 		}*/
 	}
 	
+	/**
+	 * Sets the tab.
+	 *
+	 * @param X the x
+	 * @param Y the y
+	 * @param Pos the pos
+	 */
 	public void setTab(int X, int Y, int Pos)
 	{
 		for(int a=0; a < SizeElement; a++)
@@ -241,6 +284,12 @@ public class Map implements IMap{
 		
 	}
 
+	/**
+	 * Gets the XY door.
+	 *
+	 * @param value the value
+	 * @return the XY door
+	 */
 	public int getXYDoor(int value)
 	{
 		switch(value) 
@@ -254,6 +303,14 @@ public class Map implements IMap{
 		}
 	}
 	
+	/**
+	 * Remplir tableau.
+	 *
+	 * @param Function the function
+	 * @param tab the tab
+	 * @param Column the column
+	 * @throws SQLException the SQL exception
+	 */
 	public void RemplirTableau(ResultSet Function, int tab[][], String Column) throws SQLException
 	{
 		//TODO Changer de Nom
@@ -269,6 +326,12 @@ public class Map implements IMap{
 		SizeColumnElement = 0;
 	}
 
+	/**
+	 * Sets the pos map element.
+	 *
+	 * @param id the new pos map element
+	 * @throws SQLException the SQL exception
+	 */
 	public void setPosMapElement(int id) throws SQLException {
 
 		RemplirTableau(this.daoboulderdash.FindMobileRock(id), TabRock, "id_Rock");
@@ -291,6 +354,11 @@ public class Map implements IMap{
 		}
 	}
 
+	/**
+	 * Gets the compte diamant.
+	 *
+	 * @return the compte diamant
+	 */
 	public int getCompteDiamant()
 	{
 		return this.CompteDiamant;
@@ -298,7 +366,9 @@ public class Map implements IMap{
 	
 	/**
 	 * Fill on the map.
-	 * @throws SQLException 
+	 *
+	 * @param id_map the id map
+	 * @throws SQLException the SQL exception
 	 */
 	private void fillonTheMap(int id_map) throws SQLException {
 		
@@ -322,11 +392,21 @@ public class Map implements IMap{
 		
 	}
 
+	/**
+	 * Sets the diam player.
+	 *
+	 * @param value the new diam player
+	 */
 	public void setDiamPlayer(int value)
 	{
 		this.DiamPlayer = value;
 	}
 	
+	/**
+	 * Gets the diam player.
+	 *
+	 * @return the diam player
+	 */
 	public int getDiamPlayer()
 	{
 		return DiamPlayer;
@@ -396,6 +476,12 @@ public class Map implements IMap{
 	}
 	
 	
+	/**
+	 * Sets the element.
+	 *
+	 * @param id_map the new element
+	 * @throws SQLException the SQL exception
+	 */
 	public void setElement(int id_map) throws SQLException
 	{
 		this.resultset=this.daoboulderdash.findElement(id_map);
@@ -434,35 +520,71 @@ public class Map implements IMap{
 		}
 	}
 
+	/**
+	 * Gets the daoboulderdash.
+	 *
+	 * @return the daoboulderdash
+	 */
 	public DAOBoulderDash getDaoboulderdash() {
 		return daoboulderdash;
 	}
 
+	/**
+	 * Sets the daoboulderdash.
+	 *
+	 * @param daoboulderdash the new daoboulderdash
+	 */
 	public void setDaoboulderdash(DAOBoulderDash daoboulderdash) {
 		this.daoboulderdash = daoboulderdash;
 	}
 
+	/**
+	 * Gets the resultset.
+	 *
+	 * @return the resultset
+	 */
 	public ResultSet getResultset() {
 		return this.resultset;
 	}
 
+	/**
+	 * Sets the resultset.
+	 *
+	 * @param resultset the new resultset
+	 */
 	public void setResultset(ResultSet resultset) {
 		this.resultset = resultset;
 	}
 
+	/**
+	 * Gets the mobile.
+	 *
+	 * @return the mobile
+	 */
 	public IMobile getMobile() {
 		return mobile;
 	}
 
+	/**
+	 * Sets the mobile.
+	 *
+	 * @param mobile the new mobile
+	 */
 	public void setMobile(IMobile mobile) {
 		this.mobile = mobile;
 	}
 	
+	/**
+	 * Update object.
+	 */
 	public void updateObject()
 	{
 		this.thread.start();
 	}
 	
+	/**
+	 * Run.
+	 */
 	@Override
 	public void run() {
 		//TODO Erreur Plosible

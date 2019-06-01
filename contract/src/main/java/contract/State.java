@@ -1,5 +1,15 @@
 package contract;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum State.
+ */
 public enum State {
-Life, Dead, Finish
+
+/** The Life. */
+Life, 
+ /** The Dead. */
+ Dead, 
+ /** The Finish. */
+ Finish
 }
