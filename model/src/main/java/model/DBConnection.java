@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class DBConnection.
  *
@@ -64,26 +65,56 @@ final class DBConnection {
 		return true;
 	}
 
+	/**
+	 * Gets the url.
+	 *
+	 * @return the url
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the new url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * Gets the login.
+	 *
+	 * @return the login
+	 */
 	public String getLogin() {
 		return login;
 	}
 
+	/**
+	 * Sets the login.
+	 *
+	 * @param login the new login
+	 */
 	public void setLogin(String login) {
 		this.login = login;
 	}
 
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}

@@ -6,11 +6,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DeathHead.
+ */
 public class DeathHead extends MotherTrad {
+	
+	/**
+	 * Instantiates a new death head.
+	 */
 	public DeathHead() {
 		getPicture();
 	}
 	
+	/**
+	 * Gets the picture.
+	 *
+	 * @return the picture
+	 */
 	public Image getPicture() {
 		Image image;
 		try {

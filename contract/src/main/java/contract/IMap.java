@@ -56,17 +56,70 @@ public interface IMap extends Runnable{
 	 * @param y the y
 	 */
 	void setOnTheMapXY(IElement element, int x, int y);
+	
+	/**
+	 * Gets the mobile.
+	 *
+	 * @return the mobile
+	 */
 	IMobile getMobile();
 	
-	void setMobile(IMobile mobile);
-	
+	/**
+	 * Update rocher.
+	 */
 	public void updateRocher();
+	
+	/**
+	 * Update diamonds.
+	 */
 	public void updateDiamonds();
 	
+	/**
+	 * Sets the diam player.
+	 *
+	 * @param value the new diam player
+	 */
 	public void setDiamPlayer(int value);
 	
+	/**
+	 * Gets the diam player.
+	 *
+	 * @return the diam player
+	 */
 	public int getDiamPlayer();
+	
+	/**
+	 * Gets the XY door.
+	 *
+	 * @param value the value
+	 * @return the XY door
+	 */
 	public int getXYDoor(int value);
+	
+	/**
+	 * Gets the compte diamant.
+	 *
+	 * @return the compte diamant
+	 */
 	public int getCompteDiamant();
 
+	
+	/**
+	 * Delet diamond.
+	 */
+	public void DeletDiamond();
+	
+	/**
+	 * Update object.
+	 */
+	public void updateObject();
+
+	/**
+	 * Sets the tab.
+	 *
+	 * @param X the x
+	 * @param Y the y
+	 * @param Pos the pos
+	 */
+	public void setTab(int X, int Y, int Pos);
 }

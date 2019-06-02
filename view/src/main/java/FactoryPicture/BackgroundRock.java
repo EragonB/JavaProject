@@ -6,11 +6,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BackgroundRock.
+ */
 public class BackgroundRock extends MotherTrad {
+	
+	/**
+	 * Instantiates a new background rock.
+	 */
 	public BackgroundRock() {
 		getPicture();
 	}
 	
+	/**
+	 * Gets the picture.
+	 *
+	 * @return the picture
+	 */
 	public Image getPicture() {
 		Image image;
 		try {

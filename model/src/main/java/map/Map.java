@@ -6,7 +6,6 @@ package map;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 
 import MotionlessElement.MotionlessElementFactory;
 import contract.IElement;
@@ -39,28 +38,54 @@ public class Map implements IMap{
 	/** The resultset. */
 	private ResultSet resultset=null;
 
+	/** The results. */
 	private ResultSet results=null;
-	private ResultSet resultsC=null;
+	
+
+	/** The thread. */
+	Thread thread;
 	
 	/** The mobile. */
 	private IMobile mobile=new Gugus();
 	
 
+	/** The Compte diamant. */
 	private int CompteDiamant = 0;
+	
+	/** The Diam player. */
 	private int DiamPlayer = 0;
 
+	/** The X door. */
 	private int XDoor = 0;
+	
+	/** The Y door. */
 	private int YDoor = 0;
 	
+	/** The Size element. */
 	int SizeElement = 60;
+	
+	/** The Size column element. */
 	int SizeColumnElement = 0;
+	
+	/** The xii. */
 	int XI 		= 0, XV 	= 0, XII 	= 0;
 	
+	/** The Tab rock. */
 	int TabRock[][] 		= new int		[SizeElement]	[3];
+	
+	/** The Tab diam. */
 	int TabDiam[][] 		= new int		[SizeElement]	[3];
+	
+	/** The Tab enem. */
 	int TabEnem[][]			= new int 		[SizeElement] 	[3];
+	
+	/** The Array object. */
 	Stone[] ArrayObject 	= new Stone		[SizeElement];
+	
+	/** The Array diamond. */
 	Diamond[] ArrayDiamond 	= new Diamond	[SizeElement];
+	
+	/** The Array enemy. */
 	Enemy[] ArrayEnemy 		= new Enemy		[SizeElement];
 
 
@@ -75,6 +100,7 @@ public class Map implements IMap{
 		
 		this.daoboulderdash=new DAOBoulderDash();
 		setPosMapElement(id_map);
+		
 		
 		this.resultset=this.daoboulderdash.findMap(id_map);
 		
@@ -92,11 +118,18 @@ public class Map implements IMap{
 		this.onTheMap= new IElement[this.height][this.width];
 		this.fillonTheMap(id_map);
 		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
-		System.out.print(this.CompteDiamant);
+		thread = new Thread(this);
+		this.thread.start();
+		
+		
 	}
 
+	/**
+	 * Update rocher.
+	 */
 	public void updateRocher()
 	{
+		//TODO
 		for(int a = 0; a < SizeElement; a++) {
 			
 			char compar = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getSprite();
@@ -129,40 +162,74 @@ public class Map implements IMap{
 				ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
 				
 				setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
-				setOnTheMapXY(new Diamond(ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY()),ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+				this.ArrayDiamond[40] = new Diamond(ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+				setOnTheMapXY(this.ArrayDiamond[40],ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
 			}
 		}
 	}
 
+	/**
+	 * Update diamonds.
+	 */
 	public void updateDiamonds()
 	{
+		//TODO
 		for(int a = 0; a < SizeElement; a++) {
 			
-			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable) 
+			
+			
+			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable ) 
 			{
-				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
 				
-				if(compar == MotionlessElementFactory.createBackgroundvoid().getSprite()) 
+				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
+				char comparA = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
+				
+				if(comparA == MotionlessElementFactory.createBackgroundvoid().getSprite() || compar != this.mobile.getSprite() || comparA ==  MotionlessElementFactory.createDirt().getSprite() || comparA == MotionlessElementFactory.createWall().getSprite()) 
 				{
-					ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-					ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+					if (compar != this.mobile.getSprite())
+					{
+						DeletDiamond();
+						ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+						ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+						
+						setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+						setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+						
+					}
 					
-					setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
 				}
 				
 				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
 				{
-					//mobile.die();
+					
+					mobile.die();
 				}
 				
 			}
 		}
 	}
 	
+	/**
+	 * Delet diamond.
+	 */
+	public void DeletDiamond()
+	{
+		for(int a=0; a < SizeElement; a++)
+		{
+			if (ArrayDiamond[a].getX() == this.mobile.getX() && ArrayDiamond[a].getY() == this.mobile.getY())
+			{
+				ArrayDiamond[a].setXY(0, 0);
+			}
+		}
+	}
+	
+	/**
+	 * Update enemy.
+	 */
 	public void updateEnemy()
 	{
-		for(int a = 0; a < SizeElement; a++)
+		//TODO
+		/*for(int a = 0; a < SizeElement; a++)
 		{
 			boolean down, up, left, right;
 			
@@ -194,9 +261,35 @@ public class Map implements IMap{
 			case 4:
 				break;
 			}
-		}
+		}*/
 	}
 	
+	/**
+	 * Sets the tab.
+	 *
+	 * @param X the x
+	 * @param Y the y
+	 * @param Pos the pos
+	 */
+	public void setTab(int X, int Y, int Pos)
+	{
+		for(int a=0; a < SizeElement; a++)
+		{
+			if (ArrayObject[a].getX() == X && ArrayObject[a].getY() == Y)
+			{
+				ArrayObject[a].setXY(ArrayObject[a].getX()+Pos, ArrayObject[a].getY());
+				setOnTheMapXY(ArrayObject[a], ArrayObject[a].getX(), ArrayObject[a].getY());
+			}
+		}
+		
+	}
+
+	/**
+	 * Gets the XY door.
+	 *
+	 * @param value the value
+	 * @return the XY door
+	 */
 	public int getXYDoor(int value)
 	{
 		switch(value) 
@@ -210,8 +303,17 @@ public class Map implements IMap{
 		}
 	}
 	
+	/**
+	 * Remplir tableau.
+	 *
+	 * @param Function the function
+	 * @param tab the tab
+	 * @param Column the column
+	 * @throws SQLException the SQL exception
+	 */
 	public void RemplirTableau(ResultSet Function, int tab[][], String Column) throws SQLException
 	{
+		//TODO Changer de Nom
 		this.results = Function;
 		while(this.results.next())
 		{
@@ -224,6 +326,12 @@ public class Map implements IMap{
 		SizeColumnElement = 0;
 	}
 
+	/**
+	 * Sets the pos map element.
+	 *
+	 * @param id the new pos map element
+	 * @throws SQLException the SQL exception
+	 */
 	public void setPosMapElement(int id) throws SQLException {
 
 		RemplirTableau(this.daoboulderdash.FindMobileRock(id), TabRock, "id_Rock");
@@ -246,13 +354,21 @@ public class Map implements IMap{
 		}
 	}
 
+	/**
+	 * Gets the compte diamant.
+	 *
+	 * @return the compte diamant
+	 */
 	public int getCompteDiamant()
 	{
 		return this.CompteDiamant;
 	}
+	
 	/**
 	 * Fill on the map.
-	 * @throws SQLException 
+	 *
+	 * @param id_map the id map
+	 * @throws SQLException the SQL exception
 	 */
 	private void fillonTheMap(int id_map) throws SQLException {
 		
@@ -276,11 +392,21 @@ public class Map implements IMap{
 		
 	}
 
+	/**
+	 * Sets the diam player.
+	 *
+	 * @param value the new diam player
+	 */
 	public void setDiamPlayer(int value)
 	{
 		this.DiamPlayer = value;
 	}
 	
+	/**
+	 * Gets the diam player.
+	 *
+	 * @return the diam player
+	 */
 	public int getDiamPlayer()
 	{
 		return DiamPlayer;
@@ -350,6 +476,12 @@ public class Map implements IMap{
 	}
 	
 	
+	/**
+	 * Sets the element.
+	 *
+	 * @param id_map the new element
+	 * @throws SQLException the SQL exception
+	 */
 	public void setElement(int id_map) throws SQLException
 	{
 		this.resultset=this.daoboulderdash.findElement(id_map);
@@ -388,32 +520,82 @@ public class Map implements IMap{
 		}
 	}
 
+	/**
+	 * Gets the daoboulderdash.
+	 *
+	 * @return the daoboulderdash
+	 */
 	public DAOBoulderDash getDaoboulderdash() {
 		return daoboulderdash;
 	}
 
+	/**
+	 * Sets the daoboulderdash.
+	 *
+	 * @param daoboulderdash the new daoboulderdash
+	 */
 	public void setDaoboulderdash(DAOBoulderDash daoboulderdash) {
 		this.daoboulderdash = daoboulderdash;
 	}
 
+	/**
+	 * Gets the resultset.
+	 *
+	 * @return the resultset
+	 */
 	public ResultSet getResultset() {
-		return resultset;
+		return this.resultset;
 	}
 
+	/**
+	 * Sets the resultset.
+	 *
+	 * @param resultset the new resultset
+	 */
 	public void setResultset(ResultSet resultset) {
 		this.resultset = resultset;
 	}
 
+	/**
+	 * Gets the mobile.
+	 *
+	 * @return the mobile
+	 */
 	public IMobile getMobile() {
 		return mobile;
 	}
 
+	/**
+	 * Sets the mobile.
+	 *
+	 * @param mobile the new mobile
+	 */
 	public void setMobile(IMobile mobile) {
 		this.mobile = mobile;
 	}
+	
+	/**
+	 * Update object.
+	 */
+	public void updateObject()
+	{
+		this.thread.start();
+	}
+	
+	/**
+	 * Run.
+	 */
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		//TODO Erreur Plosible
+		try {
+			updateRocher();
+			//updateDiamonds();
+			this.thread.sleep(500);
+		} catch (InterruptedException e) {
+
+			e.printStackTrace();
+		}
 		
 	}
 

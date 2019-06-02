@@ -2,21 +2,55 @@ package FactoryPicture;
 
 import java.awt.Image;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating MotherTrad objects.
+ */
 public class MotherTradFactory {
+	
+	/** The Background rock. */
 	MotherTrad BackgroundRock = new BackgroundRock();
+	
+	/** The Dirt. */
 	MotherTrad Dirt = new Dirt();
+	
+	/** The Wall. */
 	MotherTrad Wall = new Wall();
+	
+	/** The Enemy. */
 	MotherTrad Enemy = new Enemy();
+	
+	/** The Diamond. */
 	MotherTrad Diamond = new Diamond();
+	
+	/** The Stone. */
 	MotherTrad Stone = new Stone();
+	
+	/** The Door. */
 	MotherTrad Door = new Door();
+	
+	/** The Man up. */
 	MotherTrad ManUp = new ManUp();
+	
+	/** The Man down. */
 	MotherTrad ManDown = new ManDown();
+	
+	/** The Man left. */
 	MotherTrad ManLeft = new ManLeft();
+	
+	/** The Man right. */
 	MotherTrad ManRight = new ManRight();
+	
+	/** The Death. */
 	MotherTrad Death = new DeathHead();
 	
 	
+	/**
+	 * Gets the photo.
+	 *
+	 * @param Caractere the caractere
+	 * @return the photo
+	 */
 	public Image getPhoto(char Caractere) {
 		switch(Caractere) {
 		
