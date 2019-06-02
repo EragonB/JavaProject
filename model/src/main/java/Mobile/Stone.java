@@ -15,6 +15,8 @@ public class Stone extends Mobile{
 	 * @param x the x
 	 * @param y the y
 	 */
+	
+	
 	public Stone(int x, int y) {
 		super(Permeability.Push, 'P');
 		this.x = x;

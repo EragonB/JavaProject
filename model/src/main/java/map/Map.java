@@ -12,6 +12,7 @@ import contract.IElement;
 import contract.IMap;
 import contract.IMobile;
 import contract.Permeability;
+import contract.State;
 import model.DAOBoulderDash;
 import Mobile.*;
 
@@ -171,41 +172,39 @@ public class Map implements IMap{
 	 */
 	public void updateDiamonds()
 	{
-		//TODO
-		for(int a = 0; a < SizeElement; a++) {
-			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable ) 
+		if (this.mobile.getState() == State.Life)
+		{
+			for (int a = 0; a < SizeElement; a++)
 			{
+				char comparative = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
 				
-				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
-				char comparA = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
-				
-				if(comparA == MotionlessElementFactory.createBackgroundvoid().getSprite() 
-						|| compar != this.mobile.getSprite()
-								|| comparA ==  MotionlessElementFactory.createDirt().getSprite() 
-									|| comparA == MotionlessElementFactory.createWall().getSprite()) 
+				if (comparative == MotionlessElementFactory.createBackgroundvoid().getSprite())
 				{
-					if (compar != this.mobile.getSprite())
+					ArrayDiamond[a].setStrengh(ArrayDiamond[a].getStrengh()+1);
+					ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+					setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+					
+				}
+				
+				else if (comparative == this.mobile.getSprite())
+				{
+					if(ArrayDiamond[a].getStrengh() > 0)
 					{
-
-						DeleteDiamond();
-						ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-						ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
-						
-						setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-						setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+						mobile.die();
 					}
-					
-					
+					else 
+					{
+						DeleteDiamond();
+					}
 				}
-				
-				
-				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				else
 				{
-					
-					mobile.die();
+					ArrayDiamond[a].setStrengh(0);
 				}
-				
 			}
+
 		}
 	}
 	
