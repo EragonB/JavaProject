@@ -1,15 +1,15 @@
 /*
  * @Author: Jougleux Bryan
  */
-package map;
+package contract;
 
-import Element.IElement;
+
 
 // TODO: Auto-generated Javadoc
 /**
  * The Interface IMap.
  */
-public interface IMap {
+public interface IMap extends Runnable{
 
 	/**
 	 * Gets the height.
@@ -56,5 +56,17 @@ public interface IMap {
 	 * @param y the y
 	 */
 	void setOnTheMapXY(IElement element, int x, int y);
+	IMobile getMobile();
+	
+	void setMobile(IMobile mobile);
+	
+	public void updateRocher();
+	public void updateDiamonds();
+	
+	public void setDiamPlayer(int value);
+	
+	public int getDiamPlayer();
+	public int getXYDoor(int value);
+	public int getCompteDiamant();
 
 }

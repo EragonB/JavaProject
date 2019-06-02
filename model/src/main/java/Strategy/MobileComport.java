@@ -1,13 +1,37 @@
 package Strategy;
 
-import Mobile.Mobile;
+import contract.IMobile;
+import contract.IMovement;
+
 
 public abstract class MobileComport implements IMovement{
 	
-	private Mobile mobile;
-	public MobileComport(Mobile mobile)
+	private IMobile mobile;
+	public MobileComport(IMobile mobile)
 	{
 		this.mobile=mobile;
+	}
+	
+	public void moveChoice(int value)
+	{
+		switch(value)
+		{
+		case 1:
+			moveUp();
+			break;
+			
+		case 2:
+			moveDown();
+			break;
+			
+		case 3:
+			moveLeft();
+		break;
+
+		case 4:
+			moveRight();
+			break;
+		}
 	}
 	
 	@Override
@@ -28,13 +52,13 @@ public abstract class MobileComport implements IMovement{
 	public void coordonneesX(int i)
 	{
 
-		this.mobile.setX(this.mobile.getX()+(1*i));
+		this.mobile.setXY(this.mobile.getX()+(1*i), this.mobile.getY());
 		
 	}
 	
 	public void coordonneesY(int i)
 	{
-		this.mobile.setY(this.mobile.getY()+(1*i));
+		this.mobile.setXY(this.mobile.getX(),this.mobile.getY()+(1*i));
 	}
 	
 }

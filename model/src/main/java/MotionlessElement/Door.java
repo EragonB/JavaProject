@@ -1,11 +1,11 @@
 package MotionlessElement;
 
-import Element.Permeability;
+import contract.Permeability;
 
 public class Door extends MotionlessElement{
 
 	public Door() {
-		super(Permeability.Passable, 'A');
+		super(Permeability.Door, 'A');
 		// TODO Auto-generated constructor stub
 	}
 

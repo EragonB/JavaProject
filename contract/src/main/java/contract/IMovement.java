@@ -1,4 +1,4 @@
-package Strategy;
+package contract;
 
 public interface IMovement {
 	
@@ -6,7 +6,7 @@ public interface IMovement {
 	public void moveRight();
 	public void moveUp();
 	public void moveDown();
-	public void coordonneesX(int i);
-	public void coordonneesY(int i);
+	
+	
 
 }

@@ -5,8 +5,14 @@ package map;
 
 
 import java.sql.SQLException;
+import java.util.Observable;
 
-import Mobile.*;
+import MotionlessElement.MotionlessElementFactory;
+import contract.IMap;
+import contract.IModel;
+import contract.Permeability;
+import contract.State;
+
 
 
 
@@ -16,23 +22,27 @@ import Mobile.*;
  *
  * @author Bryan
  */
-public class BoulderModel {
+public class BoulderModel extends Observable implements IModel{
 	
 	/** The map. */
 	private IMap map;
-	
 	/** The id map. */
-	private int id_map=5;
-	
+	private int id_map=3;
+	private Thread thread, threadA;
 	/**
 	 * Instantiates a new boulder model.
 	 *
 	 * @throws SQLException the SQL exception
 	 */
+	
 	public BoulderModel() throws SQLException
 	{
 		this.map=new Map(this.id_map);
-		}
+		this.threadA = new Thread(this);
+		this.thread=new Thread(this);
+		this.thread.start();
+		
+	}
 	
 	/**
 	 * Gets the map.
@@ -55,25 +65,92 @@ public class BoulderModel {
 /**
  * Play.
  */
-public void play()
+
+public  void play()
 {
-//this.mobile.getMovement().moveLeft();	
+	
+	if(this.getMap().getMobile().getState()==this.getMap().getMobile().alive() && this.getMap().getMobile().getState() != State.Finish)
+	{
+		
+		this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.getMap().getMobile().getLastPositionX(), this.getMap().getMobile().getLastPositionY());
+		
+		
+		if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()
+				==Permeability.Creusable||
+				this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability()
+				==Permeability.Passable)
+		{
+			
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+		//this.setNotifier();
+		}
+		
+		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Recover) 
+		{
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+			this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.map.getMobile().getLastPositionX(), this.map.getMobile().getLastPositionY());
+			
+			this.map.setDiamPlayer(this.map.getDiamPlayer()+1);
+			System.out.print(this.map.getDiamPlayer());
+			
+			if (this.map.getDiamPlayer() == this.map.getCompteDiamant()) {
+				this.getMap().setOnTheMapXY(MotionlessElementFactory.createDoor(), this.map.getXYDoor(1), this.map.getXYDoor(2));
+				System.out.print("CHOCOLAT");
+			}
+			
+		}
+		else if (this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Door)
+		{
+			this.getMap().getMobile().finish();
+		}
+
+		else if(this.getMap().getOnTheMapXY(this.getMap().getMobile().getX(), this.getMap().getMobile().getY()).getPermeability() == Permeability.Enemy){
+			this.getMap().getMobile().die();
+		}
+		else {
+			this.map.getMobile().setXY(this.map.getMobile().getLastPositionX(),this.map.getMobile().getLastPositionY());
+			this.getMap().setOnTheMapXY(this.map.getMobile(), this.map.getMobile().getX(), this.map.getMobile().getY());
+			
+		}
+	}
+	else {
+		
+		System.out.println("Crash");
+	}
+	
+
+	
 }
 
-/**
- * Show.
- */
-public void show()
-{
-	for (int y = 0; y < this.map.getHeight(); y++) {
-        for (int x = 0; x < this.map.getWidth(); x++) {
 
-                System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite());
-            }
-        System.out.println("");
-        }
-        
-        
-    }
+public Observable getObservable()
+{
+	return this;
+}
+
+public void setNotifier()
+{
+	this.setChanged();
+	this.notifyObservers();
+}
+
+@Override
+public void run() {
+	// TODO Auto-generated method stub
+	while(true)
+	{
+		try {
+			this.map.updateRocher();
+			this.map.updateDiamonds();
+			this.thread.sleep(20);
+			this.setNotifier();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+}
 }
 

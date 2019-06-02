@@ -3,6 +3,9 @@
  */
 package Element;
 
+import contract.IElement;
+import contract.Permeability;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Element.

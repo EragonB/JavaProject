@@ -6,7 +6,12 @@ package main;
 
 import java.sql.SQLException;
 
+import contract.IController;
+import contract.IModel;
+import contract.IView;
+import controller.Controller;
 import map.BoulderModel;
+import view.View;
 
 /**
  * The Class Main.
@@ -23,23 +28,12 @@ public abstract class Main {
      * @throws SQLException 
      */
     public static void main(final String[] args) throws SQLException {
-        /*final Model model = new Model();
-        final View view = new View(model);
-        final Controller controller = new Controller(view, model);
-        view.setController(controller);
+ 
+    	IModel model=new BoulderModel();
+    	  	
+    	IView view = new View();
 
-        controller.control();
-        controller.orderPerform(ControllerOrder.English);*/
-    	BoulderModel model=new BoulderModel();
-    	//model.play();
-    	model.show();
-    	/*DAOBoulderDash db = new DAOBoulderDash();
-    	
-    	ResultSet tab=db.find(2);
-    	while(tab.next())
-    	{
-    		System.out.println(tab.getInt("Map_Height")+"      "+ tab.getInt("diamondsNeeded"));
-    	}*/
+    	IController controller = new Controller(view, model);
     	
     	
     }

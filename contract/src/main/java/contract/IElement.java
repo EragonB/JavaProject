@@ -1,7 +1,9 @@
 /*
  * @Author: Jougleux Bryan
  */
-package Element;
+package contract;
+
+
 
 // TODO: Auto-generated Javadoc
 /**

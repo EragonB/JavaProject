@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Element;
+package contract;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -18,5 +18,11 @@ Blocking,
  /** The Passable. */
  Passable, 
  /** The Push. */
- Push
+ Push,
+ 
+ Enemy,
+ 
+ Recover, 
+ 
+ Door
 }

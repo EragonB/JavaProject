@@ -1,10 +1,13 @@
 package Mobile;
 
 import Element.Element;
-import Element.Permeability;
-import Strategy.IMovement;
+import contract.IMobile;
+import contract.IMovement;
+import contract.IView;
+import contract.Permeability;
+import contract.State;
 
-public abstract class Mobile extends Element{
+public abstract class Mobile extends Element implements IMobile{
 	
 	protected int x;
 	protected int y;
@@ -12,74 +15,76 @@ public abstract class Mobile extends Element{
 	protected int LastPositionY;
 	protected State state;
 	protected IMovement movement;
-	//protected ISpeed speed;
 	
 	
-	public Mobile(Permeability permeability, char sprite/*, IMovement movement, ISpeed speed*/) {
+	public Mobile(Permeability permeability, char sprite) {
 		super(permeability, sprite);
 		this.state=this.alive();
-		//this.movement=movement;
 		
 	}
-	
+	public void finish()
+	{
+		this.state=State.Finish;
+	}
+	@Override
 	public State alive()
 	{
 		return State.Life;
 	}
 	
+	@Override
 	public void die()
 	{
 		this.state=State.Dead;
+		IView.FrameDie();
 	}
 	
+	@Override
 	public int getX() {
 		return this.x;
 	}
 
 
-	public void setX(int x) {
+	@Override
+	public void setXY(int x, int y) {
 		this.x = x;
+		this.y = y;
 	}
 
 
+	@Override
 	public int getY() {
 		return this.y;
 	}
 
 
-	public void setY(int y) {
-		this.y = y;
-	}
 
-
+	@Override
 	public int getLastPositionX() {
 		return this.LastPositionX;
 	}
 
 
-	public void setLastPositionX(int lastPositionX) {
+	@Override
+	public void setLastPositionX(int lastPositionX, int lastPositionY) {
 		this.LastPositionX = lastPositionX;
+		this.LastPositionY = lastPositionY;
 	}
 
 
+	@Override
 	public int getLastPositionY() {
 		return this.LastPositionY;
 	}
 
 
-	public void setLastPositionY(int lastPositionY) {
-		this.LastPositionY = lastPositionY;
-	}
 
-
+	@Override
 	public State getState() {
 		return this.state;
 	}
 
 
-	public void setState(State state) {
-		this.state = state;
-	}
 
 
 	public IMovement getMovement() {
@@ -87,18 +92,22 @@ public abstract class Mobile extends Element{
 	}
 
 
+
 	public void setMovement(IMovement movement) {
 		this.movement = movement;
 	}
+	
 
-
-	/*public ISpeed getSpeed() {
-		return this.speed;
+	public void moveLeft()
+	{
+		this.setXY(getX()+1, getY());
 	}
-
-
-	public void setSpeed(ISpeed speed) {
-		this.speed = speed;
-	}*/
+	
+	
+	public void GugusForm(char value)
+	{
+	this.setSprite(value);
+		
+	}
 
 }

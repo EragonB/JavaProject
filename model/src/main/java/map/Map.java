@@ -6,9 +6,13 @@ package map;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
-import Element.IElement;
 import MotionlessElement.MotionlessElementFactory;
+import contract.IElement;
+import contract.IMap;
+import contract.IMobile;
+import contract.Permeability;
 import model.DAOBoulderDash;
 import Mobile.*;
 // TODO: Auto-generated Javadoc
@@ -18,7 +22,7 @@ import Mobile.*;
  *
  * @author Bryan
  */
-public class Map implements IMap {
+public class Map implements IMap{
 	
 	/** The height. */
 	private int height;
@@ -35,10 +39,31 @@ public class Map implements IMap {
 	/** The resultset. */
 	private ResultSet resultset=null;
 
+	private ResultSet results=null;
+	private ResultSet resultsC=null;
 	
 	/** The mobile. */
-	private Mobile mobile=new Gugus();
+	private IMobile mobile=new Gugus();
 	
+
+	private int CompteDiamant = 0;
+	private int DiamPlayer = 0;
+
+	private int XDoor = 0;
+	private int YDoor = 0;
+	
+	int SizeElement = 60;
+	int SizeColumnElement = 0;
+	int XI 		= 0, XV 	= 0, XII 	= 0;
+	
+	int TabRock[][] 		= new int		[SizeElement]	[3];
+	int TabDiam[][] 		= new int		[SizeElement]	[3];
+	int TabEnem[][]			= new int 		[SizeElement] 	[3];
+	Stone[] ArrayObject 	= new Stone		[SizeElement];
+	Diamond[] ArrayDiamond 	= new Diamond	[SizeElement];
+	Enemy[] ArrayEnemy 		= new Enemy		[SizeElement];
+
+
 	/**
 	 * Instantiates a new map.
 	 *
@@ -49,23 +74,182 @@ public class Map implements IMap {
 		// TODO Auto-generated constructor stub
 		
 		this.daoboulderdash=new DAOBoulderDash();
+		setPosMapElement(id_map);
+		
 		this.resultset=this.daoboulderdash.findMap(id_map);
+		
 		while(this.resultset.next())
 		{
 			this.height=this.resultset.getInt("Map_Height");
 			this.width=this.resultset.getInt("Map_Width");
-			this.mobile.setX(this.resultset.getInt("startX"));
-			this.mobile.setY(this.resultset.getInt("startY"));
+			this.mobile.setXY(this.resultset.getInt("startX"), this.resultset.getInt("startY"));
+			this.CompteDiamant = this.resultset.getInt("diamondsNeeded");
+			this.XDoor = this.resultset.getInt("doorX");
+			this.YDoor = this.resultset.getInt("doorY");
+
 		}
 		
 		this.onTheMap= new IElement[this.height][this.width];
 		this.fillonTheMap(id_map);
-		
-		
 		this.setOnTheMapXY(this.mobile, this.mobile.getX(), this.mobile.getY());
-		
+		System.out.print(this.CompteDiamant);
 	}
 
+	public void updateRocher()
+	{
+		for(int a = 0; a < SizeElement; a++) {
+			
+			char compar = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getSprite();
+			
+			Permeability perma = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability();
+			
+			if(perma == Permeability.Passable) 
+			{
+				
+				if(compar == ' ') 
+				{
+					ArrayObject[a].setLastPositionX(ArrayObject[a].getX(), ArrayObject[a].getY());
+					ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
+					
+					setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+				}
+				
+				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				{
+					//mobile.die();
+				}
+				
+			}
+			
+			else if (perma == Permeability.Enemy)
+			{
+				
+				ArrayObject[a].setLastPositionX(ArrayObject[a].getX(), ArrayObject[a].getY());
+				ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
+				
+				setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
+				setOnTheMapXY(new Diamond(ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY()),ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+			}
+		}
+	}
+
+	public void updateDiamonds()
+	{
+		for(int a = 0; a < SizeElement; a++) {
+			
+			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable) 
+			{
+				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
+				
+				if(compar == MotionlessElementFactory.createBackgroundvoid().getSprite()) 
+				{
+					ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+					
+					setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+				}
+				
+				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				{
+					//mobile.die();
+				}
+				
+			}
+		}
+	}
+	
+	public void updateEnemy()
+	{
+		for(int a = 0; a < SizeElement; a++)
+		{
+			boolean down, up, left, right;
+			
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()+1).getPermeability() == Permeability.Passable)
+			{
+				down = true;
+			}
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()-1).getPermeability() == Permeability.Passable)
+			{
+				up = true;
+			}
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()-1).getPermeability() == Permeability.Passable)
+			{
+				left = true;
+			}
+			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()+1).getPermeability() == Permeability.Passable)
+			{
+				right = true;
+			}
+			
+			switch((int)(Math.random() * 4))
+			{
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			}
+		}
+	}
+	
+	public int getXYDoor(int value)
+	{
+		switch(value) 
+		{
+		case 1:
+			return this.XDoor;
+		case 2:
+			return this.YDoor;
+		default:
+			return 0;
+		}
+	}
+	
+	public void RemplirTableau(ResultSet Function, int tab[][], String Column) throws SQLException
+	{
+		this.results = Function;
+		while(this.results.next())
+		{
+			tab[SizeColumnElement][0] = this.results.getInt(Column);
+			tab[SizeColumnElement][1] = this.results.getInt("X");
+			tab[SizeColumnElement][2] = this.results.getInt("Y");
+			SizeColumnElement++;
+			
+		}
+		SizeColumnElement = 0;
+	}
+
+	public void setPosMapElement(int id) throws SQLException {
+
+		RemplirTableau(this.daoboulderdash.FindMobileRock(id), TabRock, "id_Rock");
+		RemplirTableau(this.daoboulderdash.FindEnemy(id), TabEnem, "id_monster");
+		RemplirTableau(this.daoboulderdash.FindDiamond(id), TabDiam, "Id_diamond");
+		
+		
+		for(int a = 0; a< SizeElement; a++)
+		{
+			this.ArrayObject[a] = new Stone(TabRock[a][1], TabRock[a][2]);
+		}
+		for(int a = 0; a< SizeElement; a++)
+		{
+			this.ArrayDiamond[a] = new Diamond(TabDiam[a][1], TabDiam[a][2]);
+		}
+		
+		for(int a = 0; a< SizeElement; a++)
+		{
+			this.ArrayEnemy[a] = new Enemy(TabEnem[a][1], TabEnem[a][2]);
+		}
+	}
+
+	public int getCompteDiamant()
+	{
+		return this.CompteDiamant;
+	}
 	/**
 	 * Fill on the map.
 	 * @throws SQLException 
@@ -88,9 +272,19 @@ public class Map implements IMap {
 			}
 		}
 		this.setElement(id_map);
+		//this.set
 		
 	}
 
+	public void setDiamPlayer(int value)
+	{
+		this.DiamPlayer = value;
+	}
+	
+	public int getDiamPlayer()
+	{
+		return DiamPlayer;
+	}
 	
 	/**
 	 * Gets the height.
@@ -159,29 +353,36 @@ public class Map implements IMap {
 	public void setElement(int id_map) throws SQLException
 	{
 		this.resultset=this.daoboulderdash.findElement(id_map);
+	
 		while(this.resultset.next())
 		{
+			int x=this.resultset.getInt("X");
+			int y=this.resultset.getInt("Y");
 			switch(this.resultset.getInt("NBR"))
 			{
 			
 			case 1:
-				this.setOnTheMapXY(new Diamond(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(ArrayDiamond[XV], ArrayDiamond[XV].getX(), ArrayDiamond[XV].getY());
+				XV ++;
 				break;
 				
 			case 2:
-				this.setOnTheMapXY(new Stone(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(ArrayObject[XI], ArrayObject[XI].getX(), ArrayObject[XI].getY());
+				XI ++;
 				break;
 				
+			
 			case 3:
-				this.setOnTheMapXY(MotionlessElementFactory.createWall(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(MotionlessElementFactory.createWall(), x, y);
 				break;
 				
 			case 4:
-				this.setOnTheMapXY(new Enemy(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(ArrayEnemy[XII], ArrayEnemy[XII].getX(), ArrayEnemy[XII].getY());
+				XII++;
 				break;
 				
 			case 5:
-				this.setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), this.resultset.getInt("X"), this.resultset.getInt("Y"));
+				this.setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), x, y);
 				break;
 			}
 		}
@@ -203,12 +404,19 @@ public class Map implements IMap {
 		this.resultset = resultset;
 	}
 
-	public Mobile getMobile() {
+	public IMobile getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(Mobile mobile) {
+	public void setMobile(IMobile mobile) {
 		this.mobile = mobile;
 	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }
