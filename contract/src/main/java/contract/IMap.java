@@ -5,7 +5,6 @@ package contract;
 
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IMap.
  */
@@ -67,7 +66,7 @@ public interface IMap extends Runnable{
 	/**
 	 * Update rocher.
 	 */
-	public void updateRocher();
+	public void updateRock();
 	
 	/**
 	 * Update diamonds.
@@ -101,13 +100,13 @@ public interface IMap extends Runnable{
 	 *
 	 * @return the compte diamant
 	 */
-	public int getCompteDiamant();
+	public int getAccountDiamond();
 
 	
 	/**
 	 * Delet diamond.
 	 */
-	public void DeletDiamond();
+	public void DeleteDiamond();
 	
 	/**
 	 * Update object.

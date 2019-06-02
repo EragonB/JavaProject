@@ -5,7 +5,6 @@ import java.awt.event.KeyAdapter;
 import contract.IController;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class KeyEvent.
  */
@@ -30,7 +29,7 @@ public class KeyEvent extends KeyAdapter {
 	 */
 	@Override
 	public void keyTyped(java.awt.event.KeyEvent arg0) {
-		// TODO Try without control
+	
 		char caracterInput=arg0.getKeyChar();
 		
 		switch(caracterInput)

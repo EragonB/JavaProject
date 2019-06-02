@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import FactoryPicture.MotherTradFactory;
 import contract.IMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ViewPanel.
  */
@@ -120,7 +119,6 @@ class ViewPanel extends JPanel implements Observer{
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
 		this.repaint();
 	}
 }

@@ -4,7 +4,6 @@ import contract.IController;
 import contract.IModel;
 import contract.IView;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Controller.
  */

@@ -8,9 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import FactoryPicture.MotherTradFactory;
-import contract.*;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ViewFrame.
  */

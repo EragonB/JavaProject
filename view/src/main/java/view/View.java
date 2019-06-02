@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import contract.*;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class View.
  */

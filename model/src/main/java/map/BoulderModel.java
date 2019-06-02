@@ -14,7 +14,6 @@ import contract.Permeability;
 import contract.State;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BoulderModel.
  *
@@ -53,7 +52,6 @@ public class BoulderModel extends Observable implements IModel{
 		try {
 			this.map=new Map(this.id_map);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.thread=new Thread(this);
@@ -94,7 +92,6 @@ public class BoulderModel extends Observable implements IModel{
 public  void play()
 {
 	
-	//TODO POSSILBLE SURMENT A RENDRE MOINS AGGRESSIF AU YEUX
 	int MobileX = this.getMap().getMobile().getX();
 	int MobileY = this.getMap().getMobile().getY();
 	int MobileLastX =  this.getMap().getMobile().getLastPositionX();
@@ -119,9 +116,9 @@ public  void play()
 			this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), MobileLastX, MobileLastY);
 			
 			this.map.setDiamPlayer(this.map.getDiamPlayer()+1);
-			this.map.DeletDiamond();
+			this.map.DeleteDiamond();
 			
-			if (this.map.getDiamPlayer() == this.map.getCompteDiamant()) {
+			if (this.map.getDiamPlayer() == this.map.getAccountDiamond()) {
 				this.getMap().setOnTheMapXY(MotionlessElementFactory.createDoor(), this.map.getXYDoor(1), this.map.getXYDoor(2));
 			}
 			
@@ -190,50 +187,47 @@ public  void play()
 	}
 	
 
-	
-}
-
-
-/**
- * Gets the observable.
- *
- * @return the observable
- */
-public Observable getObservable()
-{
-	return this;
-}
-
-/**
- * Sets the notifier.
- */
-public void setNotifier()
-{
-	this.setChanged();
-	this.notifyObservers();
-}
-
-/**
- * Run.
- */
-@Override
-public void run() {
-	// TODO Auto-generated method stub
-	while(true)
-	{
-		try {
-			this.map.updateRocher();
-			this.map.updateDiamonds();
-			//this.map.updateObject();
-			this.thread.sleep(100);
-			this.setNotifier();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	
-}
+	
+	/**
+	 * Gets the observable.
+	 *
+	 * @return the observable
+	 */
+	public Observable getObservable()
+	{
+		return this;
+	}
+	
+	/**
+	 * Sets the notifier.
+	 */
+	public void setNotifier()
+	{
+		this.setChanged();
+		this.notifyObservers();
+	}
+
+	/**
+	 * Run.
+	 */
+	@Override
+	public void run() {
+		while(true)
+		{
+			try {
+				this.map.updateRock();
+				this.map.updateDiamonds();
+				Thread.sleep(100);
+				this.setNotifier();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
 }
 
