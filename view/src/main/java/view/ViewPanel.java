@@ -22,8 +22,8 @@ class ViewPanel extends JPanel implements Observer{
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3886802783058179085L;
 
-/** The map. */
-IMap map;
+	/** The map. */
+	IMap map;
 
 	/** The gframe. */
 	ViewFrame gframe;
@@ -38,6 +38,11 @@ IMap map;
 	MotherTradFactory Photo = new MotherTradFactory();
 	
 
+	public Observer getObserverViewPanel()
+	{
+		return this;
+	}
+	
 	/**
 	 * Instantiates a new view panel.
 	 *
@@ -53,6 +58,7 @@ IMap map;
 	 *
 	 * @param g the g
 	 */
+	@Override
 	public void paintComponent(Graphics g) {
 				
 		BoardRead(g);
@@ -90,27 +96,31 @@ IMap map;
 		g.drawImage(a , x * Pixel, y * Pixel, this);
 	}
 	
+	public JPanel getPanel()
+	{
+		return this;
+	}
 	
+		
+	/**
+	 * Loadmap.
+	 *
+	 * @param map the map
+	 */
+	public void loadmap(IMap map)
+	{
+		this.map=map;
+	}
 	
-/**
- * Loadmap.
- *
- * @param map the map
- */
-public void loadmap(IMap map)
-{
-	this.map=map;
-}
-
-/**
- * Update.
- *
- * @param arg0 the arg 0
- * @param arg1 the arg 1
- */
-@Override
-public void update(Observable arg0, Object arg1) {
-	// TODO Auto-generated method stub
-	this.repaint();
-}
+	/**
+	 * Update.
+	 *
+	 * @param arg0 the arg 0
+	 * @param arg1 the arg 1
+	 */
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		this.repaint();
+	}
 }

@@ -7,13 +7,6 @@ package contract;
 public interface IController {
 	
 	/**
-	 * Gets the model.
-	 *
-	 * @return the model
-	 */
-	public IModel getModel();
-	
-	/**
 	 * Move.
 	 *
 	 * @param i the i

@@ -8,23 +8,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import FactoryPicture.MotherTradFactory;
-import contract.IModel;
+import contract.*;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ViewFrame.
  */
-public class ViewFrame extends JFrame {
+public class ViewFrame extends JFrame{
 
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/** The Longueur. */
-	private int Longueur = 800;
+	private int height = 800;
 	
 	/** The Largeur. */
-	private int Largeur = 800;
+	private int width = 800;
 
 	/** The Java. */
 	private String Java = "BoulderDash";
@@ -39,56 +39,24 @@ public class ViewFrame extends JFrame {
 	 * @param id_map the id map
 	 */
 	public ViewFrame(int id_map) {
-		//setMapTaille(id_map);
-		VuePrincipal();
-		
+		mainView();
 	}
 	
 	
-	/**
-	 * Sets the map taille.
-	 *
-	 * @param id the new map taille
-	 */
-	public void setMapTaille(int id)
+	public JFrame getFrame()
 	{
-		switch(id)
-		{
-		case 1:
-			this.Longueur = 7*32 -16;
-			this.Largeur  = 7*32 +16;
-			break;
-		case 2:
-			this.Longueur = 7*32 -16;
-			this.Largeur  = 7*32 +8;
-			break;
-		case 3:
-			this.Longueur = 12*32 -16;
-			this.Largeur  = 12*32 +16;
-			break;
-		case 4:
-			this.Longueur = 22*32 -16;
-			this.Largeur  = 23*32 +16;
-			break;
-		case 5:
-			this.Longueur = 21*32 -16;
-			this.Largeur  = 21*32 +16;
-			break;
-		}
+		return this;
 	}
 	
-	/**
-	 * Vue principal.
-	 */
-	public void VuePrincipal()
+	
+	public void mainView()
 	{
-		//JFrame Alfred = new JFrame();
 		this.setViewpanel(new ViewPanel(this));
-		this.setSize(Longueur, Largeur);
+		this.setSize(height, width);
 		this.setLocationRelativeTo(null);
 		this.setTitle(Java);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setContentPane(getViewpanel());
+		this.setContentPane(getViewpanel().getPanel());
 		this.setVisible(true);
 		
 	}
@@ -126,24 +94,17 @@ public class ViewFrame extends JFrame {
         
     }
 	
-	/**
-	 * Gets the longueur.
-	 *
-	 * @return the longueur
-	 */
-	public int getLongueur()
+	
+	@Override
+	public int getHeight()
 	{
-		return this.Longueur;
+		return this.height;
 	}
 	
-	/**
-	 * Gets the largeur.
-	 *
-	 * @return the largeur
-	 */
-	public int getLargeur()
+	@Override
+	public int getWidth()
 	{
-		return this.Largeur;
+		return this.width;
 	}
 
 	/**
@@ -151,6 +112,7 @@ public class ViewFrame extends JFrame {
 	 *
 	 * @return the viewpanel
 	 */
+	
 	public ViewPanel getViewpanel() {
 		return this.viewpanel;
 	}
@@ -160,21 +122,11 @@ public class ViewFrame extends JFrame {
 	 *
 	 * @param viewpanel the viewpanel to set
 	 */
+	
 	public void setViewpanel(ViewPanel viewpanel) {
 		this.viewpanel = viewpanel;
 	}
-	
-	/**
-	 * Adds the observer.
-	 *
-	 * @param model the model
-	 */
-	public void addObserver(IModel model)
-	{
-		model.getObservable().addObserver(getViewpanel());
-	}
-	
-	
+
 	
 	
 }

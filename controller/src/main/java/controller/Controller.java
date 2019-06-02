@@ -30,13 +30,15 @@ public final class Controller implements IController {
 	public Controller(final IView view, final IModel model, int id_map) {
 		
 		this.setView(view);
+		
 		this.setModel(model);
-		//setIdMap(id_map);
 		
 		
 		this.view.ReadBoard(this.model.getMap());
-		this.view.setController(this);
-		this.view.AddKeyListener();
+
+		this.model.getObservable().addObserver(this.view.getObserver());
+		
+		this.view.getViewframe().addKeyListener(new KeyEvent(this));
 	}
 	
 	/**
@@ -47,8 +49,7 @@ public final class Controller implements IController {
 	public void setIdMap(int id_map)
 	{
 		this.model.setIdMap(id_map);
-		this.view.setFrame(id_map);
-		
+			
 		this.model.start();
 	}
 
@@ -88,32 +89,33 @@ public final class Controller implements IController {
 	public void move(int value)
 	{
 		this.getModel().getMap().getMobile().setLastPositionX(this.model.getMap().getMobile().getX(), this.model.getMap().getMobile().getY());
-switch(value)
-{
-case 1:
-	this.getModel().getMap().getMobile().getMovement().moveUp();
-	this.c='O';
-	
-	break;
-case 2:
-	this.getModel().getMap().getMobile().getMovement().moveDown();
-	this.c='L';
-	
-	break;
-case 3:
-	this.getModel().getMap().getMobile().getMovement().moveLeft();
-	this.c='K';
-	
-	break;
-case 4:
-	this.getModel().getMap().getMobile().getMovement().moveRight();
-	this.c='M';
-	
-	break;	
-	
-}
-this.getModel().getMap().getMobile().GugusForm(c);
-this.model.play();
+		switch(value)
+		{
+		case 1:
+			this.getModel().getMap().getMobile().getMovement().moveUp();
+			this.c='O';
+			
+			break;
+		case 2:
+			this.getModel().getMap().getMobile().getMovement().moveDown();
+			this.c='L';
+			
+			break;
+		case 3:
+			this.getModel().getMap().getMobile().getMovement().moveLeft();
+			this.c='K';
+			
+			break;
+		case 4:
+			this.getModel().getMap().getMobile().getMovement().moveRight();
+			this.c='M';
+			
+			break;	
+			
+		}
+		this.getModel().getMap().getMobile().GugusForm(c);
+		this.model.play();
 	}
+
 
 }

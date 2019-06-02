@@ -1,10 +1,13 @@
 package view;
 
 
-import contract.IController;
-import contract.IMap;
+import java.util.Observer;
 
-import contract.IView;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import contract.*;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -14,9 +17,6 @@ public final class View implements IView{
 	
 	/** The viewframe. */
 	private ViewFrame viewframe;
-	
-	/** The controller. */
-	private IController controller;
 
 	/**
 	 * Instantiates a new view.
@@ -26,22 +26,17 @@ public final class View implements IView{
 	}
 	
 	/**
-	 * Sets the frame.
-	 *
-	 * @param id_map the new frame
-	 */
-	public void setFrame(int id_map)
-	{
-		this.viewframe = new ViewFrame(id_map);
-	}
-	
-	/**
 	 * Gets the viewframe.
 	 *
 	 * @return the viewframe
 	 */
-	public ViewFrame getViewframe() {
+	public JFrame getViewframe() {
 		return this.viewframe;
+	}
+	
+	public Observer getObserver()
+	{
+		return viewframe.getViewpanel().getObserverViewPanel();
 	}
 
 	/**
@@ -51,7 +46,8 @@ public final class View implements IView{
 	 */
 	public void ReadBoard(IMap tableau)
 	  {
-	  this.getPanel().loadmap(tableau);      
+		this.viewframe.getViewpanel().loadmap(tableau);
+		    
 	  }
 	  
 	  /**
@@ -59,29 +55,10 @@ public final class View implements IView{
   	 *
   	 * @return the panel
   	 */
-  	public ViewPanel getPanel()
+  	public JPanel getPanel()
 	  {
 		  return this.viewframe.getViewpanel();
 	  }
 
 
-	/**
-	 * Sets the controller.
-	 *
-	 * @param controller the new controller
-	 */
-	public void setController(IController controller) {
-		// TODO Auto-generated method stub
-		this.controller=controller;
-		this.viewframe.addObserver(this.controller.getModel());
-	}
-
-
-	/**
-	 * Adds the key listener.
-	 */
-	public void AddKeyListener()
-	{
-		this.viewframe.addKeyListener(new KeyEvent(this.controller));
-	}
 }
