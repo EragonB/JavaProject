@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -25,7 +26,7 @@ public class ViewFrame extends JFrame{
 	private int width = 800;
 
 	/** The Java. */
-	private String Java = "BoulderDash";
+	private String title = "BoulderDash";
 	
 	/** The viewpanel. */
 	private ViewPanel viewpanel;
@@ -52,7 +53,7 @@ public class ViewFrame extends JFrame{
 		this.setViewpanel(new ViewPanel(this));
 		this.setSize(height, width);
 		this.setLocationRelativeTo(null);
-		this.setTitle(Java);
+		this.setTitle(title);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(getViewpanel().getPanel());
 		this.setVisible(true);
@@ -62,30 +63,67 @@ public class ViewFrame extends JFrame{
 	/**
 	 * Frame die.
 	 */
-	public static void FrameDie() {
-        
-        JFrame jframedie = new JFrame();
-        MotherTradFactory fact = new MotherTradFactory();
-        JPanel panel = new JPanel()
-        {
-            
-            public void paint(Graphics g)
-            {
-                Font font = new Font("Consola", Font.PLAIN, 50);
-                  g.setColor(Color.RED);
-               g.setFont(font);
-               g.drawImage( fact.getPhoto('9'), 0, 0 , this);
-              g.drawString("YOU DIED !!!", 512/4, 512/2);
-            }
-        };
-      
+	public  void FrameDie(int value) {
+        this.setVisible(false);
 
-        jframedie.setSize(512, 512);
-        jframedie.setLocationRelativeTo(null);
-        jframedie.setTitle("Boby l'escagt");
-        jframedie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jframedie.setContentPane(panel);
-        jframedie.setVisible(true);
+        MotherTradFactory fact = new MotherTradFactory();
+        
+        if(value==0)
+        {
+        	JFrame jframedie = new JFrame();
+        	jframedie.setTitle("BoulderDie");
+            jframedie.setSize(512, 512);
+            jframedie.setLocationRelativeTo(null);
+            
+            jframedie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         
+            JPanel panel = new JPanel()
+            {
+
+                public void paint(Graphics a)
+                {
+                	
+                    Font font = new Font("Consola", Font.PLAIN, 50);
+                      a.setColor(Color.RED);
+                   a.setFont(font);
+                   a.drawImage( fact.getPhoto('9'), 0, 0 , jframedie);
+                  a.drawString("YOU DIED !!!", 512/4, 512/2);
+                }
+            };
+          
+
+      
+            jframedie.setContentPane(panel);
+            jframedie.setVisible(true);
+        	        }
+        else {
+        	JFrame jframewin = new JFrame();
+        	jframewin.setTitle("BoulderWin");
+            jframewin.setSize(512, 512);
+            jframewin.setLocationRelativeTo(null);
+            
+            jframewin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         
+            JPanel panel = new JPanel()
+            {
+
+                public void paint(Graphics a)
+                {
+                	
+                    Font font = new Font("Consola", Font.PLAIN, 50);
+                      a.setColor(Color.MAGENTA);
+                   a.setFont(font);
+                   a.drawImage( fact.getPhoto('5'), 0, 0 , jframewin);
+                  a.drawString("YOU WIN !!!", 512/4, 512/2);
+                }
+            };
+          
+
+      
+            jframewin.setContentPane(panel);
+            jframewin.setVisible(true);
+        }
+
         
         
         

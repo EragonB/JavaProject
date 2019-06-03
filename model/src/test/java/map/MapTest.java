@@ -20,6 +20,8 @@ import contract.IMobile;
 import contract.Permeability;
 import model.DAOBoulderDash;
 
+
+
 public class MapTest {
 	
 	int ObjectPosY = 0 , ObjectPosX = 0, Strengh = 0, SizeElement = 6, alive = 1;

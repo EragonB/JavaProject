@@ -90,8 +90,8 @@ class ViewPanel extends JPanel implements Observer{
 	 * @param y the y
 	 * @param Caractere the caractere
 	 */
-	public void paintElement(Graphics g, int x, int y, char Caractere) {
-		Image a = Photo.getPhoto(Caractere);
+	public void paintElement(Graphics g, int x, int y, char sprite) {
+		Image a = Photo.getPhoto(sprite);
 		g.drawImage(a , x * Pixel, y * Pixel, this);
 	}
 	
