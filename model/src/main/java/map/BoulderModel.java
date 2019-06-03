@@ -17,7 +17,7 @@ import contract.State;
 /**
  * The Class BoulderModel.
  *
- * @author Bryan
+ * 
  */
 public class BoulderModel extends Observable implements IModel{
 	
@@ -44,19 +44,6 @@ public class BoulderModel extends Observable implements IModel{
 		this.thread.start();
 	}
 	
-	/**
-	 * Start.
-	 */
-	public void start()
-	{
-		try {
-			this.map=new Map(this.id_map);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		this.thread=new Thread(this);
-		this.thread.start();
-	}
 	
 	/**
 	 * Gets the map.
@@ -76,15 +63,7 @@ public class BoulderModel extends Observable implements IModel{
 		this.map = map;
 	}
 
-	/**
-	 * Sets the id map.
-	 *
-	 * @param id_map the new id map
-	 */
-	public void setIdMap(int id_map)
-	{
-		this.id_map = id_map;
-	}
+
 /**
  * Play.
  */
@@ -218,7 +197,7 @@ public  void play()
 		while(true)
 		{
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 				this.setNotifier();
 			} catch (InterruptedException e) {
 				e.printStackTrace();

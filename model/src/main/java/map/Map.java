@@ -525,14 +525,7 @@ public class Map implements IMap{
 		this.mobile = mobile;
 	}
 	
-	/**
-	 * Update object.
-	 */
-	public void updateObject()
-	{
-		this.thread.start();
-	}
-	
+
 	/**
 	 * Run.
 	 */
