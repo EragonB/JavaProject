@@ -1,0 +1,44 @@
+-------------------------------------------------------------------------------
+Test set: map.DBConnectionTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 8, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec <<< FAILURE! - in map.DBConnectionTest
+testSetPassword(map.DBConnectionTest)  Time elapsed: 0.002 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testSetPassword(DBConnectionTest.java:102)
+
+testGetPassword(map.DBConnectionTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testGetPassword(DBConnectionTest.java:94)
+
+testGetLogin(map.DBConnectionTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testGetLogin(DBConnectionTest.java:78)
+
+testGetConnection(map.DBConnectionTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testGetConnection(DBConnectionTest.java:110)
+
+testGetUrl(map.DBConnectionTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testGetUrl(DBConnectionTest.java:62)
+
+testSetUrl(map.DBConnectionTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testSetUrl(DBConnectionTest.java:70)
+
+testGetInstance(map.DBConnectionTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testGetInstance(DBConnectionTest.java:54)
+
+testSetLogin(map.DBConnectionTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at map.DBConnectionTest.testSetLogin(DBConnectionTest.java:86)
+
