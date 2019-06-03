@@ -16,5 +16,6 @@ public interface IView {
 	public JFrame getViewframe();
 
 	public Observer getObserver();
+	public void frame(int value);
 
 }

@@ -44,7 +44,7 @@ public class MotherTradFactory {
 	/** The Death. */
 	MotherTrad Death = new DeathHead();
 	
-	
+	MotherTrad Victory = new VictoryTrophy();
 	/**
 	 * Gets the photo.
 	 *
@@ -89,6 +89,9 @@ public class MotherTradFactory {
 			
 		case '9':
 			return Death.getPicture();
+			
+		case '5':
+			return Victory.getPicture();
 		}
 		return null;
 	}

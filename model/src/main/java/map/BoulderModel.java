@@ -24,7 +24,7 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=3;
+	private int id_map=1;
 	
 	/** The thread. */
 	private Thread thread;
@@ -160,10 +160,7 @@ public  void play()
 	{
 		System.out.println("WIN !!!");
 	}
-	else {
-		
-		System.out.println("Game Over !!!");
-	}
+
 	
 
 		
