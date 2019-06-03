@@ -224,47 +224,7 @@ public class Map implements IMap{
 			}
 		}
 	}
-	
-	/**
-	 * Update enemy.
-	 */
-	public void updateEnemy()
-	{
-		//TODO
-		/*for(int a = 0; a < SizeElement; a++)
-		{
-			boolean down, up, left, right;
-			
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()+1).getPermeability() == Permeability.Passable)
-			{
-				down = true;
-			}
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()-1).getPermeability() == Permeability.Passable)
-			{
-				up = true;
-			}
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()-1).getPermeability() == Permeability.Passable)
-			{
-				left = true;
-			}
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()+1).getPermeability() == Permeability.Passable)
-			{
-				right = true;
-			}
-			
-			switch((int)(Math.random() * 4))
-			{
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			}
-		}*/
-	}
+
 	
 	/**
 	 * Sets the tab.

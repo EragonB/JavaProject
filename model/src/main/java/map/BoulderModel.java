@@ -218,8 +218,6 @@ public  void play()
 		while(true)
 		{
 			try {
-				/*this.map.updateRock();
-				this.map.updateDiamonds();*/
 				Thread.sleep(100);
 				this.setNotifier();
 			} catch (InterruptedException e) {
