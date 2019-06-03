@@ -1,3 +1,3 @@
 # JPU-BlankProject
 
-Base de démarrage pour le projet Jave/POO/UML des 1ières années Exia-Cesi
+Start-up base for Exia-Cesi 1st year Jave / POO / UML project
