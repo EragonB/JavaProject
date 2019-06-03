@@ -578,16 +578,21 @@ public class Map implements IMap{
 	 */
 	@Override
 	public void run() {
-		try {
-			updateRock();
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
+		
+		while(true)
+		{
+			try {
+				updateDiamonds();
+				updateRock();
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
 
-			e.printStackTrace();
+				e.printStackTrace();
+			}
 		}
+
 		
 	}
-
 
 
 }

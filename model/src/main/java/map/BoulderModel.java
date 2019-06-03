@@ -24,7 +24,7 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=5;
+	private int id_map=3;
 	
 	/** The thread. */
 	private Thread thread;
@@ -218,8 +218,8 @@ public  void play()
 		while(true)
 		{
 			try {
-				this.map.updateRock();
-				this.map.updateDiamonds();
+				/*this.map.updateRock();
+				this.map.updateDiamonds();*/
 				Thread.sleep(100);
 				this.setNotifier();
 			} catch (InterruptedException e) {
