@@ -34,10 +34,6 @@ public interface IModel extends Runnable{
 	 * @param id_map the new id map
 	 */
 	public void setIdMap(int id_map);
-	
-	/**
-	 * Start.
-	 */
-	public void start();
+
 
 }

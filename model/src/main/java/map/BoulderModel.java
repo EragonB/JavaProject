@@ -24,7 +24,7 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=2;
+	private int id_map=4;
 	
 	/** The thread. */
 	private Thread thread;
@@ -44,19 +44,7 @@ public class BoulderModel extends Observable implements IModel{
 		this.thread.start();
 	}
 	
-	/**
-	 * Start.
-	 */
-	public void start()
-	{
-		try {
-			this.map=new Map(this.id_map);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		this.thread=new Thread(this);
-		this.thread.start();
-	}
+
 	
 	/**
 	 * Gets the map.
@@ -177,14 +165,7 @@ public  void play()
 			this.getMap().setOnTheMapXY(this.map.getMobile(), this.getMap().getMobile().getX(), this.getMap().getMobile().getY());			
 		}
 	}
-	else if (this.getMap().getMobile().getState() == State.Finish)
-	{
-		System.out.println("WIN !!!");
-	}
-	else {
-		
-		System.out.println("Game Over !!!");
-	}
+
 	
 
 		

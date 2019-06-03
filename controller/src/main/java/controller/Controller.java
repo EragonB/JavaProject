@@ -27,7 +27,7 @@ public final class Controller implements IController {
 	 * @param model the model
 	 * @param id_map the id map
 	 */
-	public Controller(final IView view, final IModel model, int id_map) {
+	public Controller(final IView view, final IModel model) {
 		
 		this.setView(view);
 		
@@ -46,12 +46,7 @@ public final class Controller implements IController {
 	 *
 	 * @param id_map the new id map
 	 */
-	public void setIdMap(int id_map)
-	{
-		this.model.setIdMap(id_map);
-			
-		this.model.start();
-	}
+
 
 	/**
 	 * Sets the view.
