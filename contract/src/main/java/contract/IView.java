@@ -17,4 +17,5 @@ public interface IView {
 
 	public Observer getObserver();
 
+	public void frame(int value);
 }

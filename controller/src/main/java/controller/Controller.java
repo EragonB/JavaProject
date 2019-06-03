@@ -3,6 +3,7 @@ package controller;
 import contract.IController;
 import contract.IModel;
 import contract.IView;
+import contract.State;
 
 /**
  * The Class Controller.
@@ -114,7 +115,14 @@ public final class Controller implements IController {
 		}
 		this.getModel().getMap().getMobile().GugusForm(c);
 		this.model.play();
+	
+
+	if(this.model.getMap().getMobile().getState()==State.Dead)
+	{
+		this.view.frame(0);
 	}
-
-
-}
+	else if(this.model.getMap().getMobile().getState()==State.Finish)
+	{
+		this.view.frame(1);
+	}
+	}}

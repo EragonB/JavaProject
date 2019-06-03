@@ -59,5 +59,8 @@ public final class View implements IView{
 		  return this.viewframe.getViewpanel();
 	  }
 
-
+  	public void frame(int value)
+  	{
+  		this.viewframe.FrameDie(value);
+  	}
 }
