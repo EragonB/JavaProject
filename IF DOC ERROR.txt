@@ -1,0 +1,5 @@
+If there are error to link Doc, the original it is in JavaProject/target/staging/index.html
+
+AND
+
+If not folder exist, target.rar it is a copy to folder. And javaProjectSurfireDebug.rar is one copy that project with doc.
