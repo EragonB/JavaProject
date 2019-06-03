@@ -21,13 +21,13 @@ import contract.Permeability;
 import model.DAOBoulderDash;
 
 public class MapTest {
-	
+
 	int ObjectPosY = 0 , ObjectPosX = 0, Strengh = 0, SizeElement = 6, alive = 1;
-	
+
     IMobile Player = new Gugus();
 	Diamond [] ArrayDiamond = new Diamond[SizeElement];
 	Stone [] ArrayRock = new Stone[SizeElement];
-	
+
 	private Map map = null;
 
 
@@ -44,16 +44,16 @@ public class MapTest {
 
 	@Test
 	public void testUpdateRock() {
-		
+
 		if (alive == 1)
 		{
-			
-			if (this.map.getOnTheMapXY(ObjectPosX, ObjectPosY + 1).getSprite() == MotionlessElementFactory.createBackgroundvoid().getSprite()) 
+
+			if (this.map.getOnTheMapXY(ObjectPosX, ObjectPosY + 1).getSprite() == MotionlessElementFactory.createBackgroundvoid().getSprite())
 			{
 				Strengh++;
 				ObjectPosY = ObjectPosY + 1;
 			}
-			
+
 			else if (this.map.getOnTheMapXY(ObjectPosX, ObjectPosY + 1).getSprite() == Player.getSprite())
 			{
 				if (Strengh > 0)
@@ -61,18 +61,18 @@ public class MapTest {
 					alive = 0;
 				}
 			}
-			
+
 			else if (this.map.getOnTheMapXY(ObjectPosX, ObjectPosY + 1).getPermeability() == Permeability.Enemy)
 			{
 				ArrayRock[0].setXY(ArrayRock[0].getX(), ArrayRock[0].getY() + 1);
 				ArrayDiamond[0] = new Diamond(ArrayRock[0].getX(), ArrayRock[0].getY() - 1);
 			}
-			
-			else 
+
+			else
 			{
 				Strengh = 0;
 			}
-			
+
 		}
 		assertEquals(alive, 1);
 	}
@@ -80,16 +80,16 @@ public class MapTest {
 	@Test
 	public void testUpdateDiamonds() {
 		Player.setXY(ArrayDiamond[0].getX(), ArrayDiamond[0].getY() + 1);
-		
+
 		if (alive == 1)
 		{
-			
-			if (this.map.getOnTheMapXY(ArrayDiamond[0].getX(), ArrayDiamond[0].getY() + 1).getSprite() == MotionlessElementFactory.createBackgroundvoid().getSprite()) 
+
+			if (this.map.getOnTheMapXY(ArrayDiamond[0].getX(), ArrayDiamond[0].getY() + 1).getSprite() == MotionlessElementFactory.createBackgroundvoid().getSprite())
 			{
 				ArrayDiamond[0].setStrengh(ArrayDiamond[0].getStrengh() + 1);
 				ArrayDiamond[0].setXY(ArrayDiamond[0].getX(), ArrayDiamond[0].getY() + 1);
 			}
-			
+
 			else if (this.map.getOnTheMapXY(ArrayDiamond[0].getX(), ArrayDiamond[0].getY() + 1).getSprite() == Player.getSprite())
 			{
 				if (ArrayDiamond[0].getStrengh() < 0)
@@ -97,18 +97,18 @@ public class MapTest {
 					alive = 0;
 				}
 				else {
-					
-					this.map.DeleteDiamond();					
+
+					this.map.DeleteDiamond();
 				}
 			}
-			
-			
-			else 
+
+
+			else
 			{
 				ArrayDiamond[0].setStrengh(0);
-				
+
 			}
-			
+
 		}
 		assertEquals(alive, 1);
 	}
@@ -116,14 +116,14 @@ public class MapTest {
 	@Test
 	public void testDeleteDiamond() {
 		Player.setXY(1, 2);
-		
+
 					if (ArrayDiamond[0].getX() == Player.getX() && ArrayDiamond[0].getY() == Player.getY())
 			{
 				ArrayDiamond[0].setXY(0, 0);
 			}
 					assertEquals(ArrayDiamond[0].getX(), 0);
 		}
-	
+
 
 
 	@Test
@@ -132,7 +132,7 @@ public class MapTest {
 	    int Y = 2;
 	    int value = 1;
 	    if (ArrayRock[0].getX() == X && ArrayRock[0].getY() == Y) {
-	    	
+
 	    	ArrayRock[0].setXY(ArrayRock[0].getX() + value, ArrayRock[0].getY());
 	    }
 	    assertEquals(ArrayRock[0].getX(), X + 1);
@@ -205,23 +205,23 @@ public class MapTest {
 		int Y = 3;
 		IMobile enemy = new Enemy(X, Y);
 		switch(varswitch) {
-		
-		case 1 : 
+
+		case 1 :
 			this.map.setOnTheMapXY(ArrayDiamond[0], ArrayDiamond[0].getX(), ArrayDiamond[0].getY());
 			break;
-			
+
 		case 2 :
 			this.map.setOnTheMapXY(ArrayRock[0], ArrayRock[0].getX(), ArrayRock[0].getY());
 			break;
-			
+
 		case 3 :
 			this.map.setOnTheMapXY(MotionlessElementFactory.createWall(), X, Y);
 			break;
-			
-		case 4 : 
+
+		case 4 :
 			this.map.setOnTheMapXY(enemy, X, Y);
 			break;
-			
+
 		case 5 :
 			this.map.setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), X, Y);
 			break;

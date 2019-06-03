@@ -12,10 +12,10 @@ public interface IView {
 	 * @param map the map
 	 */
 	public void ReadBoard(IMap map);
-	
+
 	public JFrame getViewframe();
 
 	public Observer getObserver();
-	public void frame(int value);
 
+	public void frame(int value);
 }

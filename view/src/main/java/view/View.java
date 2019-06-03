@@ -64,5 +64,8 @@ public final class View implements IView{
   		this.viewframe.FrameDie(value);
   	}
 
-
+  	public void frame(int value)
+  	{
+  		this.viewframe.FrameDie(value);
+  	}
 }
