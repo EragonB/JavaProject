@@ -128,41 +128,44 @@ public class Map implements IMap{
 	 */
 	public void updateRock()
 	{
-		//TODO
-		for(int a = 0; a < SizeElement; a++) {
-			
-			char compar = getOnTheMapXY(ArrayStone[a].getX(), ArrayStone[a].getY()+1).getSprite();
-			
-			Permeability perma = getOnTheMapXY(ArrayStone[a].getX(), ArrayStone[a].getY()+1).getPermeability();
-			
-			if(perma == Permeability.Passable) 
+		if (this.mobile.getState() == State.Life)
+		{
+			for (int a = 0; a < SizeElement; a++)
 			{
+				char comparative = getOnTheMapXY(ArrayStone[a].getX(), ArrayStone[a].getY()+1).getSprite();
 				
-				if(compar == ' ') 
+				if (comparative == MotionlessElementFactory.createBackgroundvoid().getSprite())
 				{
+					ArrayStone[a].setStrengh(ArrayStone[a].getStrengh()+1);
+					ArrayStone[a].setLastPositionX(ArrayStone[a].getX(), ArrayStone[a].getY());
+					ArrayStone[a].setXY(ArrayStone[a].getX(), (ArrayStone[a].getY()+1));
+					setOnTheMapXY(ArrayStone[a],ArrayStone[a].getX(), ArrayStone[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
+					
+				}
+				
+				else if (comparative == this.mobile.getSprite())
+				{
+					if(ArrayStone[a].getStrengh() > 0)
+					{
+						mobile.die();
+					}
+				}
+				
+				else if (getOnTheMapXY(ArrayStone[a].getX(), ArrayStone[a].getY()+1).getPermeability() == Permeability.Enemy)
+				{
+					
 					ArrayStone[a].setLastPositionX(ArrayStone[a].getX(), ArrayStone[a].getY());
 					ArrayStone[a].setXY(ArrayStone[a].getX(), (ArrayStone[a].getY()+1));
 					
 					setOnTheMapXY(ArrayStone[a],ArrayStone[a].getX(), ArrayStone[a].getY());
-					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
+					this.ArrayDiamond[40] = new Diamond(ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
+					setOnTheMapXY(this.ArrayDiamond[40],ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
 				}
-				
-				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				else
 				{
-					//mobile.die();
+					ArrayStone[a].setStrengh(0);
 				}
-				
-			}
-			
-			else if (perma == Permeability.Enemy)
-			{
-				
-				ArrayStone[a].setLastPositionX(ArrayStone[a].getX(), ArrayStone[a].getY());
-				ArrayStone[a].setXY(ArrayStone[a].getX(), (ArrayStone[a].getY()+1));
-				
-				setOnTheMapXY(ArrayStone[a],ArrayStone[a].getX(), ArrayStone[a].getY());
-				this.ArrayDiamond[40] = new Diamond(ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
-				setOnTheMapXY(this.ArrayDiamond[40],ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
 			}
 		}
 	}

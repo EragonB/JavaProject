@@ -24,7 +24,7 @@ public class BoulderModel extends Observable implements IModel{
 	/** The map. */
 	private IMap map;
 	/** The id map. */
-	private int id_map=3;
+	private int id_map=5;
 	
 	/** The thread. */
 	private Thread thread;
@@ -156,7 +156,7 @@ public  void play()
 				{
 					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY(), 1);
 					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
-					//this.getMap().setOnTheMapXY(element, x, y);
+					
 				}
 				else
 				{
@@ -179,11 +179,11 @@ public  void play()
 	}
 	else if (this.getMap().getMobile().getState() == State.Finish)
 	{
-		System.out.print("WIN!!!");
+		System.out.println("WIN !!!");
 	}
 	else {
 		
-		System.out.println("Crash");
+		System.out.println("Game Over !!!");
 	}
 	
 
