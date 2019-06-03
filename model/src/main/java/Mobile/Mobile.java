@@ -78,7 +78,7 @@ public abstract class Mobile extends Element implements IMobile{
 	 * @return the x
 	 */
 	@Override
-	//TODO Avoir avec un Switch et Y
+
 	public int getX() {
 		return this.x;
 	}
@@ -111,7 +111,6 @@ public abstract class Mobile extends Element implements IMobile{
 	 * @return the last position X
 	 */
 	@Override
-	//TODO Meme Chose
 	public int getLastPositionX() {
 		return this.LastPositionX;
 	}

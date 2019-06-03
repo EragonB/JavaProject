@@ -20,7 +20,7 @@ import Mobile.*;
 /**
  * The Class Map.
  *
- * @author Bryan
+ * 
  */
 public class Map implements IMap{
 	

@@ -141,7 +141,7 @@ public  void play()
 				{
 					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY(), -1);
 					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
-					//this.getMap().setOnTheMapXY(element, x, y);
+					
 				}
 				else
 				{
