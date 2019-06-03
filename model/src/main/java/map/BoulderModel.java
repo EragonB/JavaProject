@@ -14,11 +14,10 @@ import contract.Permeability;
 import contract.State;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BoulderModel.
  *
- * @author Bryan
+ * 
  */
 public class BoulderModel extends Observable implements IModel{
 	
@@ -45,20 +44,6 @@ public class BoulderModel extends Observable implements IModel{
 		this.thread.start();
 	}
 	
-	/**
-	 * Start.
-	 */
-	public void start()
-	{
-		try {
-			this.map=new Map(this.id_map);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.thread=new Thread(this);
-		this.thread.start();
-	}
 	
 	/**
 	 * Gets the map.
@@ -78,15 +63,7 @@ public class BoulderModel extends Observable implements IModel{
 		this.map = map;
 	}
 
-	/**
-	 * Sets the id map.
-	 *
-	 * @param id_map the new id map
-	 */
-	public void setIdMap(int id_map)
-	{
-		this.id_map = id_map;
-	}
+
 /**
  * Play.
  */
@@ -94,7 +71,6 @@ public class BoulderModel extends Observable implements IModel{
 public  void play()
 {
 	
-	//TODO POSSILBLE SURMENT A RENDRE MOINS AGGRESSIF AU YEUX
 	int MobileX = this.getMap().getMobile().getX();
 	int MobileY = this.getMap().getMobile().getY();
 	int MobileLastX =  this.getMap().getMobile().getLastPositionX();
@@ -119,9 +95,9 @@ public  void play()
 			this.getMap().setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(), MobileLastX, MobileLastY);
 			
 			this.map.setDiamPlayer(this.map.getDiamPlayer()+1);
-			this.map.DeletDiamond();
+			this.map.DeleteDiamond();
 			
-			if (this.map.getDiamPlayer() == this.map.getCompteDiamant()) {
+			if (this.map.getDiamPlayer() == this.map.getAccountDiamond()) {
 				this.getMap().setOnTheMapXY(MotionlessElementFactory.createDoor(), this.map.getXYDoor(1), this.map.getXYDoor(2));
 			}
 			
@@ -144,7 +120,7 @@ public  void play()
 				{
 					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY(), -1);
 					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
-					//this.getMap().setOnTheMapXY(element, x, y);
+					
 				}
 				else
 				{
@@ -159,7 +135,7 @@ public  void play()
 				{
 					this.getMap().setTab(this.getMap().getMobile().getX(), this.getMap().getMobile().getY(), 1);
 					this.getMap().setOnTheMapXY(this.map.getMobile(), MobileX, MobileY);
-					//this.getMap().setOnTheMapXY(element, x, y);
+					
 				}
 				else
 				{
@@ -182,58 +158,50 @@ public  void play()
 	}
 	else if (this.getMap().getMobile().getState() == State.Finish)
 	{
-		System.out.print("WIN!!!");
+		System.out.println("WIN !!!");
 	}
-	else {
+
+	
+
 		
-		System.out.println("Crash");
 	}
 	
-
 	
-}
-
-
-/**
- * Gets the observable.
- *
- * @return the observable
- */
-public Observable getObservable()
-{
-	return this;
-}
-
-/**
- * Sets the notifier.
- */
-public void setNotifier()
-{
-	this.setChanged();
-	this.notifyObservers();
-}
-
-/**
- * Run.
- */
-@Override
-public void run() {
-	// TODO Auto-generated method stub
-	while(true)
+	/**
+	 * Gets the observable.
+	 *
+	 * @return the observable
+	 */
+	public Observable getObservable()
 	{
-		try {
-			this.map.updateRocher();
-			this.map.updateDiamonds();
-			//this.map.updateObject();
-			this.thread.sleep(100);
-			this.setNotifier();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		return this;
+	}
+	
+	/**
+	 * Sets the notifier.
+	 */
+	public void setNotifier()
+	{
+		this.setChanged();
+		this.notifyObservers();
+	}
+
+	/**
+	 * Run.
+	 */
+	@Override
+	public void run() {
+		while(true)
+		{
+			try {
+				Thread.sleep(50);
+				this.setNotifier();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 	}
-	
-}
 }
 

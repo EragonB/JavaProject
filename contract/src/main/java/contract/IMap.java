@@ -5,7 +5,6 @@ package contract;
 
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IMap.
  */
@@ -18,12 +17,6 @@ public interface IMap extends Runnable{
 	 */
 	int getHeight();
 
-	/**
-	 * Sets the height.
-	 *
-	 * @param height the new height
-	 */
-	void setHeight(int height);
 
 	/**
 	 * Gets the width.
@@ -32,12 +25,6 @@ public interface IMap extends Runnable{
 	 */
 	int getWidth();
 
-	/**
-	 * Sets the width.
-	 *
-	 * @param width the new width
-	 */
-	void setWidth(int width);
 
 	/**
 	 * Gets the on the map XY.
@@ -67,7 +54,7 @@ public interface IMap extends Runnable{
 	/**
 	 * Update rocher.
 	 */
-	public void updateRocher();
+	public void updateRock();
 	
 	/**
 	 * Update diamonds.
@@ -101,19 +88,14 @@ public interface IMap extends Runnable{
 	 *
 	 * @return the compte diamant
 	 */
-	public int getCompteDiamant();
+	public int getAccountDiamond();
 
 	
 	/**
 	 * Delet diamond.
 	 */
-	public void DeletDiamond();
+	public void DeleteDiamond();
 	
-	/**
-	 * Update object.
-	 */
-	public void updateObject();
-
 	/**
 	 * Sets the tab.
 	 *

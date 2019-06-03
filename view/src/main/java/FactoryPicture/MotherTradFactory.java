@@ -12,22 +12,22 @@ public class MotherTradFactory {
 	MotherTrad BackgroundRock = new BackgroundRock();
 	
 	/** The Dirt. */
-	MotherTrad Dirt = new Dirt();
+	MotherTrad Dirt = new DirtPicture();
 	
 	/** The Wall. */
-	MotherTrad Wall = new Wall();
+	MotherTrad Wall = new WallPicture();
 	
 	/** The Enemy. */
-	MotherTrad Enemy = new Enemy();
+	MotherTrad Enemy = new EnemyPicture();
 	
 	/** The Diamond. */
-	MotherTrad Diamond = new Diamond();
+	MotherTrad Diamond = new DiamondPicture();
 	
 	/** The Stone. */
-	MotherTrad Stone = new Stone();
+	MotherTrad Stone = new StonePicture();
 	
 	/** The Door. */
-	MotherTrad Door = new Door();
+	MotherTrad Door = new DoorPicture();
 	
 	/** The Man up. */
 	MotherTrad ManUp = new ManUp();
@@ -44,7 +44,7 @@ public class MotherTradFactory {
 	/** The Death. */
 	MotherTrad Death = new DeathHead();
 	
-	
+	MotherTrad Victory = new VictoryTrophy();
 	/**
 	 * Gets the photo.
 	 *
@@ -89,6 +89,9 @@ public class MotherTradFactory {
 			
 		case '9':
 			return Death.getPicture();
+			
+		case '5':
+			return Victory.getPicture();
 		}
 		return null;
 	}

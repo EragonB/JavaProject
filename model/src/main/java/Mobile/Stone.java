@@ -15,6 +15,8 @@ public class Stone extends Mobile{
 	 * @param x the x
 	 * @param y the y
 	 */
+	private int Strengh = 0;
+	
 	public Stone(int x, int y) {
 		super(Permeability.Push, 'P');
 		this.x = x;
@@ -22,4 +24,14 @@ public class Stone extends Mobile{
 		this.setMovement(new ElementMovement(this));
 	}
 
+
+	public int getStrengh()
+	{
+		return this.Strengh;
+	}
+	
+	public void setStrengh(int value)
+	{
+		this.Strengh = value;
+	}
 }

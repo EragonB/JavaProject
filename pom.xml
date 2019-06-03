@@ -9,6 +9,7 @@
 	<name>Master POM</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<additionalparam>-Xdoclint:none</additionalparam>
 	</properties>
 	<modules>
 		<module>view</module>
@@ -149,4 +150,48 @@
       <url>scp://www.yourcompany.com/www/docs/project/</url>
     </site>
   </distributionManagement>
+  <developers>
+  <developer>
+        <name>Bryan Jougleux</name>
+        <email>bryan.jougleux@viacesi.fr</email>
+        <roles>
+            <role>Developer</role>
+        </roles>
+        <timezone>1</timezone>
+    </developer>
+      <developer>
+       <name>Sullyvan Maire</name>
+        <email>sullyvan.maire@viacesi.fr</email>
+        <roles>
+            <role>Developer</role>
+        </roles>
+        <timezone>1</timezone>
+    </developer>
+      <developer>
+        <name>Marine Cartigny</name>
+        <email>marine.cartigny@viacesi.fr</email>
+        <roles>
+            <role>Developer</role>
+        </roles>
+        <timezone>1</timezone>
+    </developer>
+      <developer>
+        <name>Quentin Boudier</name>
+        <email>quentin.boudier@viacesi.fr</email>
+        <roles>
+            <role>Developer</role>
+        </roles>
+        <timezone>1</timezone>
+    </developer>
+</developers>
+<contributors>
+    <contributor>
+        <name>Jean-Aimerik</name>
+        <email></email>
+        <roles>
+            <role>Basic Code Developer</role>
+        </roles>
+        <timezone>1</timezone>
+    </contributor>
+</contributors>
 </project>

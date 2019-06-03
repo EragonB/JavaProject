@@ -12,14 +12,15 @@ import contract.IElement;
 import contract.IMap;
 import contract.IMobile;
 import contract.Permeability;
+import contract.State;
 import model.DAOBoulderDash;
 import Mobile.*;
-// TODO: Auto-generated Javadoc
+
 
 /**
  * The Class Map.
  *
- * @author Bryan
+ * 
  */
 public class Map implements IMap{
 	
@@ -41,16 +42,14 @@ public class Map implements IMap{
 	/** The results. */
 	private ResultSet results=null;
 	
-
 	/** The thread. */
 	Thread thread;
 	
 	/** The mobile. */
 	private IMobile mobile=new Gugus();
 	
-
 	/** The Compte diamant. */
-	private int CompteDiamant = 0;
+	private int AccountDiamond = 0;
 	
 	/** The Diam player. */
 	private int DiamPlayer = 0;
@@ -71,22 +70,22 @@ public class Map implements IMap{
 	int XI 		= 0, XV 	= 0, XII 	= 0;
 	
 	/** The Tab rock. */
-	int TabRock[][] 		= new int		[SizeElement]	[3];
+	int TabRock[][] 			= new int		[SizeElement]	[3];
 	
-	/** The Tab diam. */
-	int TabDiam[][] 		= new int		[SizeElement]	[3];
 	
-	/** The Tab enem. */
-	int TabEnem[][]			= new int 		[SizeElement] 	[3];
+	int TabDiamond[][] 			= new int		[SizeElement]	[3];
+	
+	
+	int TabEnemy[][]				= new int 		[SizeElement] 	[3];
 	
 	/** The Array object. */
-	Stone[] ArrayObject 	= new Stone		[SizeElement];
+	Stone[] 	ArrayStone		= new Stone		[SizeElement];
 	
 	/** The Array diamond. */
-	Diamond[] ArrayDiamond 	= new Diamond	[SizeElement];
+	Diamond[] 	ArrayDiamond 	= new Diamond	[SizeElement];
 	
 	/** The Array enemy. */
-	Enemy[] ArrayEnemy 		= new Enemy		[SizeElement];
+	Enemy[] 	ArrayEnemy 		= new Enemy		[SizeElement];
 
 
 	/**
@@ -96,7 +95,7 @@ public class Map implements IMap{
 	 * @throws SQLException the SQL exception
 	 */
 	public Map(int id_map) throws SQLException {
-		// TODO Auto-generated constructor stub
+		
 		
 		this.daoboulderdash=new DAOBoulderDash();
 		setPosMapElement(id_map);
@@ -109,7 +108,7 @@ public class Map implements IMap{
 			this.height=this.resultset.getInt("Map_Height");
 			this.width=this.resultset.getInt("Map_Width");
 			this.mobile.setXY(this.resultset.getInt("startX"), this.resultset.getInt("startY"));
-			this.CompteDiamant = this.resultset.getInt("diamondsNeeded");
+			this.AccountDiamond = this.resultset.getInt("diamondsNeeded");
 			this.XDoor = this.resultset.getInt("doorX");
 			this.YDoor = this.resultset.getInt("doorY");
 
@@ -125,45 +124,48 @@ public class Map implements IMap{
 	}
 
 	/**
-	 * Update rocher.
+	 * Update Rock.
 	 */
-	public void updateRocher()
+	public void updateRock()
 	{
-		//TODO
-		for(int a = 0; a < SizeElement; a++) {
-			
-			char compar = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getSprite();
-			
-			Permeability perma = getOnTheMapXY(ArrayObject[a].getX(), ArrayObject[a].getY()+1).getPermeability();
-			
-			if(perma == Permeability.Passable) 
+		if (this.mobile.getState() == State.Life)
+		{
+			for (int a = 0; a < SizeElement; a++)
 			{
+				char comparative = getOnTheMapXY(ArrayStone[a].getX(), ArrayStone[a].getY()+1).getSprite();
 				
-				if(compar == ' ') 
+				if (comparative == MotionlessElementFactory.createBackgroundvoid().getSprite())
 				{
-					ArrayObject[a].setLastPositionX(ArrayObject[a].getX(), ArrayObject[a].getY());
-					ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
+					ArrayStone[a].setStrengh(ArrayStone[a].getStrengh()+1);
+					ArrayStone[a].setLastPositionX(ArrayStone[a].getX(), ArrayStone[a].getY());
+					ArrayStone[a].setXY(ArrayStone[a].getX(), (ArrayStone[a].getY()+1));
+					setOnTheMapXY(ArrayStone[a],ArrayStone[a].getX(), ArrayStone[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
 					
-					setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
-					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
 				}
 				
-				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				else if (comparative == this.mobile.getSprite())
 				{
-					//mobile.die();
+					if(ArrayStone[a].getStrengh() > 0)
+					{
+						mobile.die();
+					}
 				}
 				
-			}
-			
-			else if (perma == Permeability.Enemy)
-			{
-				
-				ArrayObject[a].setLastPositionX(ArrayObject[a].getX(), ArrayObject[a].getY());
-				ArrayObject[a].setXY(ArrayObject[a].getX(), (ArrayObject[a].getY()+1));
-				
-				setOnTheMapXY(ArrayObject[a],ArrayObject[a].getX(), ArrayObject[a].getY());
-				this.ArrayDiamond[40] = new Diamond(ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
-				setOnTheMapXY(this.ArrayDiamond[40],ArrayObject[a].getLastPositionX(), ArrayObject[a].getLastPositionY());
+				else if (getOnTheMapXY(ArrayStone[a].getX(), ArrayStone[a].getY()+1).getPermeability() == Permeability.Enemy)
+				{
+					
+					ArrayStone[a].setLastPositionX(ArrayStone[a].getX(), ArrayStone[a].getY());
+					ArrayStone[a].setXY(ArrayStone[a].getX(), (ArrayStone[a].getY()+1));
+					
+					setOnTheMapXY(ArrayStone[a],ArrayStone[a].getX(), ArrayStone[a].getY());
+					this.ArrayDiamond[40] = new Diamond(ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
+					setOnTheMapXY(this.ArrayDiamond[40],ArrayStone[a].getLastPositionX(), ArrayStone[a].getLastPositionY());
+				}
+				else
+				{
+					ArrayStone[a].setStrengh(0);
+				}
 			}
 		}
 	}
@@ -173,46 +175,46 @@ public class Map implements IMap{
 	 */
 	public void updateDiamonds()
 	{
-		//TODO
-		for(int a = 0; a < SizeElement; a++) {
-			
-			
-			
-			if(getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getPermeability() == Permeability.Passable ) 
+		if (this.mobile.getState() == State.Life)
+		{
+			for (int a = 0; a < SizeElement; a++)
 			{
+				char comparative = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
 				
-				char compar = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+1).getSprite();
-				char comparA = getOnTheMapXY(ArrayDiamond[a].getX(), ArrayDiamond[a].getY()+2).getSprite();
-				
-				if(comparA == MotionlessElementFactory.createBackgroundvoid().getSprite() || compar != this.mobile.getSprite() || comparA ==  MotionlessElementFactory.createDirt().getSprite() || comparA == MotionlessElementFactory.createWall().getSprite()) 
+				if (comparative == MotionlessElementFactory.createBackgroundvoid().getSprite())
 				{
-					if (compar != this.mobile.getSprite())
+					ArrayDiamond[a].setStrengh(ArrayDiamond[a].getStrengh()+1);
+					ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
+					setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
+					setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
+					
+				}
+				
+				else if (comparative == this.mobile.getSprite())
+				{
+					if(ArrayDiamond[a].getStrengh() > 0)
 					{
-						DeletDiamond();
-						ArrayDiamond[a].setLastPositionX(ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-						ArrayDiamond[a].setXY(ArrayDiamond[a].getX(), (ArrayDiamond[a].getY()+1));
-						
-						setOnTheMapXY(ArrayDiamond[a],ArrayDiamond[a].getX(), ArrayDiamond[a].getY());
-						setOnTheMapXY(MotionlessElementFactory.createBackgroundvoid(),ArrayDiamond[a].getLastPositionX(), ArrayDiamond[a].getLastPositionY());
-						
+						mobile.die();
 					}
-					
+					else 
+					{
+						DeleteDiamond();
+					}
 				}
-				
-				else if (compar == 'O' || compar == 'L' || compar == 'K' || compar == 'M') 
+				else
 				{
-					
-					mobile.die();
+					ArrayDiamond[a].setStrengh(0);
 				}
-				
 			}
+
 		}
 	}
 	
 	/**
-	 * Delet diamond.
+	 * Delete diamond.
 	 */
-	public void DeletDiamond()
+	public void DeleteDiamond()
 	{
 		for(int a=0; a < SizeElement; a++)
 		{
@@ -222,47 +224,7 @@ public class Map implements IMap{
 			}
 		}
 	}
-	
-	/**
-	 * Update enemy.
-	 */
-	public void updateEnemy()
-	{
-		//TODO
-		/*for(int a = 0; a < SizeElement; a++)
-		{
-			boolean down, up, left, right;
-			
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()+1).getPermeability() == Permeability.Passable)
-			{
-				down = true;
-			}
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getY()-1).getPermeability() == Permeability.Passable)
-			{
-				up = true;
-			}
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()-1).getPermeability() == Permeability.Passable)
-			{
-				left = true;
-			}
-			if(getOnTheMapXY(ArrayEnemy[a].getX(), ArrayEnemy[a].getX()+1).getPermeability() == Permeability.Passable)
-			{
-				right = true;
-			}
-			
-			switch((int)(Math.random() * 4))
-			{
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			}
-		}*/
-	}
+
 	
 	/**
 	 * Sets the tab.
@@ -275,10 +237,10 @@ public class Map implements IMap{
 	{
 		for(int a=0; a < SizeElement; a++)
 		{
-			if (ArrayObject[a].getX() == X && ArrayObject[a].getY() == Y)
+			if (ArrayStone[a].getX() == X && ArrayStone[a].getY() == Y)
 			{
-				ArrayObject[a].setXY(ArrayObject[a].getX()+Pos, ArrayObject[a].getY());
-				setOnTheMapXY(ArrayObject[a], ArrayObject[a].getX(), ArrayObject[a].getY());
+				ArrayStone[a].setXY(ArrayStone[a].getX()+Pos, ArrayStone[a].getY());
+				setOnTheMapXY(ArrayStone[a], ArrayStone[a].getX(), ArrayStone[a].getY());
 			}
 		}
 		
@@ -303,23 +265,16 @@ public class Map implements IMap{
 		}
 	}
 	
-	/**
-	 * Remplir tableau.
-	 *
-	 * @param Function the function
-	 * @param tab the tab
-	 * @param Column the column
-	 * @throws SQLException the SQL exception
-	 */
-	public void RemplirTableau(ResultSet Function, int tab[][], String Column) throws SQLException
+
+	public void FillInTable(ResultSet Function, int board[][], String Column) throws SQLException
 	{
-		//TODO Changer de Nom
+		
 		this.results = Function;
 		while(this.results.next())
 		{
-			tab[SizeColumnElement][0] = this.results.getInt(Column);
-			tab[SizeColumnElement][1] = this.results.getInt("X");
-			tab[SizeColumnElement][2] = this.results.getInt("Y");
+			board[SizeColumnElement][0] = this.results.getInt(Column);
+			board[SizeColumnElement][1] = this.results.getInt("X");
+			board[SizeColumnElement][2] = this.results.getInt("Y");
 			SizeColumnElement++;
 			
 		}
@@ -334,34 +289,30 @@ public class Map implements IMap{
 	 */
 	public void setPosMapElement(int id) throws SQLException {
 
-		RemplirTableau(this.daoboulderdash.FindMobileRock(id), TabRock, "id_Rock");
-		RemplirTableau(this.daoboulderdash.FindEnemy(id), TabEnem, "id_monster");
-		RemplirTableau(this.daoboulderdash.FindDiamond(id), TabDiam, "Id_diamond");
+		FillInTable(this.daoboulderdash.FindMobileRock(id), TabRock, "id_Rock");
+		FillInTable(this.daoboulderdash.FindEnemy(id), TabEnemy, "id_monster");
+		FillInTable(this.daoboulderdash.FindDiamond(id), TabDiamond, "Id_diamond");
 		
 		
 		for(int a = 0; a< SizeElement; a++)
 		{
-			this.ArrayObject[a] = new Stone(TabRock[a][1], TabRock[a][2]);
+			this.ArrayStone[a] = new Stone(TabRock[a][1], TabRock[a][2]);
 		}
 		for(int a = 0; a< SizeElement; a++)
 		{
-			this.ArrayDiamond[a] = new Diamond(TabDiam[a][1], TabDiam[a][2]);
+			this.ArrayDiamond[a] = new Diamond(TabDiamond[a][1], TabDiamond[a][2]);
 		}
 		
 		for(int a = 0; a< SizeElement; a++)
 		{
-			this.ArrayEnemy[a] = new Enemy(TabEnem[a][1], TabEnem[a][2]);
+			this.ArrayEnemy[a] = new Enemy(TabEnemy[a][1], TabEnemy[a][2]);
 		}
 	}
 
-	/**
-	 * Gets the compte diamant.
-	 *
-	 * @return the compte diamant
-	 */
-	public int getCompteDiamant()
+
+	public int getAccountDiamond()
 	{
-		return this.CompteDiamant;
+		return this.AccountDiamond;
 	}
 	
 	/**
@@ -499,7 +450,7 @@ public class Map implements IMap{
 				break;
 				
 			case 2:
-				this.setOnTheMapXY(ArrayObject[XI], ArrayObject[XI].getX(), ArrayObject[XI].getY());
+				this.setOnTheMapXY(ArrayStone[XI], ArrayStone[XI].getX(), ArrayStone[XI].getY());
 				XI ++;
 				break;
 				
@@ -574,31 +525,27 @@ public class Map implements IMap{
 		this.mobile = mobile;
 	}
 	
-	/**
-	 * Update object.
-	 */
-	public void updateObject()
-	{
-		this.thread.start();
-	}
-	
+
 	/**
 	 * Run.
 	 */
 	@Override
 	public void run() {
-		//TODO Erreur Plosible
-		try {
-			updateRocher();
-			//updateDiamonds();
-			this.thread.sleep(500);
-		} catch (InterruptedException e) {
+		
+		while(true)
+		{
+			try {
+				updateDiamonds();
+				updateRock();
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
 
-			e.printStackTrace();
+				e.printStackTrace();
+			}
 		}
+
 		
 	}
-
 
 
 }

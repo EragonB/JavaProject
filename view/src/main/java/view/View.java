@@ -1,12 +1,14 @@
 package view;
 
 
-import contract.IController;
-import contract.IMap;
+import java.util.Observer;
 
-import contract.IView;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-// TODO: Auto-generated Javadoc
+import contract.*;
+
+
 /**
  * The Class View.
  */
@@ -14,9 +16,6 @@ public final class View implements IView{
 	
 	/** The viewframe. */
 	private ViewFrame viewframe;
-	
-	/** The controller. */
-	private IController controller;
 
 	/**
 	 * Instantiates a new view.
@@ -26,22 +25,17 @@ public final class View implements IView{
 	}
 	
 	/**
-	 * Sets the frame.
-	 *
-	 * @param id_map the new frame
-	 */
-	public void setFrame(int id_map)
-	{
-		this.viewframe = new ViewFrame(id_map);
-	}
-	
-	/**
 	 * Gets the viewframe.
 	 *
 	 * @return the viewframe
 	 */
-	public ViewFrame getViewframe() {
+	public JFrame getViewframe() {
 		return this.viewframe;
+	}
+	
+	public Observer getObserver()
+	{
+		return viewframe.getViewpanel().getObserverViewPanel();
 	}
 
 	/**
@@ -49,9 +43,10 @@ public final class View implements IView{
 	 *
 	 * @param tableau the tableau
 	 */
-	public void ReadBoard(IMap tableau)
+	public void ReadBoard(IMap table)
 	  {
-	  this.getPanel().loadmap(tableau);      
+		this.viewframe.getViewpanel().loadmap(table);
+		    
 	  }
 	  
 	  /**
@@ -59,29 +54,15 @@ public final class View implements IView{
   	 *
   	 * @return the panel
   	 */
-  	public ViewPanel getPanel()
+  	public JPanel getPanel()
 	  {
 		  return this.viewframe.getViewpanel();
 	  }
+  	
+  	public void frame(int value)
+  	{
+  		this.viewframe.FrameDie(value);
+  	}
 
 
-	/**
-	 * Sets the controller.
-	 *
-	 * @param controller the new controller
-	 */
-	public void setController(IController controller) {
-		// TODO Auto-generated method stub
-		this.controller=controller;
-		this.viewframe.addObserver(this.controller.getModel());
-	}
-
-
-	/**
-	 * Adds the key listener.
-	 */
-	public void AddKeyListener()
-	{
-		this.viewframe.addKeyListener(new KeyEvent(this.controller));
-	}
 }

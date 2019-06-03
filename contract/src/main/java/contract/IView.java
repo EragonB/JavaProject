@@ -1,40 +1,21 @@
 package contract;
 
+import java.util.Observer;
 
+import javax.swing.JFrame;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Interface IView.
- *
- * @author Jean-Aymeric Diet
- */
 public interface IView {
 
-/**
- * Read board.
- *
- * @param map the map
- */
-public void ReadBoard(IMap map);
+	/**
+	 * Read board.
+	 *
+	 * @param map the map
+	 */
+	public void ReadBoard(IMap map);
+	
+	public JFrame getViewframe();
 
-/**
- * Sets the controller.
- *
- * @param controller the new controller
- */
-public void setController(IController controller);
-
-/**
- * Adds the key listener.
- */
-public void AddKeyListener();
-
-/**
- * Sets the frame.
- *
- * @param id_map the new frame
- */
-public void setFrame(int id_map);
-
+	public Observer getObserver();
+	public void frame(int value);
 
 }
